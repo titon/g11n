@@ -8,7 +8,7 @@
 namespace Titon\G11n;
 
 use Titon\Common\Registry;
-use Titon\Common\Traits\Cacheable;
+use Titon\Common\Traits\StaticCacheable;
 use Titon\G11n\Exception;
 use Titon\G11n\Translator;
 use Titon\Io\Bundle\LocaleBundle;
@@ -25,7 +25,7 @@ use \Locale;
  * @link http://loc.gov/standards/iso639-2/php/code_list.php
  */
 class G11n {
-	use Cacheable;
+	use StaticCacheable;
 
 	/**
 	 * Possible formats for locale keys.
@@ -75,6 +75,41 @@ class G11n {
 	 * @static
 	 */
 	protected static $_translator;
+
+	/**
+	 * Sets up the application with the defined locale key; the key will be formatted to a lowercase dashed URL friendly format.
+	 * The system will then attempt to load the locale resource bundle and finalize configuration settings.
+	 *
+	 * @access public
+	 * @param string $key
+	 * @param \Titon\Io\Bundle\LocaleBundle $bundle
+	 * @return void
+	 * @static
+	 */
+	public static function addLocale($key, LocaleBundle $bundle) {
+		$urlKey = self::canonicalize($key);
+
+		if (isset(self::$_locales[$urlKey])) {
+			return;
+		}
+
+		// Configure and initialize
+		$bundle->config->bundle = self::canonicalize($key, self::FORMAT_3);
+		$bundle->loadDefaults();
+
+		// Cache the bundle
+		self::$_locales[$urlKey] = Registry::set($bundle, 'g11n.bundle.' . $bundle->getLocale('id'));
+
+		// Set the parent as well
+		if ($parent = $bundle->getParent()) {
+			self::addLocale($parent->getLocale('id'), $parent);
+		}
+
+		// Set fallback if none defined
+		if (!self::$_fallback) {
+			self::$_fallback = $urlKey;
+		}
+	}
 
 	/**
 	 * Convert a locale key to 3 possible formats.
@@ -254,7 +289,7 @@ class G11n {
 		}
 
 		// Apply the locale
-		self::set($current);
+		self::useLocale($current);
 
 		// Check for a translator
 		if (!self::$_translator) {
@@ -318,6 +353,31 @@ class G11n {
 	}
 
 	/**
+	 * Sets the translator to use in the string locating and translating process.
+	 *
+	 * @access public
+	 * @param \Titon\G11n\Translator $translator
+	 * @return void
+	 * @static
+	 */
+	public static function setTranslator(Translator $translator) {
+		self::$_translator = $translator;
+	}
+
+	/**
+	 * Return a translated string using the translator.
+	 * If a storage engine is present, read and write from the cache.
+	 *
+	 * @access public
+	 * @param string $key
+	 * @param array $params
+	 * @return string
+	 */
+	public static function translate($key, array $params = []) {
+		return self::$_translator->translate($key, $params);
+	}
+
+	/**
 	 * Set the locale using PHPs built in setlocale().
 	 *
 	 * @link http://php.net/setlocale
@@ -329,7 +389,7 @@ class G11n {
 	 * @throws \Titon\G11n\Exception
 	 * @static
 	 */
-	public static function set($key) {
+	public static function useLocale($key) {
 		$key = self::canonicalize($key);
 
 		if (!isset(self::$_locales[$key])) {
@@ -370,67 +430,6 @@ class G11n {
 		Locale::setDefault($locale['id']);
 
 		self::$_current = $bundle;
-	}
-
-	/**
-	 * Sets up the application with the defined locale key; the key will be formatted to a lowercase dashed URL friendly format.
-	 * The system will then attempt to load the locale resource bundle and finalize configuration settings.
-	 *
-	 * @access public
-	 * @param string $key
-	 * @param array $config
-	 * @return void
-	 * @static
-	 */
-	public static function setup($key, array $config = []) {
-		$urlKey = self::canonicalize($key);
-
-		if (isset(self::$_locales[$urlKey])) {
-			return;
-		}
-
-		// Load the bundle
-		$bundle = new LocaleBundle(['bundle' => self::canonicalize($key, self::FORMAT_3)], $config);
-
-		// Cache the bundle
-		self::$_locales[$urlKey] = Registry::set($bundle, 'g11n.bundle.locale.' . $bundle->getLocale('id'));
-
-		// Set the parent as well
-		$config = $bundle->getLocale();
-
-		if (isset($config['parent']) && !isset(self::$_locales[$config['parent']])) {
-			self::setup($config['parent']);
-		}
-
-		// Set fallback if none defined
-		if (!self::$_fallback) {
-			self::$_fallback = $urlKey;
-		}
-	}
-
-	/**
-	 * Sets the translator to use in the string locating and translating process.
-	 *
-	 * @access public
-	 * @param \Titon\G11n\Translator $translator
-	 * @return void
-	 * @static
-	 */
-	public static function setTranslator(Translator $translator) {
-		self::$_translator = $translator;
-	}
-
-	/**
-	 * Return a translated string using the translator.
-	 * If a storage engine is present, read and write from the cache.
-	 *
-	 * @access public
-	 * @param string $key
-	 * @param array $params
-	 * @return string
-	 */
-	public static function translate($key, array $params = []) {
-		return self::$_translator->translate($key, $params);
 	}
 
 }

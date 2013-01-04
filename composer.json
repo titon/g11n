@@ -14,6 +14,7 @@
 	"require": {
 		"php": ">=5.4.0",
 		"titon/common": "*",
+		"titon/utility": "*",
 		"titon/io": "*"
 	},
 	"require-dev": {
@@ -23,6 +24,7 @@
 		"titon/cache": "Cache the message bundles using a Storage engine"
 	},
 	"autoload": {
-		"psr-0": { "Titon\\G11n": "src/" }
+		"psr-0": { "Titon\\G11n": "src/" },
+		"files": ["src/Titon/functions.php"]
 	}
 }
