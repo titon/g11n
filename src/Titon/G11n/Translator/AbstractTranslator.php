@@ -24,14 +24,6 @@ abstract class AbstractTranslator extends Base implements Translator {
 	use Cacheable;
 
 	/**
-	 * List of MessageBundle's.
-	 *
-	 * @access protected
-	 * @var array
-	 */
-	protected $_bundles = [];
-
-	/**
 	 * File reader used for parsing.
 	 *
 	 * @access protected
@@ -67,7 +59,7 @@ abstract class AbstractTranslator extends Base implements Translator {
 		$locales = G11n::cascade();
 
 		foreach ($locales as $locale) {
-			$cacheKey = 'g11n.' . ($module === null ? 'root' : $module) . '.' . $catalog . '.' . $locale;
+			$cacheKey = sprintf('g11n.%s.%s.%s', $module, $catalog, $locale);
 			$messages = [];
 
 			// Check within the cache first
@@ -77,21 +69,20 @@ abstract class AbstractTranslator extends Base implements Translator {
 
 			// Else check within the bundle
 			if (!$messages) {
-				$bundleKey = $module . '.' . $locale;
+				$bundle = clone G11n::current()->getMessageBundle();
+				$bundle->addReader($this->_reader);
+				$bundle->config->set('module', $module);
 
-				if (!isset($this->_bundles[$bundleKey])) {
-					$this->_bundles[$bundleKey] = $this->loadBundle($module, $locale);
-				}
-
-				$bundle = $this->_bundles[$bundleKey];
-
-				// If the catalog doesn't exist, try the next locale
 				if ($data = $bundle->loadResource($catalog)) {
 					$messages = $data;
-				}
 
-				if ($this->_storage) {
-					$this->_storage->set($cacheKey, $messages);
+					if ($this->_storage) {
+						$this->_storage->set($cacheKey, $messages);
+					}
+
+				// If the catalog doesn't exist, try the next locale
+				} else {
+					continue;
 				}
 			}
 
@@ -117,8 +108,8 @@ abstract class AbstractTranslator extends Base implements Translator {
 		return $this->cache([__METHOD__, $key], function() use ($key) {
 			$parts = explode('.', preg_replace('/[^-a-z0-9\.]+/i', '', $key));
 			$count = count($parts);
-			$module = null;
-			$catalog = null;
+			$module = 'common';
+			$catalog = 'default';
 
 			if ($count < 2) {
 				throw new Exception(sprintf('No module or catalog present for %s key', $key));

@@ -96,6 +96,8 @@ class Locale extends Base {
 
 			$message->addLocation(sprintf('%s/messages/%s', $location, $code));
 			$message->addLocation(sprintf('%s/messages/%s/LC_MESSAGES', $location, $code));
+			$message->addLocation(sprintf('%s/messages/{module}/%s', $location, $code));
+			$message->addLocation(sprintf('%s/messages/{module}/%s/LC_MESSAGES', $location, $code));
 		}
 
 		$this->_localeBundle = $locale;

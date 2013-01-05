@@ -29,10 +29,10 @@ class TranslatorTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals(['m', 'c', 'i'], $object->parseKey('m.c.i'));
 		$this->assertEquals([1, 2, 3], $object->parseKey('1.2.3'));
 
-		$this->assertEquals([null, 'catalog', 'id'], $object->parseKey('catalog.id'));
-		$this->assertEquals([null, 'root', 'id'], $object->parseKey('root.id'));
-		$this->assertEquals([null, 'test', 'key'], $object->parseKey('test.key'));
-		$this->assertEquals([null, 1, 2], $object->parseKey('1.2'));
+		$this->assertEquals(['common', 'catalog', 'id'], $object->parseKey('catalog.id'));
+		$this->assertEquals(['common', 'root', 'id'], $object->parseKey('root.id'));
+		$this->assertEquals(['common', 'test', 'key'], $object->parseKey('test.key'));
+		$this->assertEquals(['common', 1, 2], $object->parseKey('1.2'));
 
 		try {
 			$object->parseKey('noModuleOrCatalog');
