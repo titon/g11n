@@ -300,7 +300,9 @@ class G11n {
 	 * @static
 	 */
 	public static function is($key) {
-		return (self::current()->getCode() === $key);
+		$code = self::current()->getCode();
+
+		return ($code === $key || self::canonicalize($code) === $key);
 	}
 
 	/**

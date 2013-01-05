@@ -8,6 +8,7 @@
 namespace Titon\G11n;
 
 use Titon\G11n\G11n;
+use Titon\G11n\Locale;
 use Titon\G11n\Translator\MessageTranslator;
 use \Exception;
 
@@ -20,10 +21,13 @@ class G11nTest extends \PHPUnit_Framework_TestCase {
 	 * This method is called before a test is executed.
 	 */
 	protected function setUp() {
-		G11n::setup('ex-va');
-		G11n::setup('ex-fm');
-		G11n::setup('ex-in');
-		G11n::setup('no'); // Needs 2 types of locales
+		foreach (['ex_VA', 'ex_IN', 'ex_FM', 'no'] as $code) {
+			$locale = new Locale($code);
+			$locale->addLocation(TEMP_DIR);
+
+			G11n::addLocale($locale);
+		}
+
 		G11n::fallbackAs('ex');
 		G11n::setTranslator(new MessageTranslator());
 	}
@@ -115,8 +119,8 @@ class G11nTest extends \PHPUnit_Framework_TestCase {
 
 			$current = G11n::current();
 
-			$this->assertInstanceOf('Titon\Io\Bundle\LocaleBundle', $current);
-			$this->assertEquals($localeId, $current->getLocale('id'));
+			$this->assertInstanceOf('Titon\G11n\Locale', $current);
+			$this->assertEquals($localeId, $current->getCode());
 		}
 	}
 
@@ -153,13 +157,13 @@ class G11nTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testFallback() {
 		G11n::fallbackAs('ex-va');
-		$this->assertEquals('ex_VA', G11n::getFallback()->getLocale('id'));
+		$this->assertEquals('ex_VA', G11n::getFallback()->getCode());
 
 		G11n::fallbackAs('ex-IN');
-		$this->assertEquals('ex_IN', G11n::getFallback()->getLocale('id'));
+		$this->assertEquals('ex_IN', G11n::getFallback()->getCode());
 
 		G11n::fallbackAs('ex_FM');
-		$this->assertEquals('ex_FM', G11n::getFallback()->getLocale('id'));
+		$this->assertEquals('ex_FM', G11n::getFallback()->getCode());
 
 		try {
 			G11n::fallbackAs('fakeKey');
@@ -174,13 +178,13 @@ class G11nTest extends \PHPUnit_Framework_TestCase {
 	 * Test that all locales are setup correctly and reference the correct bundle class.
 	 */
 	public function testGetLocales() {
-		$bundles = G11n::getLocales();
+		$locales = G11n::getLocales();
 
-		$this->assertEquals(5, count($bundles));
-		$this->assertEquals(['ex-va', 'ex', 'ex-fm', 'ex-in', 'no'], array_keys($bundles));
+		$this->assertEquals(5, count($locales));
+		$this->assertEquals(['ex-va', 'ex', 'ex-in', 'ex-fm', 'no'], array_keys($locales));
 
-		foreach ($bundles as $bundle) {
-			$this->assertInstanceOf('Titon\Io\Bundle\LocaleBundle', $bundle);
+		foreach ($locales as $locale) {
+			$this->assertInstanceOf('Titon\G11n\Locale', $locale);
 		}
 	}
 
@@ -208,21 +212,21 @@ class G11nTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * Test that setting a locale key/ID applies the correct bundle.
 	 */
-	public function testSet() {
-		G11n::set('ex');
-		$this->assertEquals('ex', G11n::current()->getLocale('id'));
+	public function testUseLocale() {
+		G11n::useLocale('ex');
+		$this->assertEquals('ex', G11n::current()->getCode());
 
-		G11n::set('ex_VA');
-		$this->assertEquals('ex_VA', G11n::current()->getLocale('id'));
+		G11n::useLocale('ex_VA');
+		$this->assertEquals('ex_VA', G11n::current()->getCode());
 
-		G11n::set('ex-IN');
-		$this->assertEquals('ex_IN', G11n::current()->getLocale('id'));
+		G11n::useLocale('ex-IN');
+		$this->assertEquals('ex_IN', G11n::current()->getCode());
 
-		G11n::set('ex_fm');
-		$this->assertEquals('ex_FM', G11n::current()->getLocale('id'));
+		G11n::useLocale('ex_fm');
+		$this->assertEquals('ex_FM', G11n::current()->getCode());
 
 		try {
-			G11n::set('fakeKey');
+			G11n::useLocale('fakeKey');
 			$this->assertTrue(false);
 
 		} catch (Exception $e) {

@@ -8,6 +8,7 @@
 error_reporting(E_ALL | E_STRICT);
 
 define('TEST_DIR', __DIR__);
+define('TEMP_DIR', __DIR__ . '/tmp');
 define('VENDOR_DIR', dirname(TEST_DIR) . '/vendor');
 
 if (!file_exists(VENDOR_DIR . '/autoload.php')) {

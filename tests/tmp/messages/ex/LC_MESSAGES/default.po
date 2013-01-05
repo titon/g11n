@@ -1,0 +1,39 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Titon\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Miles Johnson <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=0;\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: UNITED STATES\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+# GNU gettext PO file
+msgid "basic"
+msgstr "Basic message"
+
+#: Reference comment
+msgid "multiline"
+msgstr "Multiline message"
+"More message here"
+"And more message again"
+
+#. Extracted comment
+msgid "plurals"
+msgid_plural "plurals"
+msgstr[0] "plural"
+msgstr[1] "plurals"
+
+# Context test (ignored)
+msgctxt context
+msgid "context"
+msgstr "Context message"
+
+# Formatted messages
+msgid "format"
+msgstr "{0,number,integer} health, {1,number,integer} energy, {2,number} damage"
