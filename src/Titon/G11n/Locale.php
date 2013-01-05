@@ -111,6 +111,9 @@ class Locale extends Base {
 			$this->config->set($config + $data);
 		}
 
+		// Force parent config to merge
+		$this->getParentLocale();
+
 		return $this;
 	}
 

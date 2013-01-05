@@ -12,5 +12,5 @@ return [
 	'iso3' => 'val',
 	'parent' => 'ex',
 	'timezone' => '',
-	'title' => 'Example for Valcodeations',
+	'title' => 'Example for Validations',
 ];
