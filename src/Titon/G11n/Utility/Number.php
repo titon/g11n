@@ -27,8 +27,8 @@ class Number extends \Titon\Utility\Number {
 	public static function currency($number, array $options = []) {
 		if (G11n::isEnabled()) {
 			$options = array_merge(
-				G11n::current()->getFormats('number'),
-				G11n::current()->getFormats('currency'),
+				G11n::current()->getFormatPatterns('number'),
+				G11n::current()->getFormatPatterns('currency'),
 				$options
 			);
 		}
@@ -52,7 +52,7 @@ class Number extends \Titon\Utility\Number {
 
 		if (G11n::isEnabled()) {
 			$options = array_merge(
-				G11n::current()->getFormats('number'),
+				G11n::current()->getFormatPatterns('number'),
 				$options
 			);
 		}

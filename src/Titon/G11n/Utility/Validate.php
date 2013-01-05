@@ -39,7 +39,7 @@ class Validate extends \Titon\Utility\Validate {
 	 * @static
 	 */
 	public static function get($key, $fallback = null) {
-		$pattern = G11n::current()->getValidations($key) ?: $fallback;
+		$pattern = G11n::current()->getValidationRules($key) ?: $fallback;
 
 		if (!$pattern) {
 			throw new Exception(sprintf('Validation rule %s does not exist', $key));

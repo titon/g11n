@@ -52,7 +52,7 @@ class Format extends \Titon\Utility\Format {
 	 * @static
 	 */
 	public static function get($key, $fallback) {
-		$pattern = G11n::current()->getFormats($key) ?: $fallback;
+		$pattern = G11n::current()->getFormatPatterns($key) ?: $fallback;
 
 		if (!$pattern) {
 			throw new Exception(sprintf('Format pattern %s does not exist', $key));
