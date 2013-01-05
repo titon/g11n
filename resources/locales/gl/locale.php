@@ -2,9 +2,9 @@
 
 // Galician
 return [
-	'id' => 'gl',
+	'code' => 'gl',
 	'iso2' => 'gl',
 	'iso3' => 'glg',
-	'timezone' => 'Europe/Madrid',
+	'timezone' => 'Europe/Madrcode',
 	'title' => 'Galician',
 ];

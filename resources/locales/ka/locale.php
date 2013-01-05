@@ -2,7 +2,7 @@
 
 // Georgian
 return [
-	'id' => 'ka',
+	'code' => 'ka',
 	'iso2' => 'ka',
 	'iso3' => ['kat', 'geo'],
 	'timezone' => 'Asia/Tbilisi',

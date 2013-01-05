@@ -2,7 +2,7 @@
 
 // Burmese
 return [
-	'id' => 'my',
+	'code' => 'my',
 	'iso2' => 'my',
 	'iso3' => ['mya', 'bur'],
 	'timezone' => 'Asia/Rangoon',

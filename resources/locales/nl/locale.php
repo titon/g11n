@@ -2,7 +2,7 @@
 
 // Dutch (Standard)
 return [
-	'id' => 'nl',
+	'code' => 'nl',
 	'iso2' => 'nl',
 	'iso3' => ['nld', 'dut'],
 	'timezone' => 'Europe/Amsterdam',

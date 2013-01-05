@@ -2,7 +2,7 @@
 
 // Sanskrit
 return [
-	'id' => 'sa',
+	'code' => 'sa',
 	'iso2' => 'sa',
 	'iso3' => 'san',
 	'timezone' => 'Asia/Calcutta',

@@ -2,7 +2,7 @@
 
 // Pushto
 return [
-	'id' => 'ps',
+	'code' => 'ps',
 	'iso2' => 'ps',
 	'iso3' => 'pus',
 	'timezone' => 'Asia/Kabul',

@@ -2,7 +2,7 @@
 
 // Kannada
 return [
-	'id' => 'kn',
+	'code' => 'kn',
 	'iso2' => 'kn',
 	'iso3' => 'kan',
 	'timezone' => 'Asia/Calcutta',

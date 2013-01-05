@@ -2,7 +2,7 @@
 
 // Lithuanian
 return [
-	'id' => 'lt',
+	'code' => 'lt',
 	'iso2' => 'lt',
 	'iso3' => 'lit',
 	'timezone' => 'Europe/Vilnius',

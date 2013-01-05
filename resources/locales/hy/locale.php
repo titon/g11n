@@ -2,7 +2,7 @@
 
 // Armenian
 return [
-	'id' => 'hy',
+	'code' => 'hy',
 	'iso2' => 'hy',
 	'iso3' => ['arm', 'hye'],
 	'timezone' => 'Asia/Yerevan',

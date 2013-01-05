@@ -2,7 +2,7 @@
 
 // Finnish
 return [
-	'id' => 'fi',
+	'code' => 'fi',
 	'iso2' => 'fi',
 	'iso3' => 'fin',
 	'timezone' => 'Europe/Helsinki',

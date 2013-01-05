@@ -2,7 +2,7 @@
 
 // Uighur
 return [
-	'id' => 'ug',
+	'code' => 'ug',
 	'iso2' => 'ug',
 	'iso3' => 'uig',
 	'timezone' => 'Asia/Shanghai',

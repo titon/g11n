@@ -2,7 +2,7 @@
 
 // English (Caribbean)
 return [
-	'id' => 'en_CB',
+	'code' => 'en_CB',
 	'parent' => 'en',
 	'timezone' => 'America/Nassau',
 	'title' => 'English (Caribbean)',

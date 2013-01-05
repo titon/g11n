@@ -2,7 +2,7 @@
 
 // Spanish (Ecuador)
 return [
-	'id' => 'es_EC',
+	'code' => 'es_EC',
 	'parent' => 'es',
 	'timezone' => 'America/Guayaquil',
 	'title' => 'Spanish (Ecuador)',

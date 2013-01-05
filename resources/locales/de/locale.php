@@ -2,7 +2,7 @@
 
 // German (Standard)
 return [
-	'id' => 'de',
+	'code' => 'de',
 	'iso2' => 'de',
 	'iso3' => ['ger', 'deu'],
 	'timezone' => 'Europe/Berlin',

@@ -2,7 +2,7 @@
 
 // Sami
 return [
-	'id' => 'se',
+	'code' => 'se',
 	'iso2' => 'se',
 	'iso3' => 'sme',
 	'timezone' => 'Europe/Helsinki',

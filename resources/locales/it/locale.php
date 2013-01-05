@@ -2,7 +2,7 @@
 
 // Italian
 return [
-	'id' => 'it',
+	'code' => 'it',
 	'iso2' => 'it',
 	'iso3' => 'ita',
 	'timezone' => 'Europe/Rome',

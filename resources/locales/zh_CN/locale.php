@@ -2,7 +2,7 @@
 
 // Chinese (PRC)
 return [
-	'id' => 'zh_CN',
+	'code' => 'zh_CN',
 	'parent' => 'zh',
 	'timezone' => 'Asia/Shanghai',
 	'title' => 'Chinese (PRC)',

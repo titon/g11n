@@ -2,7 +2,7 @@
 
 // Swedish (Finland)
 return [
-	'id' => 'sv_FI',
+	'code' => 'sv_FI',
 	'parent' => 'sv',
 	'timezone' => 'Europe/Helsinki',
 	'title' => 'Swedish (Finland)',

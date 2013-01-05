@@ -2,7 +2,7 @@
 
 // Chinese
 return [
-	'id' => 'zh',
+	'code' => 'zh',
 	'iso2' => 'zh',
 	'iso3' => ['chi', 'zho'],
 	'timezone' => 'Asia/Shanghai',

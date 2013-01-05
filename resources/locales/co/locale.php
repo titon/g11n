@@ -2,7 +2,7 @@
 
 // Corsican
 return [
-	'id' => 'co',
+	'code' => 'co',
 	'iso2' => 'co',
 	'iso3' => 'cos',
 	'timezone' => 'Europe/Rome',

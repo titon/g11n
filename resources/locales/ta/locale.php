@@ -2,7 +2,7 @@
 
 // Tamil
 return [
-	'id' => 'ta',
+	'code' => 'ta',
 	'iso2' => 'ta',
 	'iso3' => 'tam',
 	'timezone' => 'Asia/Calcutta',

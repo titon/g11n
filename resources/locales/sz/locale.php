@@ -2,7 +2,7 @@
 
 // Sami (Lappish)
 return [
-	'id' => 'sz',
+	'code' => 'sz',
 	'iso2' => 'sz',
 	'iso3' => 'smi',
 	'timezone' => 'Europe/Helsinki',

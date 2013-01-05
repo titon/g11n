@@ -2,7 +2,7 @@
 
 // French (Belgium)
 return [
-	'id' => 'fr_BE',
+	'code' => 'fr_BE',
 	'parent' => 'fr',
 	'timezone' => 'Europe/Brussels',
 	'title' => 'French (Belgium)',

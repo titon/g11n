@@ -2,7 +2,7 @@
 
 // Portuguese (Portugal)
 return [
-	'id' => 'pt',
+	'code' => 'pt',
 	'iso2' => 'pt',
 	'iso3' => 'por',
 	'timezone' => 'Europe/Lisbon',

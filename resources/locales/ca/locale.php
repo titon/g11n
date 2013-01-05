@@ -2,7 +2,7 @@
 
 // Catalan
 return [
-	'id' => 'ca',
+	'code' => 'ca',
 	'iso2' => 'ca',
 	'iso3' => 'cat',
 	'timezone' => 'Europe/Andorra',

@@ -2,7 +2,7 @@
 
 // Tswana
 return [
-	'id' => 'tn',
+	'code' => 'tn',
 	'iso2' => 'tn',
 	'iso3' => 'tsn',
 	'timezone' => 'Africa/Gaborone',

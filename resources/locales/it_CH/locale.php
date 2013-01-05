@@ -2,7 +2,7 @@
 
 // Italian (Swiss)
 return [
-	'id' => 'it_CH',
+	'code' => 'it_CH',
 	'parent' => 'it',
 	'timezone' => 'Europe/Zurich',
 	'title' => 'Italian (Swiss)',

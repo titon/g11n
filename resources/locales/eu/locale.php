@@ -2,9 +2,9 @@
 
 // Basque
 return [
-	'id' => 'eu',
+	'code' => 'eu',
 	'iso2' => 'eu',
 	'iso3' => ['baq', 'eus'],
-	'timezone' => 'Europe/Madrid',
+	'timezone' => 'Europe/Madrcode',
 	'title' => 'Basque',
 ];

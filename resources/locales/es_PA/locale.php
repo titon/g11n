@@ -2,7 +2,7 @@
 
 // Spanish (Panama)
 return [
-	'id' => 'es_PA',
+	'code' => 'es_PA',
 	'parent' => 'es',
 	'timezone' => 'America/Panama',
 	'title' => 'Spanish (Panama)',

@@ -2,7 +2,7 @@
 
 // Arabic (Jordan)
 return [
-	'id' => 'ar_JO',
+	'code' => 'ar_JO',
 	'parent' => 'ar',
 	'timezone' => 'Asia/Amman',
 	'title' => 'Arabic (Jordan)',

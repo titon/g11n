@@ -382,9 +382,9 @@ class G11n {
 		foreach ($locales as $loc) {
 			$config = $loc->config->get();
 
-			$options[] = $config['id'] . '.UTF8';
-			$options[] = $config['id'] . '.UTF-8';
-			$options[] = $config['id'];
+			$options[] = $config['code'] . '.UTF8';
+			$options[] = $config['code'] . '.UTF-8';
+			$options[] = $config['code'];
 
 			if (!empty($config['iso3'])) {
 				foreach ((array) $config['iso3'] as $iso3) {
@@ -402,9 +402,9 @@ class G11n {
 		}
 
 		// Set environment
-		putenv('LC_ALL=' . $locale->config->id);
+		putenv('LC_ALL=' . $locale->getCode());
 		setlocale(LC_ALL, $options);
-		\Locale::setDefault($locale->config->id);
+		\Locale::setDefault($locale->getCode());
 
 		self::$_current = $locale;
 

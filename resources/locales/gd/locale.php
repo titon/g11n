@@ -2,7 +2,7 @@
 
 // Gaelic (Scots)
 return [
-	'id' => 'gd',
+	'code' => 'gd',
 	'iso2' => 'gd',
 	'iso3' => 'gla',
 	'timezone' => 'Europe/London',

@@ -2,7 +2,7 @@
 
 // Spanish (Paraguay)
 return [
-	'id' => 'es_PY',
+	'code' => 'es_PY',
 	'parent' => 'es',
 	'timezone' => 'America/Asuncion',
 	'title' => 'Spanish (Paraguay)',

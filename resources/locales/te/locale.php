@@ -2,7 +2,7 @@
 
 // Telugu
 return [
-	'id' => 'te',
+	'code' => 'te',
 	'iso2' => 'te',
 	'iso3' => 'tel',
 	'timezone' => 'Asia/Calcutta',

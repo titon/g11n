@@ -2,7 +2,7 @@
 
 // Norwegian Nynorsk
 return [
-	'id' => 'nn',
+	'code' => 'nn',
 	'iso2' => 'nn',
 	'iso3' => 'nno',
 	'timezone' => 'Europe/Oslo',

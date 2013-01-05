@@ -2,7 +2,7 @@
 
 // Sindhi
 return [
-	'id' => 'sd',
+	'code' => 'sd',
 	'iso2' => 'sd',
 	'iso3' => 'snd',
 	'timezone' => 'Asia/Karachi',

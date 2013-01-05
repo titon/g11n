@@ -2,7 +2,7 @@
 
 // Albanian
 return [
-	'id' => 'sq',
+	'code' => 'sq',
 	'iso2' => 'sq',
 	'iso3' => ['alb', 'sqi'],
 	'timezone' => 'Europe/Tirane',

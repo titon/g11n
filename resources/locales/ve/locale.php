@@ -2,7 +2,7 @@
 
 // Venda
 return [
-	'id' => 've',
+	'code' => 've',
 	'iso2' => 've',
 	'iso3' => 'ven',
 	'timezone' => 'Africa/Johannesburg',

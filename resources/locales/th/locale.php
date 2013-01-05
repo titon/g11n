@@ -2,7 +2,7 @@
 
 // Thai
 return [
-	'id' => 'th',
+	'code' => 'th',
 	'iso2' => 'th',
 	'iso3' => 'tha',
 	'timezone' => 'Asia/Bangkok',

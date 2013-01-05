@@ -2,7 +2,7 @@
 
 // Bashkir
 return [
-	'id' => 'ba',
+	'code' => 'ba',
 	'iso2' => 'ba',
 	'iso3' => 'bak',
 	'timezone' => 'Asia/Almaty',

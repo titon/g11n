@@ -2,7 +2,7 @@
 
 // Croatian
 return [
-	'id' => 'hr',
+	'code' => 'hr',
 	'iso2' => 'hr',
 	'iso3' => 'hrv',
 	'timezone' => 'Europe/Zagreb',

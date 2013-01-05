@@ -2,7 +2,7 @@
 
 // Serbian
 return [
-	'id' => 'sr',
+	'code' => 'sr',
 	'iso2' => 'sr',
 	'iso3' => 'scc',
 	'timezone' => 'Europe/Belgrade',

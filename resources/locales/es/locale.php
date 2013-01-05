@@ -2,9 +2,9 @@
 
 // Spanish (Spain - Traditional)
 return [
-	'id' => 'es',
+	'code' => 'es',
 	'iso2' => 'es',
 	'iso3' => 'spa',
-	'timezone' => 'Europe/Madrid',
+	'timezone' => 'Europe/Madrcode',
 	'title' => 'Spanish (Spain - Traditional)',
 ];

@@ -2,7 +2,7 @@
 
 // Arabic (Kuwait)
 return [
-	'id' => 'ar_KW',
+	'code' => 'ar_KW',
 	'parent' => 'ar',
 	'timezone' => 'Asia/Kuwait',
 	'title' => 'Arabic (Kuwait)',

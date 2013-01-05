@@ -2,7 +2,7 @@
 
 // Zulu
 return [
-	'id' => 'zu',
+	'code' => 'zu',
 	'iso2' => 'zu',
 	'iso3' => 'zul',
 	'timezone' => 'Africa/Harare',

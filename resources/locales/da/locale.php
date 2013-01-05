@@ -2,7 +2,7 @@
 
 // Danish
 return [
-	'id' => 'da',
+	'code' => 'da',
 	'iso2' => 'da',
 	'iso3' => 'dan',
 	'timezone' => 'Europe/Copenhagen',

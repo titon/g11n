@@ -2,8 +2,8 @@
 
 // Spanish (Spain)
 return [
-	'id' => 'es_ES',
+	'code' => 'es_ES',
 	'parent' => 'es',
-	'timezone' => 'Europe/Madrid',
+	'timezone' => 'Europe/Madrcode',
 	'title' => 'Spanish (Spain)',
 ];

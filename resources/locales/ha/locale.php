@@ -2,7 +2,7 @@
 
 // Hausa
 return [
-	'id' => 'ha',
+	'code' => 'ha',
 	'iso2' => 'ha',
 	'iso3' => 'hau',
 	'timezone' => 'Africa/Niamey',

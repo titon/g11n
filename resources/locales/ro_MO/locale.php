@@ -2,7 +2,7 @@
 
 // Romanian (Moldavia)
 return [
-	'id' => 'ro_MO',
+	'code' => 'ro_MO',
 	'parent' => 'ro',
 	'timezone' => 'Europe/Bucharest',
 	'title' => 'Romanian (Moldavia)',

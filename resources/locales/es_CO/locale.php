@@ -2,7 +2,7 @@
 
 // Spanish (Colombia)
 return [
-	'id' => 'es_CO',
+	'code' => 'es_CO',
 	'parent' => 'es',
 	'timezone' => 'America/Bogota',
 	'title' => 'Spanish (Colombia)',

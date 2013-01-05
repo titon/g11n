@@ -2,7 +2,7 @@
 
 // Arabic
 return [
-	'id' => 'ar',
+	'code' => 'ar',
 	'iso2' => 'ar',
 	'iso3' => 'ara',
 	'timezone' => 'Africa/Cairo',

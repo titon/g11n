@@ -2,7 +2,7 @@
 
 // Russian (Moldavia)
 return [
-	'id' => 'ru_MO',
+	'code' => 'ru_MO',
 	'parent' => 'ru',
 	'timezone' => 'Europe/Moscow',
 	'title' => 'Russian (Moldavia)',

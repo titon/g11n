@@ -2,7 +2,7 @@
 
 // Igbo
 return [
-	'id' => 'ig',
+	'code' => 'ig',
 	'iso2' => 'ig',
 	'iso3' => 'ibo',
 	'timezone' => 'Africa/Lagos',

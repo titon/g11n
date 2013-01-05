@@ -2,7 +2,7 @@
 
 // Dutch (Belgium)
 return [
-	'id' => 'nl_BE',
+	'code' => 'nl_BE',
 	'parent' => 'nl',
 	'timezone' => 'Europe/Brussels',
 	'title' => 'Dutch (Belgium)',

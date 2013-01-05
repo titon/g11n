@@ -2,7 +2,7 @@
 
 // Bosnian
 return [
-	'id' => 'bs',
+	'code' => 'bs',
 	'iso2' => 'bs',
 	'iso3' => 'bos',
 	'timezone' => 'Europe/Sarajevo',

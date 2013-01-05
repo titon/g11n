@@ -1,10 +1,10 @@
 <?php
 
-// Yiddish
+// Ycodedish
 return [
-	'id' => 'yi',
+	'code' => 'yi',
 	'iso2' => 'yi',
-	'iso3' => 'yid',
+	'iso3' => 'ycode',
 	'timezone' => 'Israel',
-	'title' => 'Yiddish',
+	'title' => 'Ycodedish',
 ];

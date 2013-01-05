@@ -2,7 +2,7 @@
 
 // Icelandic
 return [
-	'id' => 'is',
+	'code' => 'is',
 	'iso2' => 'is',
 	'iso3' => ['isl', 'ice'],
 	'timezone' => 'Atlantic/Reykjavik',

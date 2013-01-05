@@ -2,7 +2,7 @@
 
 // French (Standard)
 return [
-	'id' => 'fr',
+	'code' => 'fr',
 	'iso2' => 'fr',
 	'iso3' => ['fra', 'fre'],
 	'timezone' => 'Europe/Paris',

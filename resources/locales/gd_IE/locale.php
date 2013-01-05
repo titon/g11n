@@ -2,7 +2,7 @@
 
 // Gaelic (Irish)
 return [
-	'id' => 'gd_IE',
+	'code' => 'gd_IE',
 	'parent' => 'gd',
 	'timezone' => 'Europe/Dublin',
 	'title' => 'Gaelic (Irish)',

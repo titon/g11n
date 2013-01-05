@@ -2,7 +2,7 @@
 
 // Arabic (Qatar)
 return [
-	'id' => 'ar_QA',
+	'code' => 'ar_QA',
 	'parent' => 'ar',
 	'timezone' => 'Asia/Qatar',
 	'title' => 'Arabic (Qatar)',

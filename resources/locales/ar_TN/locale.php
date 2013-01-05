@@ -2,7 +2,7 @@
 
 // Arabic (Tunisia)
 return [
-	'id' => 'ar_TN',
+	'code' => 'ar_TN',
 	'parent' => 'ar',
 	'timezone' => 'Africa/Tunis',
 	'title' => 'Arabic (Tunisia)',

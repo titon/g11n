@@ -2,7 +2,7 @@
 
 // Maltese
 return [
-	'id' => 'mt',
+	'code' => 'mt',
 	'iso2' => 'mt',
 	'iso3' => 'mlt',
 	'timezone' => 'Europe/Rome',

@@ -2,7 +2,7 @@
 
 // Urdu
 return [
-	'id' => 'ur',
+	'code' => 'ur',
 	'iso2' => 'ur',
 	'iso3' => 'urd',
 	'timezone' => 'Asia/Calcutta',

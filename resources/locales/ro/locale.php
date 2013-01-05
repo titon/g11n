@@ -2,7 +2,7 @@
 
 // Romanian
 return [
-	'id' => 'ro',
+	'code' => 'ro',
 	'iso2' => 'ro',
 	'iso3' => ['ron', 'rum'],
 	'timezone' => 'Europe/Bucharest',

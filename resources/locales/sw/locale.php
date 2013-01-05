@@ -2,7 +2,7 @@
 
 // Swahili
 return [
-	'id' => 'sw',
+	'code' => 'sw',
 	'iso2' => 'sw',
 	'iso3' => 'swa',
 	'timezone' => 'Africa/Bujumbura',

@@ -2,7 +2,7 @@
 
 // Arabic (Lebanon)
 return [
-	'id' => 'ar_LB',
+	'code' => 'ar_LB',
 	'parent' => 'ar',
 	'timezone' => 'Asia/Beirut',
 	'title' => 'Arabic (Lebanon)',

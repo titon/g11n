@@ -2,7 +2,7 @@
 
 // Kanuri
 return [
-	'id' => 'kr',
+	'code' => 'kr',
 	'iso2' => 'kr',
 	'iso3' => 'kau',
 	'timezone' => 'Africa/Lagos',

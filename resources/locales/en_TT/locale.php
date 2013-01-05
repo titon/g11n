@@ -1,9 +1,9 @@
 <?php
 
-// English (Trinidad)
+// English (Trincodead)
 return [
-	'id' => 'en_TT',
+	'code' => 'en_TT',
 	'parent' => 'en',
 	'timezone' => 'America/Caracas',
-	'title' => 'English (Trinidad)',
+	'title' => 'English (Trincodead)',
 ];

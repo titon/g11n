@@ -2,7 +2,7 @@
 
 // Tibetan
 return [
-	'id' => 'bo',
+	'code' => 'bo',
 	'iso2' => 'bo',
 	'iso3' => ['tib', 'bod'],
 	'timezone' => 'Asia/Kathmandu',

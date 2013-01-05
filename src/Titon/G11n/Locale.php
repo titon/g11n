@@ -73,6 +73,11 @@ class Locale extends Base {
 		parent::__construct($config);
 
 		$this->_code = $code;
+
+		// Add g11n resources if VENDOR_DIR constant exists
+		if (defined('VENDOR_DIR')) {
+			$this->addLocation(VENDOR_DIR . '/titon/g11n/resources/');
+		}
 	}
 
 	/**
@@ -98,10 +103,10 @@ class Locale extends Base {
 
 		// Gather locale configuration
 		if ($data = $locale->loadResource('locale')) {
-			$data = \Locale::parseLocale($data['id']) + $data;
+			$data = \Locale::parseLocale($data['code']) + $data;
 
 			$config = $this->config->get();
-			unset($config['id'], $config['initialize']);
+			unset($config['code'], $config['initialize']);
 
 			$this->config->set($config + $data);
 		}

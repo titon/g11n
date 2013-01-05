@@ -2,7 +2,7 @@
 
 // Panjabi
 return [
-	'id' => 'pa',
+	'code' => 'pa',
 	'iso2' => 'pa',
 	'iso3' => 'pan',
 	'timezone' => 'Asia/Karachi',

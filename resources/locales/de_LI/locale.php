@@ -2,7 +2,7 @@
 
 // German (Liechtenstein)
 return [
-	'id' => 'de_LI',
+	'code' => 'de_LI',
 	'parent' => 'de',
 	'timezone' => 'Europe/Vaduz',
 	'title' => 'German (Liechtenstein)',

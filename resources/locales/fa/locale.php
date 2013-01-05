@@ -2,7 +2,7 @@
 
 // Farsi / Persian
 return [
-	'id' => 'fa',
+	'code' => 'fa',
 	'iso2' => 'fa',
 	'iso3' => ['fas', 'per'],
 	'timezone' => 'Asia/Tehran',

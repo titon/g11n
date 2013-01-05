@@ -2,7 +2,7 @@
 
 // Afrikaans
 return [
-	'id' => 'af',
+	'code' => 'af',
 	'iso2' => 'af',
 	'iso3' => 'afr',
 	'timezone' => 'Africa/Johannesburg',

@@ -2,7 +2,7 @@
 
 // Bulgarian
 return [
-	'id' => 'bg',
+	'code' => 'bg',
 	'iso2' => 'bg',
 	'iso3' => 'bul',
 	'timezone' => 'Europe/Sofia',

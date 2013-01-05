@@ -2,7 +2,7 @@
 
 // Luxembourgish
 return [
-	'id' => 'lb',
+	'code' => 'lb',
 	'iso2' => 'lb',
 	'iso3' => 'ltz',
 	'timezone' => 'Europe/Luxembourg',

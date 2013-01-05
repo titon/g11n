@@ -2,7 +2,7 @@
 
 // Tajik
 return [
-	'id' => 'tg',
+	'code' => 'tg',
 	'iso2' => 'tg',
 	'iso3' => 'tgk',
 	'timezone' => 'Asia/Dushanbe',

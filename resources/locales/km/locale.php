@@ -2,7 +2,7 @@
 
 // Central Khmer
 return [
-	'id' => 'km',
+	'code' => 'km',
 	'iso2' => 'km',
 	'iso3' => 'khm',
 	'timezone' => 'Asia/Phnom_Penh',

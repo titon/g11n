@@ -2,7 +2,7 @@
 
 // Lao
 return [
-	'id' => 'lo',
+	'code' => 'lo',
 	'iso2' => 'lo',
 	'iso3' => 'lao',
 	'timezone' => 'Asia/Vientiane',

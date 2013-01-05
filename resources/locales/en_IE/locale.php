@@ -2,7 +2,7 @@
 
 // English (Ireland)
 return [
-	'id' => 'en_IE',
+	'code' => 'en_IE',
 	'parent' => 'en',
 	'timezone' => 'Europe/Dublin',
 	'title' => 'English (Ireland)',

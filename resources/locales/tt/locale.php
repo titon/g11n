@@ -2,7 +2,7 @@
 
 // Tatar
 return [
-	'id' => 'tt',
+	'code' => 'tt',
 	'iso2' => 'tt',
 	'iso3' => 'tat',
 	'timezone' => 'Europe/Moscow',

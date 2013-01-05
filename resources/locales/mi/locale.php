@@ -2,7 +2,7 @@
 
 // Maori
 return [
-	'id' => 'mi',
+	'code' => 'mi',
 	'iso2' => 'mi',
 	'iso3' => ['mri', 'mao'],
 	'timezone' => 'Pacific/Auckland',

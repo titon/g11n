@@ -2,7 +2,7 @@
 
 // Turkmen
 return [
-	'id' => 'tk',
+	'code' => 'tk',
 	'iso2' => 'tk',
 	'iso3' => 'tuk',
 	'timezone' => 'Asia/Ashgabat',

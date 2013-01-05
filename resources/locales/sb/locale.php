@@ -2,7 +2,7 @@
 
 // Sorbian
 return [
-	'id' => 'sb',
+	'code' => 'sb',
 	'iso2' => 'sb',
 	'iso3' => 'wen',
 	'timezone' => 'Europe/Berlin',

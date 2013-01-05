@@ -2,7 +2,7 @@
 
 // Hebrew
 return [
-	'id' => 'he',
+	'code' => 'he',
 	'iso2' => 'he',
 	'iso3' => 'heb',
 	'timezone' => 'Israel',

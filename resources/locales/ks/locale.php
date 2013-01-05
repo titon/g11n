@@ -2,7 +2,7 @@
 
 // Kashmiri
 return [
-	'id' => 'ks',
+	'code' => 'ks',
 	'iso2' => 'ks',
 	'iso3' => 'kas',
 	'timezone' => 'Asia/Calcutta',

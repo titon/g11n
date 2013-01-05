@@ -2,7 +2,7 @@
 
 // Swedish
 return [
-	'id' => 'sv',
+	'code' => 'sv',
 	'iso2' => 'sv',
 	'iso3' => 'swe',
 	'timezone' => 'Europe/Stockholm',

@@ -2,7 +2,7 @@
 
 // Malaysian
 return [
-	'id' => 'ms',
+	'code' => 'ms',
 	'iso2' => 'ms',
 	'iso3' => ['msa', 'may'],
 	'timezone' => 'Asia/Kuala_Lumpur',

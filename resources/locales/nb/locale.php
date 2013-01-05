@@ -2,7 +2,7 @@
 
 // Norwegian Bokmal
 return [
-	'id' => 'nb',
+	'code' => 'nb',
 	'iso2' => 'nb',
 	'iso3' => 'nob',
 	'timezone' => 'Europe/Oslo',

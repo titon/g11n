@@ -2,7 +2,7 @@
 
 // Sinhala
 return [
-	'id' => 'si',
+	'code' => 'si',
 	'iso2' => 'si',
 	'iso3' => 'sin',
 	'timezone' => 'Asia/Colombo',

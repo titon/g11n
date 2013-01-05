@@ -2,7 +2,7 @@
 
 // Uzbek
 return [
-	'id' => 'uz',
+	'code' => 'uz',
 	'iso2' => 'uz',
 	'iso3' => 'uzb',
 	'timezone' => 'Asia/Tashkent',

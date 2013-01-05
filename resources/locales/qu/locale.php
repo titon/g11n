@@ -2,7 +2,7 @@
 
 // Quechua
 return [
-	'id' => 'qu',
+	'code' => 'qu',
 	'iso2' => 'qu',
 	'iso3' => 'que',
 	'timezone' => 'America/Lima',
