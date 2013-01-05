@@ -2,8 +2,8 @@
 
 // Indonesian
 return [
-	'code' => 'code',
-	'iso2' => 'code',
+	'code' => 'id',
+	'iso2' => 'id',
 	'iso3' => 'ind',
 	'timezone' => 'Asia/Jakarta',
 	'title' => 'Indonesian',

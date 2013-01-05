@@ -5,6 +5,6 @@ return [
 	'code' => 'es',
 	'iso2' => 'es',
 	'iso3' => 'spa',
-	'timezone' => 'Europe/Madrcode',
+	'timezone' => 'Europe/Madrid',
 	'title' => 'Spanish (Spain - Traditional)',
 ];

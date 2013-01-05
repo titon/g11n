@@ -4,6 +4,6 @@
 return [
 	'code' => 'es_UY',
 	'parent' => 'es',
-	'timezone' => 'America/Montevcodeeo',
+	'timezone' => 'America/Montevideo',
 	'title' => 'Spanish (Uruguay)',
 ];

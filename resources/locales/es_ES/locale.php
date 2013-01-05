@@ -4,6 +4,6 @@
 return [
 	'code' => 'es_ES',
 	'parent' => 'es',
-	'timezone' => 'Europe/Madrcode',
+	'timezone' => 'Europe/Madrid',
 	'title' => 'Spanish (Spain)',
 ];
