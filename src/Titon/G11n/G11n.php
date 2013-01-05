@@ -9,10 +9,9 @@ namespace Titon\G11n;
 
 use Titon\Common\Registry;
 use Titon\Common\Traits\StaticCacheable;
-use Titon\G11n\Exception;
+use Titon\G11n\Locale;
 use Titon\G11n\Translator;
-use Titon\Io\Bundle\LocaleBundle;
-use \Locale;
+use Titon\G11n\Exception;
 
 /**
  * The Globalization class handles all the necessary functionality for internationalization and
@@ -44,7 +43,7 @@ class G11n {
 	 * Currently active locale bundle based on the client.
 	 *
 	 * @access protected
-	 * @var string
+	 * @var \Titon\G11n\Locale
 	 * @static
 	 */
 	protected static $_current;
@@ -53,7 +52,7 @@ class G11n {
 	 * Fallback locale key if none can be found.
 	 *
 	 * @access protected
-	 * @var string
+	 * @var \Titon\G11n\Locale
 	 * @static
 	 */
 	protected static $_fallback;
@@ -62,7 +61,7 @@ class G11n {
 	 * Loaded locale bundles.
 	 *
 	 * @access protected
-	 * @var array
+	 * @var \Titon\G11n\Locale[]
 	 * @static
 	 */
 	protected static $_locales = [];
@@ -81,34 +80,34 @@ class G11n {
 	 * The system will then attempt to load the locale resource bundle and finalize configuration settings.
 	 *
 	 * @access public
-	 * @param string $key
-	 * @param \Titon\Io\Bundle\LocaleBundle $bundle
-	 * @return void
+	 * @param \Titon\G11n\Locale $locale
+	 * @return \Titon\G11n\Locale
 	 * @static
 	 */
-	public static function addLocale($key, LocaleBundle $bundle) {
-		$urlKey = self::canonicalize($key);
+	public static function addLocale(Locale $locale) {
+		$key = self::canonicalize($locale->getCode());
 
-		if (isset(self::$_locales[$urlKey])) {
-			return;
+		if (isset(self::$_locales[$key])) {
+			return self::$_locales[$key];
 		}
 
 		// Configure and initialize
-		$bundle->config->bundle = self::canonicalize($key, self::FORMAT_3);
-		$bundle->loadDefaults();
+		$locale->initialize();
 
 		// Cache the bundle
-		self::$_locales[$urlKey] = Registry::set($bundle, 'g11n.bundle.' . $bundle->getLocale('id'));
+		self::$_locales[$key] = $locale;
 
 		// Set the parent as well
-		if ($parent = $bundle->getParent()) {
-			self::addLocale($parent->getLocale('id'), $parent);
+		if ($parent = $locale->getParentLocale()) {
+			self::addLocale($parent);
 		}
 
 		// Set fallback if none defined
 		if (!self::$_fallback) {
-			self::$_fallback = $urlKey;
+			self::fallbackAs($key);
 		}
+
+		return $locale;
 	}
 
 	/**
@@ -157,11 +156,11 @@ class G11n {
 		return self::cache(__METHOD__, function() {
 			$cycle = [];
 
-			foreach ([self::current(), self::getFallback()] as $bundle) {
-				while ($bundle instanceof LocaleBundle) {
-					$cycle[] = $bundle->getLocale('id');
+			foreach ([self::current(), self::getFallback()] as $locale) {
+				while ($locale instanceof Locale) {
+					$cycle[] = $locale->getCode();
 
-					$bundle = $bundle->getParent();
+					$locale = $locale->getParentLocale();
 				}
 			}
 
@@ -178,14 +177,14 @@ class G11n {
 	 * @static
 	 */
 	public static function compose(array $tags) {
-		return Locale::composeLocale($tags);
+		return \Locale::composeLocale($tags);
 	}
 
 	/**
 	 * Return the current locale config, or a certain value.
 	 *
 	 * @access public
-	 * @return \Titon\Io\Bundle\LocaleBundle
+	 * @return \Titon\G11n\Locale
 	 * @static
 	 */
 	public static function current() {
@@ -201,7 +200,7 @@ class G11n {
 	 * @static
 	 */
 	public static function decompose($locale) {
-		return Locale::parseLocale($locale);
+		return \Locale::parseLocale($locale);
 	}
 
 	/**
@@ -220,32 +219,27 @@ class G11n {
 			throw new Exception(sprintf('Locale %s has not been setup', $key));
 		}
 
-		self::$_fallback = $key;
+		self::$_fallback = self::$_locales[$key];
 
-		ini_set('intl.default_locale', self::$_locales[$key]->getLocale('id'));
+		ini_set('intl.default_locale', self::$_fallback->getCode());
 	}
 
 	/**
 	 * Return the fallback locale bundle.
 	 *
 	 * @access public
-	 * @return \Titon\Io\Bundle\LocaleBundle
-	 * @throws \Titon\G11n\Exception
+	 * @return \Titon\G11n\Locale
 	 * @static
 	 */
 	public static function getFallback() {
-		if (!self::$_fallback || !isset(self::$_locales[self::$_fallback])) {
-			throw new Exception('Fallback locale has not been setup');
-		}
-
-		return self::$_locales[self::$_fallback];
+		return self::$_fallback;
 	}
 
 	/**
 	 * Returns the setup locales bundles.
 	 *
 	 * @access public
-	 * @return array
+	 * @return \Titon\G11n\Locale[]
 	 * @static
 	 */
 	public static function getLocales() {
@@ -275,9 +269,9 @@ class G11n {
 		$current = null;
 
 		if (count($header) > 0) {
-			foreach ($header as $locale) {
-				if (isset(self::$_locales[$locale])) {
-					$current = $locale;
+			foreach ($header as $key) {
+				if (isset(self::$_locales[$key])) {
+					$current = $key;
 					break;
 				}
 			}
@@ -285,7 +279,7 @@ class G11n {
 
 		// Set current to the fallback if none found
 		if ($current === null) {
-			$current = self::$_fallback;
+			$current = self::$_fallback->getCode();
 		}
 
 		// Apply the locale
@@ -306,39 +300,18 @@ class G11n {
 	 * @static
 	 */
 	public static function is($key) {
-		$locale = self::current()->getLocale();
-
-		return ($locale['key'] === $key || $locale['id'] === $key);
+		return (self::current()->getCode() === $key);
 	}
 
 	/**
-	 * G11n will be enabled if more than 1 locale has been setup, excluding family chains.
+	 * G11n will be enabled if more than 1 locale has been setup.
 	 *
 	 * @access public
 	 * @return boolean
 	 * @static
 	 */
 	public static function isEnabled() {
-		return self::cache(__METHOD__, function() {
-			$locales = self::getLocales();
-
-			if (!$locales) {
-				return false;
-			}
-
-			$loaded = [];
-
-			foreach ($locales as $bundle) {
-				$locale = $bundle->getLocale();
-				$loaded[] = $locale['id'];
-
-				if (isset($locale['parent'])) {
-					$loaded[] = $locale['parent'];
-				}
-			}
-
-			return (count(array_unique($loaded)) > 1);
-		});
+		return (count(self::$_locales) > 0);
 	}
 
 	/**
@@ -357,11 +330,13 @@ class G11n {
 	 *
 	 * @access public
 	 * @param \Titon\G11n\Translator $translator
-	 * @return void
+	 * @return \Titon\G11n\Translator
 	 * @static
 	 */
 	public static function setTranslator(Translator $translator) {
 		self::$_translator = $translator;
+
+		return $translator;
 	}
 
 	/**
@@ -385,7 +360,7 @@ class G11n {
 	 *
 	 * @access public
 	 * @param string $key
-	 * @return void
+	 * @return \Titon\G11n\Locale
 	 * @throws \Titon\G11n\Exception
 	 * @static
 	 */
@@ -396,40 +371,44 @@ class G11n {
 			throw new Exception(sprintf('Locale %s does not exist', $key));
 		}
 
-		$bundle = self::$_locales[$key];
-		$bundles = [$bundle, self::getFallback()];
+		$locale = self::$_locales[$key];
+		$locales = [$locale];
 		$options = [];
 
-		foreach ($bundles as $tempBundle) {
-			$locale = $tempBundle->getLocale();
+		if (self::getFallback()->getCode() != $locale->getCode()) {
+			$locales[] = self::getFallback();
+		}
 
-			$options[] = $locale['id'] . '.UTF8';
-			$options[] = $locale['id'] . '.UTF-8';
-			$options[] = $locale['id'];
+		foreach ($locales as $loc) {
+			$config = $loc->config->get();
 
-			if (!empty($locale['iso3'])) {
-				foreach ((array) $locale['iso3'] as $iso3) {
+			$options[] = $config['id'] . '.UTF8';
+			$options[] = $config['id'] . '.UTF-8';
+			$options[] = $config['id'];
+
+			if (!empty($config['iso3'])) {
+				foreach ((array) $config['iso3'] as $iso3) {
 					$options[] = $iso3 . '.UTF8';
 					$options[] = $iso3 . '.UTF-8';
 					$options[] = $iso3;
 				}
 			}
 
-			if (!empty($locale['iso2'])) {
-				$options[] = $locale['iso2'] . '.UTF8';
-				$options[] = $locale['iso2'] . '.UTF-8';
-				$options[] = $locale['iso2'];
+			if (!empty($config['iso2'])) {
+				$options[] = $config['iso2'] . '.UTF8';
+				$options[] = $config['iso2'] . '.UTF-8';
+				$options[] = $config['iso2'];
 			}
 		}
 
 		// Set environment
-		$locale = $bundle->getLocale();
-
-		putenv('LC_ALL=' . $locale['id']);
+		putenv('LC_ALL=' . $locale->config->id);
 		setlocale(LC_ALL, $options);
-		Locale::setDefault($locale['id']);
+		\Locale::setDefault($locale->config->id);
 
-		self::$_current = $bundle;
+		self::$_current = $locale;
+
+		return $locale;
 	}
 
 }

@@ -5,7 +5,7 @@
  * @link		http://titon.io
  */
 
-namespace Titon\G11n\Test\Fixture;
+namespace Titon\Test\Fixture;
 
 use Titon\G11n\Translator\AbstractTranslator;
 

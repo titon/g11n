@@ -7,7 +7,7 @@
 
 namespace Titon\G11n;
 
-use Titon\G11n\Test\Fixture\TranslatorFixture;
+use Titon\Test\Fixture\TranslatorFixture;
 use \Exception;
 
 /**
