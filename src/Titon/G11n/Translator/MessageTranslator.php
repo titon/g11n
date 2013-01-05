@@ -9,7 +9,6 @@ namespace Titon\G11n\Translator;
 
 use Titon\G11n\Exception;
 use Titon\G11n\Translator\AbstractTranslator;
-use Titon\Io\Bundle\MessageBundle;
 
 /**
  * Translator used for parsing resource files into an array of translated messages.
@@ -17,27 +16,59 @@ use Titon\Io\Bundle\MessageBundle;
 class MessageTranslator extends AbstractTranslator {
 
 	/**
-	 * Initialize the MessageBundle and inject the Reader dependency.
+	 * Locate the key within the catalog. If the catalog has not been loaded,
+	 * load it and cache the collection of strings.
 	 *
 	 * @access public
-	 * @param string $module
-	 * @param string $locale
-	 * @return \Titon\Io\Bundle
+	 * @param string $key
+	 * @return string
 	 * @throws \Titon\G11n\Exception
 	 */
-	public function loadBundle($module, $locale) {
-		if (!$this->_reader) {
-			throw new Exception('No Reader has been loaded for message translating');
+	public function getMessage($key) {
+		if ($cache = $this->getCache($key)) {
+			return $cache;
 		}
 
-		$bundle = new MessageBundle([
-			'module' => $module,
-			'bundle' => $locale
-		]);
+		list($module, $catalog, $id) = $this->parseKey($key);
 
-		$bundle->addReader($this->_reader);
+		// Cycle through each locale till a message is found
+		$locales = G11n::cascade();
 
-		return $bundle;
+		foreach ($locales as $locale) {
+			$cacheKey = sprintf('g11n.%s.%s.%s', $module, $catalog, $locale);
+			$messages = [];
+
+			// Check within the cache first
+			if ($this->_storage) {
+				$messages = $this->_storage->get($cacheKey);
+			}
+
+			// Else check within the bundle
+			if (!$messages) {
+				$bundle = clone G11n::current()->getMessageBundle();
+				$bundle->addReader($this->_reader);
+				$bundle->config->set('module', $module);
+
+				if ($data = $bundle->loadResource($catalog)) {
+					$messages = $data;
+
+					if ($this->_storage) {
+						$this->_storage->set($cacheKey, $messages);
+					}
+
+				// If the catalog doesn't exist, try the next locale
+				} else {
+					continue;
+				}
+			}
+
+			// Return message if it exists, else continue cycle
+			if (isset($messages[$id])) {
+				return $this->setCache($key, $messages[$id]);
+			}
+		}
+
+		throw new Exception(sprintf('Message key %s does not exist in %s', $key, implode(', ', $locales)));
 	}
 
 }

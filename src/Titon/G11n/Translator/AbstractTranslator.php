@@ -40,62 +40,6 @@ abstract class AbstractTranslator extends Base implements Translator {
 	protected $_storage;
 
 	/**
-	 * Locate the key within the catalog. If the catalog has not been loaded,
-	 * load it and cache the collection of strings.
-	 *
-	 * @access public
-	 * @param string $key
-	 * @return string
-	 * @throws \Titon\G11n\Exception
-	 */
-	public function getMessage($key) {
-		if ($cache = $this->getCache($key)) {
-			return $cache;
-		}
-
-		list($module, $catalog, $id) = $this->parseKey($key);
-
-		// Cycle through each locale till a message is found
-		$locales = G11n::cascade();
-
-		foreach ($locales as $locale) {
-			$cacheKey = sprintf('g11n.%s.%s.%s', $module, $catalog, $locale);
-			$messages = [];
-
-			// Check within the cache first
-			if ($this->_storage) {
-				$messages = $this->_storage->get($cacheKey);
-			}
-
-			// Else check within the bundle
-			if (!$messages) {
-				$bundle = clone G11n::current()->getMessageBundle();
-				$bundle->addReader($this->_reader);
-				$bundle->config->set('module', $module);
-
-				if ($data = $bundle->loadResource($catalog)) {
-					$messages = $data;
-
-					if ($this->_storage) {
-						$this->_storage->set($cacheKey, $messages);
-					}
-
-				// If the catalog doesn't exist, try the next locale
-				} else {
-					continue;
-				}
-			}
-
-			// Return message if it exists, else continue cycle
-			if (isset($messages[$id])) {
-				return $this->setCache($key, $messages[$id]);
-			}
-		}
-
-		throw new Exception(sprintf('Message key %s does not exist in %s', $key, implode(', ', $locales)));
-	}
-
-	/**
 	 * Parse out the module, catalog and key for string lookup.
 	 *
 	 * @access public

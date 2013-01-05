@@ -26,16 +26,6 @@ interface Translator {
 	public function getMessage($key);
 
 	/**
-	 * Load the correct resource bundle for the associated file type.
-	 *
-	 * @access public
-	 * @param string $module
-	 * @param string $locale
-	 * @return \Titon\Io\Bundle
-	 */
-	public function loadBundle($module, $locale);
-
-	/**
 	 * Parse out the module, catalog and key for string lookup.
 	 *
 	 * @access public

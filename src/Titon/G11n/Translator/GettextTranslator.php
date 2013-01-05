@@ -8,8 +8,10 @@
 namespace Titon\G11n\Translator;
 
 use Titon\Common\Config;
+use Titon\G11n\G11n;
 use Titon\G11n\Exception;
 use Titon\G11n\Translator\AbstractTranslator;
+use Titon\Utility\String;
 use \Locale;
 
 /**
@@ -29,13 +31,9 @@ class GettextTranslator extends AbstractTranslator {
 		bind_textdomain_codeset($catalog, Config::encoding());
 
 		return $this->cache([__METHOD__, $module, $catalog], function() use ($module, $catalog) {
-			if ($module) {
-				bindtextdomain($catalog, APP_MODULES . $module . '/resources/messages');
+			foreach (G11n::current()->getMessageBundle()->getLocations() as $location) {
+				bindtextdomain($catalog, String::insert($location, ['module' => $module]));
 			}
-
-			// @TODO
-
-			bindtextdomain($catalog, APP_RESOURCES  . 'messages');
 
 			return true;
 		});
@@ -65,18 +63,6 @@ class GettextTranslator extends AbstractTranslator {
 
 			throw new Exception(sprintf('Message key %s does not exist in %s', $key, Locale::DEFAULT_LOCALE));
 		});
-	}
-
-	/**
-	 * No bundle required for gettext.
-	 *
-	 * @access public
-	 * @param string $module
-	 * @param string $locale
-	 * @return \Titon\Io\Bundle
-	 */
-	public function loadBundle($module, $locale) {
-		return;
 	}
 
 }

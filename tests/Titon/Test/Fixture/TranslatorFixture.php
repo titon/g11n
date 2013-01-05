@@ -14,6 +14,6 @@ use Titon\G11n\Translator\AbstractTranslator;
  */
 class TranslatorFixture extends AbstractTranslator {
 
-	public function loadBundle($module, $locale) {}
+	public function getMessage($key) { }
 
 }

@@ -27,8 +27,8 @@ class MessageTranslatorTest extends \PHPUnit_Framework_TestCase {
 	protected function setUp() {
 		$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'ex-no,ex;q=0.5';
 
-		G11n::setup('ex');
-		G11n::setup('en');
+		G11n::addLocale('ex');
+		G11n::addLocale('en');
 	}
 
 	/**
