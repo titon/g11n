@@ -108,7 +108,7 @@ class Inflector extends \Titon\Utility\Inflector {
 	}
 
 	/**
-	 * Inflect a form to its pluralized form. Applies special rules to determine uninflected, irregular or regular forms.
+	 * Inflect a form to its singular form. Applies special rules to determine uninflected, irregular or regular forms.
 	 *
 	 * @access public
 	 * @param string $string

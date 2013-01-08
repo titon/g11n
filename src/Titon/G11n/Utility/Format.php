@@ -51,7 +51,7 @@ class Format extends \Titon\Utility\Format {
 	 * @throws \Titon\G11n\Exception
 	 * @static
 	 */
-	public static function get($key, $fallback) {
+	public static function get($key, $fallback = null) {
 		$pattern = G11n::current()->getFormatPatterns($key) ?: $fallback;
 
 		if (!$pattern) {
