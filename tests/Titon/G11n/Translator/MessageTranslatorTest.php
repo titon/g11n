@@ -8,6 +8,7 @@
 namespace Titon\G11n\Translator;
 
 use Titon\G11n\G11n;
+use Titon\G11n\Locale;
 use Titon\G11n\Translator\MessageTranslator;
 use Titon\Cache\Storage\MemoryStorage;
 use Titon\Io\Reader\PhpReader;
@@ -27,8 +28,12 @@ class MessageTranslatorTest extends \PHPUnit_Framework_TestCase {
 	protected function setUp() {
 		$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'ex-no,ex;q=0.5';
 
-		G11n::addLocale('ex');
-		G11n::addLocale('en');
+		foreach (['ex', 'en'] as $code) {
+			$locale = new Locale($code);
+			$locale->addLocation(TEMP_DIR)->addLocation(dirname(TEST_DIR) . '/resources/');
+
+			G11n::addLocale($locale);
+		}
 	}
 
 	/**
@@ -40,13 +45,13 @@ class MessageTranslatorTest extends \PHPUnit_Framework_TestCase {
 		$object->setStorage(new MemoryStorage());
 
 		G11n::setTranslator($object);
-		G11n::set('ex');
+		G11n::useLocale('ex');
 
 		$this->assertEquals('Titon', $object->getMessage('default.titon'));
 		$this->assertEquals('Test', $object->getMessage('default.test'));
 		$this->assertEquals('php', $object->getMessage('default.type'));
 
-		G11n::set('en');
+		G11n::useLocale('en');
 
 		$this->assertEquals('Titon', $object->translate('default.titon'));
 		$this->assertEquals('Test', $object->translate('default.test'));
@@ -63,13 +68,13 @@ class MessageTranslatorTest extends \PHPUnit_Framework_TestCase {
 		$object->setStorage(new MemoryStorage());
 
 		G11n::setTranslator($object);
-		G11n::set('ex');
+		G11n::useLocale('ex');
 
 		$this->assertEquals('Titon', $object->getMessage('default.titon'));
 		$this->assertEquals('Test', $object->getMessage('default.test'));
 		$this->assertEquals('ini', $object->getMessage('default.type'));
 
-		G11n::set('en');
+		G11n::useLocale('en');
 
 		$this->assertEquals('Titon', $object->translate('default.titon'));
 		$this->assertEquals('Test', $object->translate('default.test'));
@@ -86,13 +91,13 @@ class MessageTranslatorTest extends \PHPUnit_Framework_TestCase {
 		$object->setStorage(new MemoryStorage());
 
 		G11n::setTranslator($object);
-		G11n::set('ex');
+		G11n::useLocale('ex');
 
 		$this->assertEquals('Titon', $object->getMessage('default.titon'));
 		$this->assertEquals('Test', $object->getMessage('default.test'));
 		$this->assertEquals('xml', $object->getMessage('default.type'));
 
-		G11n::set('en');
+		G11n::useLocale('en');
 
 		$this->assertEquals('Titon', $object->translate('default.titon'));
 		$this->assertEquals('Test', $object->translate('default.test'));
@@ -109,13 +114,13 @@ class MessageTranslatorTest extends \PHPUnit_Framework_TestCase {
 		$object->setStorage(new MemoryStorage());
 
 		G11n::setTranslator($object);
-		G11n::set('ex');
+		G11n::useLocale('ex');
 
 		$this->assertEquals('Titon', $object->getMessage('default.titon'));
 		$this->assertEquals('Test', $object->getMessage('default.test'));
 		$this->assertEquals('json', $object->getMessage('default.type'));
 
-		G11n::set('en');
+		G11n::useLocale('en');
 
 		$this->assertEquals('Titon', $object->translate('default.titon'));
 		$this->assertEquals('Test', $object->translate('default.test'));
@@ -132,13 +137,13 @@ class MessageTranslatorTest extends \PHPUnit_Framework_TestCase {
 		$object->setStorage(new MemoryStorage());
 
 		G11n::setTranslator($object);
-		G11n::set('ex');
+		G11n::useLocale('ex');
 
 		$this->assertEquals('Basic message', $object->getMessage('default.basic'));
 		$this->assertEquals('Context message', $object->getMessage('default.context'));
 		$this->assertEquals("Multiline message\nMore message here\nAnd more message again", $object->getMessage('default.multiline'));
 
-		G11n::set('en');
+		G11n::useLocale('en');
 
 		$this->assertEquals('1,337 health, 666 energy, 255 damage', $object->translate('default.format', [1337, 666, 255]));
 	}

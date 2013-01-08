@@ -7,6 +7,7 @@
 
 namespace Titon\G11n\Translator;
 
+use Titon\G11n\G11n;
 use Titon\G11n\Exception;
 use Titon\G11n\Translator\AbstractTranslator;
 
@@ -32,9 +33,9 @@ class MessageTranslator extends AbstractTranslator {
 		list($module, $catalog, $id) = $this->parseKey($key);
 
 		// Cycle through each locale till a message is found
-		$locales = G11n::cascade();
+		$locales = G11n::getLocales();
 
-		foreach ($locales as $locale) {
+		foreach (G11n::cascade() as $locale) {
 			$cacheKey = sprintf('g11n.%s.%s.%s', $module, $catalog, $locale);
 			$messages = [];
 
@@ -45,7 +46,7 @@ class MessageTranslator extends AbstractTranslator {
 
 			// Else check within the bundle
 			if (!$messages) {
-				$bundle = clone G11n::current()->getMessageBundle();
+				$bundle = clone $locales[$locale]->getMessageBundle();
 				$bundle->addReader($this->_reader);
 				$bundle->config->set('module', $module);
 
