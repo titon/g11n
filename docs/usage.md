@@ -14,7 +14,7 @@ use Titon\Common\Config;
 
 // Define resource locations
 Config::set('Resource.paths', [
-	'/resources/,
+	'/resources/',
 	'/{module}/resources/'
 ]);
 
