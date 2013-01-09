@@ -82,7 +82,7 @@ class Locale extends Base {
 		if ($locations = Config::get('Resource.paths')) {
 			foreach ((array) $locations as $location) {
 				$locale->addLocation(sprintf('%s/locales/%s', $location, $code));
-				
+
 				$message->addLocation(sprintf('%s/messages/%s', $location, $code));
 				$message->addLocation(sprintf('%s/messages/%s/LC_MESSAGES', $location, $code));
 			}

@@ -11,6 +11,13 @@ use Titon\Common\Config;
 use Titon\G11n\G11n;
 
 /**
+ * Add G11n resources if VENDOR_DIR constant exists.
+ */
+if (defined('VENDOR_DIR')) {
+	Config::add('Resource.paths', VENDOR_DIR . '/titon/g11n/resources/');
+}
+
+/**
  * Convenience function for fetching a localized string.
  *
  * @param string $key
@@ -19,11 +26,4 @@ use Titon\G11n\G11n;
  */
 function msg($key, array $params = []) {
 	return G11n::translate($key, $params);
-}
-
-/**
- * Add g11n resources if VENDOR_DIR constant exists.
- */
-if (defined('VENDOR_DIR')) {
-	Config::add('Resource.paths', VENDOR_DIR . '/titon/g11n/resources/');
 }

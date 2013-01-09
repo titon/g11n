@@ -25,6 +25,6 @@
 	},
 	"autoload": {
 		"psr-0": { "Titon\\G11n": "src/" },
-		"files": [ "src/Titon/functions.php" ]
+		"files": [ "src/Titon/bootstrap.php" ]
 	}
 }
