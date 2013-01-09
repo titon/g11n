@@ -29,10 +29,7 @@ class MessageTranslatorTest extends \PHPUnit_Framework_TestCase {
 		$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'ex-no,ex;q=0.5';
 
 		foreach (['ex', 'en'] as $code) {
-			$locale = new Locale($code);
-			$locale->addLocation(TEMP_DIR)->addLocation(dirname(TEST_DIR) . '/resources/');
-
-			G11n::addLocale($locale);
+			G11n::addLocale(new Locale($code));
 		}
 	}
 

@@ -22,10 +22,7 @@ class G11nTest extends \PHPUnit_Framework_TestCase {
 	 */
 	protected function setUp() {
 		foreach (['ex_VA', 'ex_IN', 'ex_FM', 'no'] as $code) {
-			$locale = new Locale($code);
-			$locale->addLocation(TEMP_DIR);
-
-			G11n::addLocale($locale);
+			G11n::addLocale(new Locale($code));
 		}
 
 		G11n::fallbackAs('ex');

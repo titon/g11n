@@ -54,16 +54,16 @@ class LocaleTest extends TestCase {
 	 */
 	protected function setUp() {
 		$this->parent = new Locale('ex');
-		$this->parent->addLocation(TEMP_DIR)->initialize();
+		$this->parent->initialize();
 
 		$this->formats = new Locale('ex_FM');
-		$this->formats->addLocation(TEMP_DIR)->initialize();
+		$this->formats->initialize();
 
 		$this->inflections = new Locale('ex_IN');
-		$this->inflections->addLocation(TEMP_DIR)->initialize();
+		$this->inflections->initialize();
 
 		$this->validations = new Locale('ex_VA');
-		$this->validations->addLocation(TEMP_DIR)->initialize();
+		$this->validations->initialize();
 	}
 
 	/**

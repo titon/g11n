@@ -18,3 +18,9 @@ if (!file_exists(VENDOR_DIR . '/autoload.php')) {
 $loader = require VENDOR_DIR . '/autoload.php';
 $loader->add('Titon\\G11n', TEST_DIR);
 $loader->add('Titon\\Test', TEST_DIR);
+
+// Set resource paths
+use Titon\Common\Config;
+
+Config::add('Resource.paths', TEMP_DIR);
+Config::add('Resource.paths', dirname(TEST_DIR) . '/resources/');

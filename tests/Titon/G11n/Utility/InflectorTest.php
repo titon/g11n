@@ -21,10 +21,7 @@ class InflectorTest extends \PHPUnit_Framework_TestCase {
 	 * This method is called before a test is executed.
 	 */
 	protected function setUp() {
-		$locale = new Locale('en');
-		$locale->addLocation(dirname(TEST_DIR) . '/resources/');
-
-		G11n::addLocale($locale);
+		G11n::addLocale(new Locale('en'));
 		G11n::useLocale('en');
 	}
 

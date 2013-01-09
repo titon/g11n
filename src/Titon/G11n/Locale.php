@@ -8,6 +8,7 @@
 namespace Titon\G11n;
 
 use Titon\Common\Base;
+use Titon\Common\Config;
 use Titon\Common\Traits\Cacheable;
 use Titon\G11n\Bundle\LocaleBundle;
 use Titon\G11n\Bundle\MessageBundle;
@@ -27,14 +28,6 @@ class Locale extends Base {
 	 * @var string
 	 */
 	protected $_code;
-
-	/**
-	 * Resource locations.
-	 *
-	 * @access protected
-	 * @var array
-	 */
-	protected $_locations = [];
 
 	/**
 	 * Locale resource bundle.
@@ -73,11 +66,6 @@ class Locale extends Base {
 		parent::__construct($config);
 
 		$this->_code = $code;
-
-		// Add g11n resources if VENDOR_DIR constant exists
-		if (defined('VENDOR_DIR')) {
-			$this->addLocation(VENDOR_DIR . '/titon/g11n/resources/');
-		}
 	}
 
 	/**
@@ -91,13 +79,13 @@ class Locale extends Base {
 		$message = new MessageBundle();
 		$code = $this->getCode();
 
-		foreach ($this->_locations as $location) {
-			$locale->addLocation(sprintf('%s/locales/%s', $location, $code));
-
-			$message->addLocation(sprintf('%s/messages/%s', $location, $code));
-			$message->addLocation(sprintf('%s/messages/%s/LC_MESSAGES', $location, $code));
-			$message->addLocation(sprintf('%s/messages/{module}/%s', $location, $code));
-			$message->addLocation(sprintf('%s/messages/{module}/%s/LC_MESSAGES', $location, $code));
+		if ($locations = Config::get('Resource.paths')) {
+			foreach ((array) $locations as $location) {
+				$locale->addLocation(sprintf('%s/locales/%s', $location, $code));
+				
+				$message->addLocation(sprintf('%s/messages/%s', $location, $code));
+				$message->addLocation(sprintf('%s/messages/%s/LC_MESSAGES', $location, $code));
+			}
 		}
 
 		$this->_localeBundle = $locale;
@@ -115,25 +103,6 @@ class Locale extends Base {
 
 		// Force parent config to merge
 		$this->getParentLocale();
-
-		return $this;
-	}
-
-	/**
-	 * Add a resource location.
-	 *
-	 * @access public
-	 * @param string|array $locations
-	 * @return \Titon\G11n\Locale
-	 */
-	public function addLocation($locations) {
-		if (is_array($locations)) {
-			foreach ($locations as $location) {
-				$this->addLocation($location);
-			}
-		} else {
-			$this->_locations[] = $locations;
-		}
 
 		return $this;
 	}
@@ -197,7 +166,7 @@ class Locale extends Base {
 		}
 
 		$parent = new Locale($this->config->parent);
-		$parent->addLocation($this->_locations)->initialize();
+		$parent->initialize();
 
 		// Merge parent config
 		$this->config->set($this->config->get() + $parent->config->get());
