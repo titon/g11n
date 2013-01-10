@@ -40,7 +40,7 @@ class G11n {
 	const FORMAT_4 = 3;
 
 	/**
-	 * Currently active locale bundle based on the client.
+	 * Currently active locale based on the client.
 	 *
 	 * @var \Titon\G11n\Locale
 	 * @static
@@ -48,7 +48,7 @@ class G11n {
 	protected static $_current;
 
 	/**
-	 * Fallback locale key if none can be found.
+	 * Fallback locale if none can be found.
 	 *
 	 * @var \Titon\G11n\Locale
 	 * @static
@@ -56,7 +56,7 @@ class G11n {
 	protected static $_fallback;
 
 	/**
-	 * Loaded locale bundles.
+	 * Supported list of locales.
 	 *
 	 * @var \Titon\G11n\Locale[]
 	 * @static
@@ -89,7 +89,7 @@ class G11n {
 		// Configure and initialize
 		$locale->initialize();
 
-		// Cache the bundle
+		// Set the locale
 		self::$_locales[$key] = $locale;
 
 		// Set the parent as well
@@ -99,7 +99,7 @@ class G11n {
 
 		// Set fallback if none defined
 		if (!self::$_fallback) {
-			self::fallbackAs($key);
+			self::setFallback($key);
 		}
 
 		return $locale;
@@ -173,7 +173,7 @@ class G11n {
 	}
 
 	/**
-	 * Return the current locale config, or a certain value.
+	 * Return the current locale.
 	 *
 	 * @return \Titon\G11n\Locale
 	 * @static
@@ -194,27 +194,7 @@ class G11n {
 	}
 
 	/**
-	 * Define the fallback language if none can be found or is not supported.
-	 *
-	 * @param string $key
-	 * @return void
-	 * @throws \Titon\G11n\Exception
-	 * @static
-	 */
-	public static function fallbackAs($key) {
-		$key = self::canonicalize($key);
-
-		if (!isset(self::$_locales[$key])) {
-			throw new Exception(sprintf('Locale %s has not been setup', $key));
-		}
-
-		self::$_fallback = self::$_locales[$key];
-
-		ini_set('intl.default_locale', self::$_fallback->getCode());
-	}
-
-	/**
-	 * Return the fallback locale bundle.
+	 * Return the fallback locale.
 	 *
 	 * @return \Titon\G11n\Locale
 	 * @static
@@ -224,7 +204,7 @@ class G11n {
 	}
 
 	/**
-	 * Returns the setup locales bundles.
+	 * Returns a list of supported locales.
 	 *
 	 * @return \Titon\G11n\Locale[]
 	 * @static
@@ -301,13 +281,23 @@ class G11n {
 	}
 
 	/**
-	 * Return an array of setup locale keys.
+	 * Define the fallback locale to use if none can be found or is not supported.
 	 *
-	 * @return array
+	 * @param string $key
+	 * @return void
+	 * @throws \Titon\G11n\Exception
 	 * @static
 	 */
-	public static function listing() {
-		return array_keys(self::$_locales);
+	public static function setFallback($key) {
+		$key = self::canonicalize($key);
+
+		if (!isset(self::$_locales[$key])) {
+			throw new Exception(sprintf('Locale %s has not been setup', $key));
+		}
+
+		self::$_fallback = self::$_locales[$key];
+
+		ini_set('intl.default_locale', self::$_fallback->getCode());
 	}
 
 	/**

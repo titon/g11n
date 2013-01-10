@@ -25,7 +25,7 @@ class G11nTest extends \PHPUnit_Framework_TestCase {
 			G11n::addLocale(new Locale($code));
 		}
 
-		G11n::fallbackAs('ex');
+		G11n::setFallback('ex');
 		G11n::setTranslator(new MessageTranslator());
 	}
 
@@ -153,17 +153,17 @@ class G11nTest extends \PHPUnit_Framework_TestCase {
 	 * Test that setting fallbacks work.
 	 */
 	public function testFallback() {
-		G11n::fallbackAs('ex-va');
+		G11n::setFallback('ex-va');
 		$this->assertEquals('ex_VA', G11n::getFallback()->getCode());
 
-		G11n::fallbackAs('ex-IN');
+		G11n::setFallback('ex-IN');
 		$this->assertEquals('ex_IN', G11n::getFallback()->getCode());
 
-		G11n::fallbackAs('ex_FM');
+		G11n::setFallback('ex_FM');
 		$this->assertEquals('ex_FM', G11n::getFallback()->getCode());
 
 		try {
-			G11n::fallbackAs('fakeKey');
+			G11n::setFallback('fakeKey');
 			$this->assertTrue(false);
 
 		} catch (Exception $e) {

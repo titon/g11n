@@ -32,7 +32,7 @@ G11n::setTranslator(new MessageTranslator())
 	->setStorage(new MemcacheStorage());
 
 // Set fallback
-G11n::fallbackAs('en');
+G11n::setFallback('en');
 ```
 
 After all configuration and bootstrapping has occurred, initialize the application.

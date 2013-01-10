@@ -56,9 +56,7 @@ class Locale extends Base {
 	 * @param array $config
 	 */
 	public function __construct($code, array $config = []) {
-		$config['initialize'] = false;
-
-		parent::__construct($config);
+		parent::__construct(['initialize' => false] + $config);
 
 		$this->_code = $code;
 	}
@@ -69,24 +67,24 @@ class Locale extends Base {
 	 * @return \Titon\G11n\Locale
 	 */
 	public function initialize() {
-		$locale = new LocaleBundle();
-		$message = new MessageBundle();
+		$localeBundle = new LocaleBundle();
+		$messageBundle = new MessageBundle();
 		$code = $this->getCode();
 
 		if ($locations = Config::get('Resource.paths')) {
 			foreach ((array) $locations as $location) {
-				$locale->addLocation(sprintf('%s/locales/%s', $location, $code));
+				$localeBundle->addLocation(sprintf('%s/locales/%s', $location, $code));
 
-				$message->addLocation(sprintf('%s/messages/%s', $location, $code));
-				$message->addLocation(sprintf('%s/messages/%s/LC_MESSAGES', $location, $code));
+				$messageBundle->addLocation(sprintf('%s/messages/%s', $location, $code));
+				$messageBundle->addLocation(sprintf('%s/messages/%s/LC_MESSAGES', $location, $code)); // gettext
 			}
 		}
 
-		$this->_localeBundle = $locale;
-		$this->_messageBundle = $message;
+		$this->_localeBundle = $localeBundle;
+		$this->_messageBundle = $messageBundle;
 
 		// Gather locale configuration
-		if ($data = $locale->loadResource('locale')) {
+		if ($data = $localeBundle->loadResource('locale')) {
 			$data = \Locale::parseLocale($data['code']) + $data;
 
 			$config = $this->config->get();

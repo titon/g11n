@@ -22,7 +22,7 @@ If a module contains resources, the module name should prepend the resources fol
 For the most part, module resources should only contain configuration and message strings.
 
 ```
-module/
+ForumModule/
 	resources/
 		configs/
 		messages/

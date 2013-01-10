@@ -11,7 +11,7 @@ use Titon\Io\Reader;
 use Titon\Cache\Storage;
 
 /**
- * Interface for G11N string translators.
+ * Interface for g11n string translators.
  */
 interface Translator {
 
