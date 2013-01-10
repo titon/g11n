@@ -18,7 +18,6 @@ class Validate extends \Titon\Utility\Validate {
 	/**
 	 * Validate input matches a currency format.
 	 *
-	 * @access public
 	 * @param string $input
 	 * @param string $format
 	 * @return boolean
@@ -31,7 +30,6 @@ class Validate extends \Titon\Utility\Validate {
 	/**
 	 * Get a validation rule from G11n, else use the fallback.
 	 *
-	 * @access public
 	 * @param string $key
 	 * @param string $fallback
 	 * @return string
@@ -51,7 +49,6 @@ class Validate extends \Titon\Utility\Validate {
 	/**
 	 * Validate input matches a phone number format.
 	 *
-	 * @access public
 	 * @param string $input
 	 * @param string $format
 	 * @return boolean
@@ -64,7 +61,6 @@ class Validate extends \Titon\Utility\Validate {
 	/**
 	 * Validate input matches a postal/zip code format.
 	 *
-	 * @access public
 	 * @param string $input
 	 * @param string $format
 	 * @return boolean
@@ -77,7 +73,6 @@ class Validate extends \Titon\Utility\Validate {
 	/**
 	 * Validate input matches a social security number (SSN) format.
 	 *
-	 * @access public
 	 * @param string $input
 	 * @param string $format
 	 * @return boolean

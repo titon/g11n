@@ -42,7 +42,6 @@ class G11n {
 	/**
 	 * Currently active locale bundle based on the client.
 	 *
-	 * @access protected
 	 * @var \Titon\G11n\Locale
 	 * @static
 	 */
@@ -51,7 +50,6 @@ class G11n {
 	/**
 	 * Fallback locale key if none can be found.
 	 *
-	 * @access protected
 	 * @var \Titon\G11n\Locale
 	 * @static
 	 */
@@ -60,7 +58,6 @@ class G11n {
 	/**
 	 * Loaded locale bundles.
 	 *
-	 * @access protected
 	 * @var \Titon\G11n\Locale[]
 	 * @static
 	 */
@@ -69,7 +66,6 @@ class G11n {
 	/**
 	 * Translator used for string fetching and parsing.
 	 *
-	 * @access protected
 	 * @var \Titon\G11n\Translator
 	 * @static
 	 */
@@ -79,7 +75,6 @@ class G11n {
 	 * Sets up the application with the defined locale key; the key will be formatted to a lowercase dashed URL friendly format.
 	 * The system will then attempt to load the locale resource bundle and finalize configuration settings.
 	 *
-	 * @access public
 	 * @param \Titon\G11n\Locale $locale
 	 * @return \Titon\G11n\Locale
 	 * @static
@@ -113,7 +108,6 @@ class G11n {
 	/**
 	 * Convert a locale key to 3 possible formats.
 	 *
-	 * @access public
 	 * @param string $key
 	 * @param int $format
 	 * @return string
@@ -148,7 +142,6 @@ class G11n {
 	/**
 	 * Get a list of locales and fallback locales in descending order starting from the current locale.
 	 *
-	 * @access public
 	 * @return array
 	 * @static
 	 */
@@ -171,7 +164,6 @@ class G11n {
 	/**
 	 * Takes an array of key-values and returns a correctly ordered and delimited locale ID.
 	 *
-	 * @access public
 	 * @param array $tags
 	 * @return string
 	 * @static
@@ -183,7 +175,6 @@ class G11n {
 	/**
 	 * Return the current locale config, or a certain value.
 	 *
-	 * @access public
 	 * @return \Titon\G11n\Locale
 	 * @static
 	 */
@@ -194,7 +185,6 @@ class G11n {
 	/**
 	 * Parses a locale string and returns an array of key-value locale tags.
 	 *
-	 * @access public
 	 * @param string $locale
 	 * @return string
 	 * @static
@@ -206,7 +196,6 @@ class G11n {
 	/**
 	 * Define the fallback language if none can be found or is not supported.
 	 *
-	 * @access public
 	 * @param string $key
 	 * @return void
 	 * @throws \Titon\G11n\Exception
@@ -227,7 +216,6 @@ class G11n {
 	/**
 	 * Return the fallback locale bundle.
 	 *
-	 * @access public
 	 * @return \Titon\G11n\Locale
 	 * @static
 	 */
@@ -238,7 +226,6 @@ class G11n {
 	/**
 	 * Returns the setup locales bundles.
 	 *
-	 * @access public
 	 * @return \Titon\G11n\Locale[]
 	 * @static
 	 */
@@ -249,7 +236,6 @@ class G11n {
 	/**
 	 * Detect which locale to use based on the clients Accept-Language header.
 	 *
-	 * @access public
 	 * @return void
 	 * @throws \Titon\G11n\Exception
 	 * @static
@@ -294,7 +280,6 @@ class G11n {
 	/**
 	 * Does the current locale matched the passed key?
 	 *
-	 * @access public
 	 * @param string $key
 	 * @return boolean
 	 * @static
@@ -308,7 +293,6 @@ class G11n {
 	/**
 	 * G11n will be enabled if more than 1 locale has been setup.
 	 *
-	 * @access public
 	 * @return boolean
 	 * @static
 	 */
@@ -319,7 +303,6 @@ class G11n {
 	/**
 	 * Return an array of setup locale keys.
 	 *
-	 * @access public
 	 * @return array
 	 * @static
 	 */
@@ -330,7 +313,6 @@ class G11n {
 	/**
 	 * Sets the translator to use in the string locating and translating process.
 	 *
-	 * @access public
 	 * @param \Titon\G11n\Translator $translator
 	 * @return \Titon\G11n\Translator
 	 * @static
@@ -345,7 +327,6 @@ class G11n {
 	 * Return a translated string using the translator.
 	 * If a storage engine is present, read and write from the cache.
 	 *
-	 * @access public
 	 * @param string $key
 	 * @param array $params
 	 * @return string
@@ -360,7 +341,6 @@ class G11n {
 	 * @link http://php.net/setlocale
 	 * @link http://php.net/manual/locale.setdefault.php
 	 *
-	 * @access public
 	 * @param string $key
 	 * @return \Titon\G11n\Locale
 	 * @throws \Titon\G11n\Exception

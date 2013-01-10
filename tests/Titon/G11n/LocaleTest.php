@@ -20,7 +20,6 @@ class LocaleTest extends TestCase {
 	/**
 	 * Parent instance.
 	 *
-	 * @access public
 	 * @var \Titon\G11n\Locale
 	 */
 	public $parent;
@@ -28,7 +27,6 @@ class LocaleTest extends TestCase {
 	/**
 	 * Formats instance.
 	 *
-	 * @access public
 	 * @var \Titon\G11n\Locale
 	 */
 	public $formats;
@@ -36,7 +34,6 @@ class LocaleTest extends TestCase {
 	/**
 	 * Inflections instance.
 	 *
-	 * @access public
 	 * @var \Titon\G11n\Locale
 	 */
 	public $inflections;
@@ -44,7 +41,6 @@ class LocaleTest extends TestCase {
 	/**
 	 * Validations instance.
 	 *
-	 * @access public
 	 * @var \Titon\G11n\Locale
 	 */
 	public $validations;

@@ -24,7 +24,6 @@ class Locale extends Base {
 	/**
 	 * Locale country code.
 	 *
-	 * @access protected
 	 * @var string
 	 */
 	protected $_code;
@@ -32,7 +31,6 @@ class Locale extends Base {
 	/**
 	 * Locale resource bundle.
 	 *
-	 * @access protected
 	 * @var \Titon\G11n\Bundle\LocaleBundle
 	 */
 	protected $_localeBundle;
@@ -40,7 +38,6 @@ class Locale extends Base {
 	/**
 	 * Message resource bundle.
 	 *
-	 * @access protected
 	 * @var \Titon\G11n\Bundle\MessageBundle
 	 */
 	protected $_messageBundle;
@@ -48,7 +45,6 @@ class Locale extends Base {
 	/**
 	 * Parent locale.
 	 *
-	 * @access protected
 	 * @var \Titon\G11n\Locale
 	 */
 	protected $_parent;
@@ -56,7 +52,6 @@ class Locale extends Base {
 	/**
 	 * Set code and config.
 	 *
-	 * @access public
 	 * @param string $code
 	 * @param array $config
 	 */
@@ -71,7 +66,6 @@ class Locale extends Base {
 	/**
 	 * Instantiate the locale and message bundles using the resource locations.
 	 *
-	 * @access public
 	 * @return \Titon\G11n\Locale
 	 */
 	public function initialize() {
@@ -110,7 +104,6 @@ class Locale extends Base {
 	/**
 	 * Return the locale code.
 	 *
-	 * @access public
 	 * @return string
 	 */
 	public function getCode() {
@@ -120,7 +113,6 @@ class Locale extends Base {
 	/**
 	 * Return the format patterns from the locale bundle.
 	 *
-	 * @access public
 	 * @param string $key
 	 * @return string|array
 	 */
@@ -131,7 +123,6 @@ class Locale extends Base {
 	/**
 	 * Return the inflection rules from the locale bundle.
 	 *
-	 * @access public
 	 * @param string $key
 	 * @return string|array
 	 */
@@ -142,7 +133,6 @@ class Locale extends Base {
 	/**
 	 * Return the validation rules from the locale bundle.
 	 *
-	 * @access public
 	 * @param string $key
 	 * @return string|array
 	 */
@@ -153,7 +143,6 @@ class Locale extends Base {
 	/**
 	 * Return the parent locale if it exists.
 	 *
-	 * @access public
 	 * @return \Titon\G11n\Locale
 	 */
 	public function getParentLocale() {
@@ -179,7 +168,6 @@ class Locale extends Base {
 	/**
 	 * Return the locale bundle.
 	 *
-	 * @access public
 	 * @return \Titon\G11n\Bundle\LocaleBundle
 	 */
 	public function getLocaleBundle() {
@@ -189,7 +177,6 @@ class Locale extends Base {
 	/**
 	 * Return the message bundle.
 	 *
-	 * @access public
 	 * @return \Titon\G11n\Bundle\MessageBundle
 	 */
 	public function getMessageBundle() {
@@ -199,7 +186,6 @@ class Locale extends Base {
 	/**
 	 * Load a resource from the locale bundle and merge with the parent if possible.
 	 *
-	 * @access protected
 	 * @param string $resource
 	 * @return array
 	 */

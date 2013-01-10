@@ -17,7 +17,6 @@ class Inflector extends \Titon\Utility\Inflector {
 	/**
 	 * Inflect a number by appending its ordinal suffix: st, nd, rd, th, etc.
 	 *
-	 * @access public
 	 * @param int $number
 	 * @return string
 	 * @static
@@ -63,7 +62,6 @@ class Inflector extends \Titon\Utility\Inflector {
 	/**
 	 * Inflect a form to its pluralized form. Applies special rules to determine uninflected, irregular or regular forms.
 	 *
-	 * @access public
 	 * @param string $string
 	 * @return string
 	 * @static
@@ -110,7 +108,6 @@ class Inflector extends \Titon\Utility\Inflector {
 	/**
 	 * Inflect a form to its singular form. Applies special rules to determine uninflected, irregular or regular forms.
 	 *
-	 * @access public
 	 * @param string $string
 	 * @return string
 	 * @static
@@ -157,7 +154,6 @@ class Inflector extends \Titon\Utility\Inflector {
 	/**
 	 * Inflect a word by replacing all non-ASCII characters with there equivalents.
 	 *
-	 * @access public
 	 * @param string $string
 	 * @return string
 	 * @static

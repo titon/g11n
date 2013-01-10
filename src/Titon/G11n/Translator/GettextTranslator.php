@@ -22,7 +22,6 @@ class GettextTranslator extends AbstractTranslator {
 	/**
 	 * Bind domain locations if they have not been setup.
 	 *
-	 * @access public
 	 * @param string $module
 	 * @param string $catalog
 	 * @return boolean
@@ -42,7 +41,6 @@ class GettextTranslator extends AbstractTranslator {
 	/**
 	 * Get the message from the bound domain.
 	 *
-	 * @access public
 	 * @param string $key
 	 * @return string
 	 * @throws \Titon\G11n\Exception

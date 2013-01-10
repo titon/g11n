@@ -26,7 +26,6 @@ abstract class AbstractTranslator extends Base implements Translator {
 	/**
 	 * File reader used for parsing.
 	 *
-	 * @access protected
 	 * @var \Titon\Io\Reader
 	 */
 	protected $_reader;
@@ -34,7 +33,6 @@ abstract class AbstractTranslator extends Base implements Translator {
 	/**
 	 * Storage engine for caching.
 	 *
-	 * @access protected
 	 * @var \Titon\Cache\Storage
 	 */
 	protected $_storage;
@@ -42,7 +40,6 @@ abstract class AbstractTranslator extends Base implements Translator {
 	/**
 	 * Parse out the module, catalog and key for string lookup.
 	 *
-	 * @access public
 	 * @param string $key
 	 * @return array
 	 * @throws \Titon\G11n\Exception
@@ -75,7 +72,6 @@ abstract class AbstractTranslator extends Base implements Translator {
 	/**
 	 * Set the file reader to use for resource parsing.
 	 *
-	 * @access public
 	 * @param \Titon\Io\Reader $reader
 	 * @return \Titon\G11n\Translator
 	 */
@@ -88,7 +84,6 @@ abstract class AbstractTranslator extends Base implements Translator {
 	/**
 	 * Set the storage engine to use for catalog caching.
 	 *
-	 * @access public
 	 * @param \Titon\Cache\Storage $storage
 	 * @return \Titon\G11n\Translator
 	 */
@@ -102,7 +97,6 @@ abstract class AbstractTranslator extends Base implements Translator {
 	/**
 	 * Process the located string with dynamic parameters if necessary.
 	 *
-	 * @access public
 	 * @param string $key
 	 * @param array $params
 	 * @return string

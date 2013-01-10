@@ -18,7 +18,6 @@ class Number extends \Titon\Utility\Number {
 	 * Convert a number to it's currency equivalent, respecting locale.
 	 * Allow for overrides through an options array.
 	 *
-	 * @access public
 	 * @param int $number
 	 * @param array $options
 	 * @return string
@@ -39,7 +38,6 @@ class Number extends \Titon\Utility\Number {
 	/**
 	 * Convert a number to a percentage string with decimal and comma separations.
 	 *
-	 * @access public
 	 * @param int $number
 	 * @param int|array $options
 	 * @return string

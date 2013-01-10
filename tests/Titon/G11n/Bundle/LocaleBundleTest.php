@@ -18,7 +18,6 @@ class LocaleBundleTest extends TestCase {
 	/**
 	 * Parent instance.
 	 *
-	 * @access public
 	 * @var \Titon\G11n\Bundle\LocaleBundle
 	 */
 	public $object;

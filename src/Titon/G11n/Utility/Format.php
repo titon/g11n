@@ -18,7 +18,6 @@ class Format extends \Titon\Utility\Format {
 	/**
 	 * Format a date string.
 	 *
-	 * @access public
 	 * @param string|int $time
 	 * @param string $format
 	 * @return string
@@ -31,7 +30,6 @@ class Format extends \Titon\Utility\Format {
 	/**
 	 * Format a datetime string.
 	 *
-	 * @access public
 	 * @param string|int $time
 	 * @param string $format
 	 * @return string
@@ -44,7 +42,6 @@ class Format extends \Titon\Utility\Format {
 	/**
 	 * Get a formatting rule from G11n, else use the fallback.
 	 *
-	 * @access public
 	 * @param string $key
 	 * @param string $fallback
 	 * @return string
@@ -65,7 +62,6 @@ class Format extends \Titon\Utility\Format {
 	 * Format a phone number. A phone number can support multiple variations,
 	 * depending on how many numbers are present.
 	 *
-	 * @access public
 	 * @param int $value
 	 * @param string $format
 	 * @return string
@@ -78,7 +74,6 @@ class Format extends \Titon\Utility\Format {
 	/**
 	 * Format a social security number.
 	 *
-	 * @access public
 	 * @param string|int $value
 	 * @param string $format
 	 * @return string
@@ -91,7 +86,6 @@ class Format extends \Titon\Utility\Format {
 	/**
 	 * Format a time string.
 	 *
-	 * @access public
 	 * @param string|int $time
 	 * @param string $format
 	 * @return string

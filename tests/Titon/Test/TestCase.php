@@ -15,7 +15,6 @@ class TestCase extends \PHPUnit_Framework_TestCase {
 	/**
 	 * Assert that two array values are equal, disregarding the order.
 	 *
-	 * @access public
 	 * @param array $expected
 	 * @param array $actual
 	 * @return void

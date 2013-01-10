@@ -19,7 +19,6 @@ interface Translator {
 	 * Locate the key within the catalog. If the catalog has not been loaded,
 	 * load it and cache the collection of strings.
 	 *
-	 * @access public
 	 * @param string $key
 	 * @return string
 	 */
@@ -28,7 +27,6 @@ interface Translator {
 	/**
 	 * Parse out the module, catalog and key for string lookup.
 	 *
-	 * @access public
 	 * @param string $key
 	 * @return string
 	 */
@@ -37,7 +35,6 @@ interface Translator {
 	/**
 	 * Set the file reader to use for resource parsing.
 	 *
-	 * @access public
 	 * @param \Titon\Io\Reader $reader
 	 * @return \Titon\G11n\Translator
 	 */
@@ -46,7 +43,6 @@ interface Translator {
 	/**
 	 * Set the storage engine to use for catalog caching.
 	 *
-	 * @access public
 	 * @param \Titon\Cache\Storage $storage
 	 * @return \Titon\G11n\Translator
 	 */
@@ -55,7 +51,6 @@ interface Translator {
 	/**
 	 * Process the located string with dynamic parameters if necessary.
 	 *
-	 * @access public
 	 * @param string $key
 	 * @param array $params
 	 * @return string

@@ -20,7 +20,6 @@ class MessageTranslator extends AbstractTranslator {
 	 * Locate the key within the catalog. If the catalog has not been loaded,
 	 * load it and cache the collection of strings.
 	 *
-	 * @access public
 	 * @param string $key
 	 * @return string
 	 * @throws \Titon\G11n\Exception
