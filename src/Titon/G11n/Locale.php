@@ -87,10 +87,10 @@ class Locale extends Base {
 		if ($data = $localeBundle->loadResource('locale')) {
 			$data = \Locale::parseLocale($data['code']) + $data;
 
-			$config = $this->config->get();
+			$config = $this->config->all();
 			unset($config['code'], $config['initialize']);
 
-			$this->config->set($config + $data);
+			$this->config->add($config + $data);
 		}
 
 		// Force parent config to merge
@@ -156,7 +156,7 @@ class Locale extends Base {
 		$parent->initialize();
 
 		// Merge parent config
-		$this->config->set($this->config->get() + $parent->config->get());
+		$this->config->add($this->config->all() + $parent->config->all());
 
 		$this->_parent = $parent;
 

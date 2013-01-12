@@ -67,10 +67,10 @@ class LocaleTest extends TestCase {
 	 * If the bundle has a parent, also test that the values between the two are merged correctly.
 	 */
 	public function testGetLocale() {
-		$parent = $this->parent->config->get();
-		$formats = $this->formats->config->get();
-		$inflections = $this->inflections->config->get();
-		$validations = $this->validations->config->get();
+		$parent = $this->parent->config->all();
+		$formats = $this->formats->config->all();
+		$inflections = $this->inflections->config->all();
+		$validations = $this->validations->config->all();
 
 		// Parent
 		$this->assertTrue(is_array($parent));

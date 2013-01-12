@@ -352,7 +352,7 @@ class G11n {
 		}
 
 		foreach ($locales as $loc) {
-			$config = $loc->config->get();
+			$config = $loc->config->all();
 
 			$options[] = $config['code'] . '.UTF8';
 			$options[] = $config['code'] . '.UTF-8';

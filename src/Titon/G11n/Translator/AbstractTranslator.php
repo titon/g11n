@@ -89,7 +89,6 @@ abstract class AbstractTranslator extends Base implements Translator {
 	 */
 	public function setStorage(Storage $storage) {
 		$this->_storage = $storage;
-		$this->_storage->config->storage = 'g11n';
 
 		return $this;
 	}
