@@ -21,7 +21,7 @@
 		"titon/cache": "*"
 	},
 	"suggest": {
-		"titon/cache": "Cache the message bundles using a Storage engine"
+		"titon/cache": "Use a Storage engine to cache message bundles"
 	},
 	"autoload": {
 		"psr-0": { "Titon\\G11n": "src/" },

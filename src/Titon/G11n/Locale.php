@@ -62,7 +62,7 @@ class Locale extends Base {
 	}
 
 	/**
-	 * Instantiate the locale and message bundles using the resource locations.
+	 * Instantiate the locale and message bundles using the resource paths.
 	 *
 	 * @return \Titon\G11n\Locale
 	 */
@@ -71,12 +71,12 @@ class Locale extends Base {
 		$messageBundle = new MessageBundle();
 		$code = $this->getCode();
 
-		if ($locations = Config::get('Resource.paths')) {
-			foreach ((array) $locations as $location) {
-				$localeBundle->addLocation(sprintf('%s/locales/%s', $location, $code));
+		if ($paths = Config::get('Resource.paths')) {
+			foreach ((array) $paths as $path) {
+				$localeBundle->addPath(sprintf('%s/locales/%s', $path, $code));
 
-				$messageBundle->addLocation(sprintf('%s/messages/%s', $location, $code));
-				$messageBundle->addLocation(sprintf('%s/messages/%s/LC_MESSAGES', $location, $code)); // gettext
+				$messageBundle->addPath(sprintf('%s/messages/%s', $path, $code));
+				$messageBundle->addPath(sprintf('%s/messages/%s/LC_MESSAGES', $path, $code)); // gettext
 			}
 		}
 

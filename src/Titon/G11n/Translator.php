@@ -25,6 +25,20 @@ interface Translator {
 	public function getMessage($key);
 
 	/**
+	 * Return the file reader.
+	 *
+	 * @return \Titon\Io\Reader
+	 */
+	public function getReader();
+
+	/**
+	 * Return the cache storage engine.
+	 *
+	 * @return \Titon\Cache\Storage
+	 */
+	public function getStorage();
+
+	/**
 	 * Parse out the module, catalog and key for string lookup.
 	 *
 	 * @param string $key

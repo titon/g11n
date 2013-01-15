@@ -39,21 +39,21 @@ class MessageTranslator extends AbstractTranslator {
 			$messages = [];
 
 			// Check within the cache first
-			if ($this->_storage) {
-				$messages = $this->_storage->get($cacheKey);
+			if ($storage = $this->getStorage()) {
+				$messages = $storage->get($cacheKey);
 			}
 
 			// Else check within the bundle
 			if (!$messages) {
 				$bundle = clone $locales[$locale]->getMessageBundle();
-				$bundle->addReader($this->_reader);
+				$bundle->addReader($this->getReader());
 				$bundle->config->set('module', $module);
 
 				if ($data = $bundle->loadResource($catalog)) {
 					$messages = $data;
 
-					if ($this->_storage) {
-						$this->_storage->set($cacheKey, $messages);
+					if ($storage = $this->getStorage()) {
+						$storage->set($cacheKey, $messages);
 					}
 
 				// If the catalog doesn't exist, try the next locale
@@ -68,7 +68,7 @@ class MessageTranslator extends AbstractTranslator {
 			}
 		}
 
-		throw new Exception(sprintf('Message key %s does not exist in %s', $key, implode(', ', $locales)));
+		throw new Exception(sprintf('Message key %s does not exist in %s', $key, implode(', ', array_keys($locales))));
 	}
 
 }

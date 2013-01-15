@@ -214,6 +214,15 @@ class G11n {
 	}
 
 	/**
+	 * Return the translator.
+	 *
+	 * @return \Titon\G11n\Translator
+	 */
+	public static function getTranslator() {
+		return self::$_translator;
+	}
+
+	/**
 	 * Detect which locale to use based on the clients Accept-Language header.
 	 *
 	 * @return void
@@ -322,7 +331,7 @@ class G11n {
 	 * @return string
 	 */
 	public static function translate($key, array $params = []) {
-		return self::$_translator->translate($key, $params);
+		return self::getTranslator()->translate($key, $params);
 	}
 
 	/**

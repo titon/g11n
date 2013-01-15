@@ -11,7 +11,6 @@ use Titon\Common\Base;
 use Titon\Common\Traits\Cacheable;
 use Titon\Cache\Storage;
 use Titon\Io\Reader;
-use Titon\G11n\G11n;
 use Titon\G11n\Translator;
 use Titon\G11n\Exception;
 use \MessageFormatter;
@@ -38,6 +37,24 @@ abstract class AbstractTranslator extends Base implements Translator {
 	protected $_storage;
 
 	/**
+	 * Return the file reader.
+	 *
+	 * @return \Titon\Io\Reader
+	 */
+	public function getReader() {
+		return $this->_reader;
+	}
+
+	/**
+	 * Return the cache storage engine.
+	 *
+	 * @return \Titon\Cache\Storage
+	 */
+	public function getStorage() {
+		return $this->_storage;
+	}
+
+	/**
 	 * Parse out the module, catalog and key for string lookup.
 	 *
 	 * @param string $key
@@ -50,7 +67,6 @@ abstract class AbstractTranslator extends Base implements Translator {
 			$parts = explode('.', preg_replace('/[^-a-z0-9\.]+/i', '', $key));
 			$count = count($parts);
 			$module = 'common';
-			$catalog = 'default';
 
 			if ($count < 2) {
 				throw new Exception(sprintf('No module or catalog present for %s key', $key));
