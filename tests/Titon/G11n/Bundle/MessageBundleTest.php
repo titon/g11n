@@ -24,7 +24,7 @@ class MessageBundleTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testPhpBundles() {
 		$bundle = new MessageBundle(['bundle' => 'ex']);
-		$bundle->addReader(new PhpReader())->addLocation(TEMP_DIR . '/messages/{bundle}/');
+		$bundle->addReader(new PhpReader())->addPath(TEMP_DIR . '/messages/{bundle}/');
 
 		$messages = $bundle->loadResource('default');
 
@@ -48,7 +48,7 @@ class MessageBundleTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testIniBundles() {
 		$bundle = new MessageBundle(['bundle' => 'ex']);
-		$bundle->addReader(new IniReader())->addLocation(TEMP_DIR . '/messages/{bundle}/');
+		$bundle->addReader(new IniReader())->addPath(TEMP_DIR . '/messages/{bundle}/');
 
 		$messages = $bundle->loadResource('default');
 
@@ -72,7 +72,7 @@ class MessageBundleTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testJsonBundles() {
 		$bundle = new MessageBundle(['bundle' => 'ex']);
-		$bundle->addReader(new JsonReader())->addLocation(TEMP_DIR . '/messages/{bundle}/');
+		$bundle->addReader(new JsonReader())->addPath(TEMP_DIR . '/messages/{bundle}/');
 
 		$messages = $bundle->loadResource('default');
 
@@ -96,7 +96,7 @@ class MessageBundleTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testXmlBundles() {
 		$bundle = new MessageBundle(['bundle' => 'ex']);
-		$bundle->addReader(new XmlReader())->addLocation(TEMP_DIR . '/messages/{bundle}/');
+		$bundle->addReader(new XmlReader())->addPath(TEMP_DIR . '/messages/{bundle}/');
 
 		$messages = $bundle->loadResource('default');
 
@@ -120,7 +120,7 @@ class MessageBundleTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testPoBundles() {
 		$bundle = new MessageBundle(['bundle' => 'ex']);
-		$bundle->addReader(new PoReader())->addLocation(TEMP_DIR . '/messages/{bundle}/LC_MESSAGES/');
+		$bundle->addReader(new PoReader())->addPath(TEMP_DIR . '/messages/{bundle}/LC_MESSAGES/');
 
 		$messages = $bundle->loadResource('default');
 

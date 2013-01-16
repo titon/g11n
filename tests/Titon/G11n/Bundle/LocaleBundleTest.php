@@ -27,7 +27,7 @@ class LocaleBundleTest extends TestCase {
 	 */
 	public function setUp() {
 		$this->object = new LocaleBundle(['locale' => 'ex']);
-		$this->object->addLocation(TEMP_DIR . '/locales/{locale}/');
+		$this->object->addPath(TEMP_DIR . '/locales/{locale}/');
 	}
 
 	/**
