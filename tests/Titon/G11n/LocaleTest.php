@@ -49,6 +49,8 @@ class LocaleTest extends TestCase {
 	 * Setup bundles for specific conditions.
 	 */
 	protected function setUp() {
+		parent::setUp();
+
 		$this->parent = new Locale('ex');
 		$this->parent->initialize();
 

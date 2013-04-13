@@ -10,16 +10,19 @@ namespace Titon\G11n\Utility;
 use Titon\G11n\G11n;
 use Titon\G11n\Locale;
 use Titon\G11n\Utility\Number;
+use Titon\Test\TestCase;
 
 /**
  * Test class for Titon\G11n\Utility\Number.
  */
-class NumberTest extends \PHPUnit_Framework_TestCase {
+class NumberTest extends TestCase {
 
 	/**
 	 * This method is called before a test is executed.
 	 */
 	protected function setUp() {
+		parent::setUp();
+
 		G11n::addLocale(new Locale('en'));
 		G11n::useLocale('en');
 	}

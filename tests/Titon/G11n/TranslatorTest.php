@@ -7,13 +7,14 @@
 
 namespace Titon\G11n;
 
+use Titon\Test\TestCase;
 use Titon\Test\Fixture\TranslatorFixture;
 use \Exception;
 
 /**
  * Test class for Titon\G11n\Translator.
  */
-class TranslatorTest extends \PHPUnit_Framework_TestCase {
+class TranslatorTest extends TestCase {
 
 	/**
 	 * Test that parsing a translation key returns the correct module, catalog and id.

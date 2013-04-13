@@ -12,20 +12,17 @@ use Titon\Test\TestCase;
 
 /**
  * Test class for Titon\G11n\Bundle\LocaleBundle.
+ *
+ * @property \Titon\G11n\Bundle\LocaleBundle $object
  */
 class LocaleBundleTest extends TestCase {
 
 	/**
-	 * Parent instance.
-	 *
-	 * @var \Titon\G11n\Bundle\LocaleBundle
-	 */
-	public $object;
-
-	/**
 	 * Setup bundles for specific conditions.
 	 */
-	public function setUp() {
+	protected function setUp() {
+		parent::setUp();
+
 		$this->object = new LocaleBundle(['locale' => 'ex']);
 		$this->object->addPath(TEMP_DIR . '/locales/{locale}/');
 	}

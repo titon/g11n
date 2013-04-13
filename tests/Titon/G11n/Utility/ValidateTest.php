@@ -10,17 +10,20 @@ namespace Titon\G11n\Utility;
 use Titon\G11n\G11n;
 use Titon\G11n\Locale;
 use Titon\G11n\Utility\Validate;
+use Titon\Test\TestCase;
 use \Exception;
 
 /**
  * Test class for Titon\G11n\Utility\Validate.
  */
-class ValidateTest extends \PHPUnit_Framework_TestCase {
+class ValidateTest extends TestCase {
 
 	/**
 	 * This method is called before a test is executed.
 	 */
 	protected function setUp() {
+		parent::setUp();
+
 		G11n::addLocale(new Locale('en'));
 		G11n::useLocale('en');
 	}

@@ -13,11 +13,12 @@ use Titon\Io\Reader\IniReader;
 use Titon\Io\Reader\JsonReader;
 use Titon\Io\Reader\XmlReader;
 use Titon\Io\Reader\PoReader;
+use Titon\Test\TestCase;
 
 /**
  * Test class for Titon\G11n\Bundle\MessageBundle.
  */
-class MessageBundleTest extends \PHPUnit_Framework_TestCase {
+class MessageBundleTest extends TestCase {
 
 	/**
 	 * Test that loading messages from php files work.

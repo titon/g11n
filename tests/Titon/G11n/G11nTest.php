@@ -10,17 +10,20 @@ namespace Titon\G11n;
 use Titon\G11n\G11n;
 use Titon\G11n\Locale;
 use Titon\G11n\Translator\MessageTranslator;
+use Titon\Test\TestCase;
 use \Exception;
 
 /**
  * Test class for Titon\G11n\G11n.
  */
-class G11nTest extends \PHPUnit_Framework_TestCase {
+class G11nTest extends TestCase {
 
 	/**
 	 * This method is called before a test is executed.
 	 */
 	protected function setUp() {
+		parent::setUp();
+
 		foreach (['ex_VA', 'ex_IN', 'ex_FM', 'no'] as $code) {
 			G11n::addLocale(new Locale($code));
 		}

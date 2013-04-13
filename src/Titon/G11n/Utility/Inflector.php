@@ -15,6 +15,15 @@ use Titon\G11n\G11n;
 class Inflector extends \Titon\Utility\Inflector {
 
 	/**
+	 * {@inheritdoc}
+	 */
+	public static function className($string) {
+		return self::_cache(array(__METHOD__, $string), function() use ($string) {
+			return Inflector::camelCase(Inflector::singularize($string));
+		});
+	}
+
+	/**
 	 * Inflect a number by appending its ordinal suffix: st, nd, rd, th, etc.
 	 *
 	 * @param int $number
@@ -148,6 +157,15 @@ class Inflector extends \Titon\Utility\Inflector {
 			}
 
 			return $result;
+		});
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public static function tableName($string) {
+		return self::_cache(array(__METHOD__, $string), function() use ($string) {
+			return lcfirst(Inflector::camelCase(Inflector::pluralize($string)));
 		});
 	}
 

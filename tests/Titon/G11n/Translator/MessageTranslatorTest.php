@@ -16,16 +16,19 @@ use Titon\Io\Reader\IniReader;
 use Titon\Io\Reader\XmlReader;
 use Titon\Io\Reader\JsonReader;
 use Titon\Io\Reader\PoReader;
+use Titon\Test\TestCase;
 
 /**
  * Test class for Titon\G11n\Translator\MessageTranslator.
  */
-class MessageTranslatorTest extends \PHPUnit_Framework_TestCase {
+class MessageTranslatorTest extends TestCase {
 
 	/**
 	 * This method is called before a test is executed.
 	 */
 	protected function setUp() {
+		parent::setUp();
+
 		$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'ex-no,ex;q=0.5';
 
 		foreach (['ex', 'en'] as $code) {
