@@ -7,6 +7,7 @@
 
 namespace Titon\G11n\Translator;
 
+use Titon\Common\Registry;
 use Titon\G11n\G11n;
 use Titon\G11n\Exception;
 use Titon\G11n\Translator\AbstractTranslator;
@@ -32,9 +33,10 @@ class MessageTranslator extends AbstractTranslator {
 		list($module, $catalog, $id) = $this->parseKey($key);
 
 		// Cycle through each locale till a message is found
-		$locales = G11n::getLocales();
+		$g11n = Registry::factory('Titon\G11n\G11n');
+		$locales = $g11n->getLocales();
 
-		foreach (G11n::cascade() as $locale) {
+		foreach ($g11n->cascade() as $locale) {
 			$cacheKey = sprintf('g11n.%s.%s.%s', $module, $catalog, $locale);
 			$messages = [];
 

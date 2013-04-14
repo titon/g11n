@@ -8,6 +8,7 @@
 namespace Titon\G11n\Translator;
 
 use Titon\Common\Config;
+use Titon\Common\Registry;
 use Titon\G11n\G11n;
 use Titon\G11n\Exception;
 use Titon\G11n\Translator\AbstractTranslator;
@@ -30,7 +31,9 @@ class GettextTranslator extends AbstractTranslator {
 		bind_textdomain_codeset($catalog, Config::encoding());
 
 		return $this->cache([__METHOD__, $module, $catalog], function() use ($module, $catalog) {
-			foreach (G11n::current()->getMessageBundle()->getLocations() as $location) {
+			$locations = Registry::factory('Titon\G11n\G11n')->current()->getMessageBundle()->getLocations();
+
+			foreach ($locations as $location) {
 				bindtextdomain($catalog, String::insert($location, ['module' => $module]));
 			}
 

@@ -7,6 +7,7 @@
 
 namespace Titon\G11n\Utility;
 
+use Titon\Common\Registry;
 use Titon\G11n\G11n;
 use Titon\G11n\Exception;
 
@@ -37,7 +38,7 @@ class Validate extends \Titon\Utility\Validate {
 	 * @static
 	 */
 	public static function get($key, $fallback = null) {
-		$pattern = G11n::current()->getValidationRules($key) ?: $fallback;
+		$pattern = Registry::factory('Titon\G11n\G11n')->current()->getValidationRules($key) ?: $fallback;
 
 		if (!$pattern) {
 			throw new Exception(sprintf('Validation rule %s does not exist', $key));

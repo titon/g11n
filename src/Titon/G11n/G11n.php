@@ -8,7 +8,7 @@
 namespace Titon\G11n;
 
 use Titon\Common\Registry;
-use Titon\Common\Traits\StaticCacheable;
+use Titon\Common\Traits\Cacheable;
 use Titon\G11n\Locale;
 use Titon\G11n\Translator;
 use Titon\G11n\Exception;
@@ -24,7 +24,7 @@ use Titon\G11n\Exception;
  * @link http://loc.gov/standards/iso639-2/php/code_list.php
  */
 class G11n {
-	use StaticCacheable;
+	use Cacheable;
 
 	/**
 	 * Possible formats for locale keys.
@@ -43,33 +43,29 @@ class G11n {
 	 * Currently active locale based on the client.
 	 *
 	 * @var \Titon\G11n\Locale
-	 * @static
 	 */
-	protected static $_current;
+	protected $_current;
 
 	/**
 	 * Fallback locale if none can be found.
 	 *
 	 * @var \Titon\G11n\Locale
-	 * @static
 	 */
-	protected static $_fallback;
+	protected $_fallback;
 
 	/**
 	 * Supported list of locales.
 	 *
 	 * @var \Titon\G11n\Locale[]
-	 * @static
 	 */
-	protected static $_locales = [];
+	protected $_locales = [];
 
 	/**
 	 * Translator used for string fetching and parsing.
 	 *
 	 * @var \Titon\G11n\Translator
-	 * @static
 	 */
-	protected static $_translator;
+	protected $_translator;
 
 	/**
 	 * Sets up the application with the defined locale key; the key will be formatted to a lowercase dashed URL friendly format.
@@ -77,29 +73,28 @@ class G11n {
 	 *
 	 * @param \Titon\G11n\Locale $locale
 	 * @return \Titon\G11n\Locale
-	 * @static
 	 */
-	public static function addLocale(Locale $locale) {
+	public function addLocale(Locale $locale) {
 		$key = self::canonicalize($locale->getCode());
 
-		if (isset(self::$_locales[$key])) {
-			return self::$_locales[$key];
+		if (isset($this->_locales[$key])) {
+			return $this->_locales[$key];
 		}
 
 		// Configure and initialize
 		$locale->initialize();
 
 		// Set the locale
-		self::$_locales[$key] = $locale;
+		$this->_locales[$key] = $locale;
 
 		// Set the parent as well
 		if ($parent = $locale->getParentLocale()) {
-			self::addLocale($parent);
+			$this->addLocale($parent);
 		}
 
 		// Set fallback if none defined
-		if (!self::$_fallback) {
-			self::setFallback($key);
+		if (!$this->_fallback) {
+			$this->setFallback($key);
 		}
 
 		return $locale;
@@ -114,29 +109,27 @@ class G11n {
 	 * @static
 	 */
 	public static function canonicalize($key, $format = self::FORMAT_1) {
-		return self::cache([__METHOD__, $key, $format], function() use ($key, $format) {
-			$parts = explode('-', str_replace('_', '-', mb_strtolower($key)));
-			$return = $parts[0];
+		$parts = explode('-', str_replace('_', '-', mb_strtolower($key)));
+		$return = $parts[0];
 
-			if (isset($parts[1])) {
-				switch ($format) {
-					case self::FORMAT_1:
-						$return .= '-' . $parts[1];
-					break;
-					case self::FORMAT_2:
-						$return .= '-' . mb_strtoupper($parts[1]);
-					break;
-					case self::FORMAT_3:
-						$return .= '_' . mb_strtoupper($parts[1]);
-					break;
-					case self::FORMAT_4:
-						$return .= mb_strtoupper($parts[1]);
-					break;
-				}
+		if (isset($parts[1])) {
+			switch ($format) {
+				case self::FORMAT_1:
+					$return .= '-' . $parts[1];
+				break;
+				case self::FORMAT_2:
+					$return .= '-' . mb_strtoupper($parts[1]);
+				break;
+				case self::FORMAT_3:
+					$return .= '_' . mb_strtoupper($parts[1]);
+				break;
+				case self::FORMAT_4:
+					$return .= mb_strtoupper($parts[1]);
+				break;
 			}
+		}
 
-			return $return;
-		});
+		return $return;
 	}
 
 	/**
@@ -145,11 +138,11 @@ class G11n {
 	 * @return array
 	 * @static
 	 */
-	public static function cascade() {
-		return self::cache(__METHOD__, function() {
+	public function cascade() {
+		return $this->cache(__METHOD__, function() {
 			$cycle = [];
 
-			foreach ([self::current(), self::getFallback()] as $locale) {
+			foreach ([$this->current(), $this->getFallback()] as $locale) {
 				while ($locale instanceof Locale) {
 					$cycle[] = $locale->getCode();
 
@@ -176,10 +169,9 @@ class G11n {
 	 * Return the current locale.
 	 *
 	 * @return \Titon\G11n\Locale
-	 * @static
 	 */
-	public static function current() {
-		return self::$_current;
+	public function current() {
+		return $this->_current;
 	}
 
 	/**
@@ -197,20 +189,18 @@ class G11n {
 	 * Return the fallback locale.
 	 *
 	 * @return \Titon\G11n\Locale
-	 * @static
 	 */
-	public static function getFallback() {
-		return self::$_fallback;
+	public function getFallback() {
+		return $this->_fallback;
 	}
 
 	/**
 	 * Returns a list of supported locales.
 	 *
 	 * @return \Titon\G11n\Locale[]
-	 * @static
 	 */
-	public static function getLocales() {
-		return self::$_locales;
+	public function getLocales() {
+		return $this->_locales;
 	}
 
 	/**
@@ -218,19 +208,17 @@ class G11n {
 	 *
 	 * @return \Titon\G11n\Translator
 	 */
-	public static function getTranslator() {
-		return self::$_translator;
+	public function getTranslator() {
+		return $this->_translator;
 	}
 
 	/**
 	 * Detect which locale to use based on the clients Accept-Language header.
 	 *
-	 * @return void
 	 * @throws \Titon\G11n\Exception
-	 * @static
 	 */
-	public static function initialize() {
-		if (!self::isEnabled()) {
+	public function initialize() {
+		if (!$this->isEnabled()) {
 			return;
 		}
 
@@ -245,7 +233,7 @@ class G11n {
 
 		if (count($header) > 0) {
 			foreach ($header as $key) {
-				if (isset(self::$_locales[$key])) {
+				if (isset($this->_locales[$key])) {
 					$current = $key;
 					break;
 				}
@@ -254,14 +242,14 @@ class G11n {
 
 		// Set current to the fallback if none found
 		if ($current === null) {
-			$current = self::$_fallback->getCode();
+			$current = $this->_fallback->getCode();
 		}
 
 		// Apply the locale
-		self::useLocale($current);
+		$this->useLocale($current);
 
 		// Check for a translator
-		if (!self::$_translator) {
+		if (!$this->_translator) {
 			throw new Exception('A translator is required for G11n message parsing');
 		}
 	}
@@ -270,13 +258,12 @@ class G11n {
 	 * Does the current locale matched the passed key?
 	 *
 	 * @param string $key
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
-	public static function is($key) {
-		$code = self::current()->getCode();
+	public function is($key) {
+		$code = $this->current()->getCode();
 
-		return ($code === $key || self::canonicalize($code) === $key);
+		return ($code === $key || $this->canonicalize($code) === $key);
 	}
 
 	/**
@@ -285,28 +272,26 @@ class G11n {
 	 * @return boolean
 	 * @static
 	 */
-	public static function isEnabled() {
-		return (count(self::$_locales) > 0);
+	public function isEnabled() {
+		return (count($this->_locales) > 0);
 	}
 
 	/**
 	 * Define the fallback locale to use if none can be found or is not supported.
 	 *
 	 * @param string $key
-	 * @return void
 	 * @throws \Titon\G11n\Exception
-	 * @static
 	 */
-	public static function setFallback($key) {
-		$key = self::canonicalize($key);
+	public function setFallback($key) {
+		$key = $this->canonicalize($key);
 
-		if (!isset(self::$_locales[$key])) {
+		if (!isset($this->_locales[$key])) {
 			throw new Exception(sprintf('Locale %s has not been setup', $key));
 		}
 
-		self::$_fallback = self::$_locales[$key];
+		$this->_fallback = $this->_locales[$key];
 
-		ini_set('intl.default_locale', self::$_fallback->getCode());
+		ini_set('intl.default_locale', $this->_fallback->getCode());
 	}
 
 	/**
@@ -314,10 +299,9 @@ class G11n {
 	 *
 	 * @param \Titon\G11n\Translator $translator
 	 * @return \Titon\G11n\Translator
-	 * @static
 	 */
-	public static function setTranslator(Translator $translator) {
-		self::$_translator = $translator;
+	public function setTranslator(Translator $translator) {
+		$this->_translator = $translator;
 
 		return $translator;
 	}
@@ -330,8 +314,8 @@ class G11n {
 	 * @param array $params
 	 * @return string
 	 */
-	public static function translate($key, array $params = []) {
-		return self::getTranslator()->translate($key, $params);
+	public function translate($key, array $params = []) {
+		return $this->getTranslator()->translate($key, $params);
 	}
 
 	/**
@@ -345,19 +329,19 @@ class G11n {
 	 * @throws \Titon\G11n\Exception
 	 * @static
 	 */
-	public static function useLocale($key) {
+	public function useLocale($key) {
 		$key = self::canonicalize($key);
 
-		if (!isset(self::$_locales[$key])) {
+		if (!isset($this->_locales[$key])) {
 			throw new Exception(sprintf('Locale %s does not exist', $key));
 		}
 
-		$locale = self::$_locales[$key];
+		$locale = $this->_locales[$key];
 		$locales = [$locale];
 		$options = [];
 
-		if (self::getFallback()->getCode() != $locale->getCode()) {
-			$locales[] = self::getFallback();
+		if ($this->getFallback()->getCode() != $locale->getCode()) {
+			$locales[] = $this->getFallback();
 		}
 
 		foreach ($locales as $loc) {
@@ -387,7 +371,7 @@ class G11n {
 		setlocale(LC_ALL, $options);
 		\Locale::setDefault($locale->getCode());
 
-		self::$_current = $locale;
+		$this->_current = $locale;
 
 		return $locale;
 	}

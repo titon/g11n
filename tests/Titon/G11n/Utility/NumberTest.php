@@ -7,6 +7,7 @@
 
 namespace Titon\G11n\Utility;
 
+use Titon\Common\Registry;
 use Titon\G11n\G11n;
 use Titon\G11n\Locale;
 use Titon\G11n\Utility\Number;
@@ -14,6 +15,8 @@ use Titon\Test\TestCase;
 
 /**
  * Test class for Titon\G11n\Utility\Number.
+ *
+ * @property \Titon\G11n\G11n $object
  */
 class NumberTest extends TestCase {
 
@@ -23,8 +26,9 @@ class NumberTest extends TestCase {
 	protected function setUp() {
 		parent::setUp();
 
-		G11n::addLocale(new Locale('en'));
-		G11n::useLocale('en');
+		$this->object = Registry::factory('Titon\G11n\G11n');
+		$this->object->addLocale(new Locale('en'));
+		$this->object->useLocale('en');
 	}
 
 	/**

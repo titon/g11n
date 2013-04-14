@@ -15,6 +15,8 @@ use \Exception;
 
 /**
  * Test class for Titon\G11n\G11n.
+ *
+ * @property \Titon\G11n\G11n $object
  */
 class G11nTest extends TestCase {
 
@@ -24,12 +26,14 @@ class G11nTest extends TestCase {
 	protected function setUp() {
 		parent::setUp();
 
+		$this->object = new G11n();
+
 		foreach (['ex_VA', 'ex_IN', 'ex_FM', 'no'] as $code) {
-			G11n::addLocale(new Locale($code));
+			$this->object->addLocale(new Locale($code));
 		}
 
-		G11n::setFallback('ex');
-		G11n::setTranslator(new MessageTranslator());
+		$this->object->setFallback('ex');
+		$this->object->setTranslator(new MessageTranslator());
 	}
 
 	/**
@@ -63,13 +67,13 @@ class G11nTest extends TestCase {
 
 		foreach ($httpAccepts as $httpAccept => $localeId) {
 			$_SERVER['HTTP_ACCEPT_LANGUAGE'] = $httpAccept;
-			G11n::initialize();
+			$this->object->initialize();
 
-			$this->assertEquals($localeId, G11n::cascade());
+			$this->assertEquals($localeId, $this->object->cascade());
 
 			// Delete the cache since we are doing repeat checks
 			// This wouldn't happen in production
-			G11n::removeCache('Titon\G11n\G11n::cascade');
+			$this->object->removeCache('Titon\G11n\G11n::cascade');
 		}
 	}
 
@@ -115,9 +119,9 @@ class G11nTest extends TestCase {
 
 		foreach ($httpAccepts as $httpAccept => $localeId) {
 			$_SERVER['HTTP_ACCEPT_LANGUAGE'] = $httpAccept;
-			G11n::initialize();
+			$this->object->initialize();
 
-			$current = G11n::current();
+			$current = $this->object->current();
 
 			$this->assertInstanceOf('Titon\G11n\Locale', $current);
 			$this->assertEquals($localeId, $current->getCode());
@@ -156,17 +160,17 @@ class G11nTest extends TestCase {
 	 * Test that setting fallbacks work.
 	 */
 	public function testFallback() {
-		G11n::setFallback('ex-va');
-		$this->assertEquals('ex_VA', G11n::getFallback()->getCode());
+		$this->object->setFallback('ex-va');
+		$this->assertEquals('ex_VA', $this->object->getFallback()->getCode());
 
-		G11n::setFallback('ex-IN');
-		$this->assertEquals('ex_IN', G11n::getFallback()->getCode());
+		$this->object->setFallback('ex-IN');
+		$this->assertEquals('ex_IN', $this->object->getFallback()->getCode());
 
-		G11n::setFallback('ex_FM');
-		$this->assertEquals('ex_FM', G11n::getFallback()->getCode());
+		$this->object->setFallback('ex_FM');
+		$this->assertEquals('ex_FM', $this->object->getFallback()->getCode());
 
 		try {
-			G11n::setFallback('fakeKey');
+			$this->object->setFallback('fakeKey');
 			$this->assertTrue(false);
 
 		} catch (Exception $e) {
@@ -178,7 +182,7 @@ class G11nTest extends TestCase {
 	 * Test that all locales are setup correctly and reference the correct bundle class.
 	 */
 	public function testGetLocales() {
-		$locales = G11n::getLocales();
+		$locales = $this->object->getLocales();
 
 		$this->assertEquals(5, count($locales));
 		$this->assertEquals(['ex-va', 'ex', 'ex-in', 'ex-fm', 'no'], array_keys($locales));
@@ -202,10 +206,10 @@ class G11nTest extends TestCase {
 
 		foreach ($httpAccepts as $httpAccept => $localeId) {
 			$_SERVER['HTTP_ACCEPT_LANGUAGE'] = $httpAccept;
-			G11n::initialize();
+			$this->object->initialize();
 
-			$this->assertTrue(G11n::is($localeId[0]));
-			$this->assertTrue(G11n::is($localeId[1]));
+			$this->assertTrue($this->object->is($localeId[0]));
+			$this->assertTrue($this->object->is($localeId[1]));
 		}
 	}
 
@@ -213,20 +217,20 @@ class G11nTest extends TestCase {
 	 * Test that setting a locale key/ID applies the correct bundle.
 	 */
 	public function testUseLocale() {
-		G11n::useLocale('ex');
-		$this->assertEquals('ex', G11n::current()->getCode());
+		$this->object->useLocale('ex');
+		$this->assertEquals('ex', $this->object->current()->getCode());
 
-		G11n::useLocale('ex_VA');
-		$this->assertEquals('ex_VA', G11n::current()->getCode());
+		$this->object->useLocale('ex_VA');
+		$this->assertEquals('ex_VA', $this->object->current()->getCode());
 
-		G11n::useLocale('ex-IN');
-		$this->assertEquals('ex_IN', G11n::current()->getCode());
+		$this->object->useLocale('ex-IN');
+		$this->assertEquals('ex_IN', $this->object->current()->getCode());
 
-		G11n::useLocale('ex_fm');
-		$this->assertEquals('ex_FM', G11n::current()->getCode());
+		$this->object->useLocale('ex_fm');
+		$this->assertEquals('ex_FM', $this->object->current()->getCode());
 
 		try {
-			G11n::useLocale('fakeKey');
+			$this->object->useLocale('fakeKey');
 			$this->assertTrue(false);
 
 		} catch (Exception $e) {

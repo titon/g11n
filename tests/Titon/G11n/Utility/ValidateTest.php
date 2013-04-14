@@ -7,6 +7,7 @@
 
 namespace Titon\G11n\Utility;
 
+use Titon\Common\Registry;
 use Titon\G11n\G11n;
 use Titon\G11n\Locale;
 use Titon\G11n\Utility\Validate;
@@ -15,6 +16,8 @@ use \Exception;
 
 /**
  * Test class for Titon\G11n\Utility\Validate.
+ *
+ * @property \Titon\G11n\G11n $object
  */
 class ValidateTest extends TestCase {
 
@@ -24,8 +27,9 @@ class ValidateTest extends TestCase {
 	protected function setUp() {
 		parent::setUp();
 
-		G11n::addLocale(new Locale('en'));
-		G11n::useLocale('en');
+		$this->object = Registry::factory('Titon\G11n\G11n');
+		$this->object->addLocale(new Locale('en'));
+		$this->object->useLocale('en');
 	}
 
 	/**

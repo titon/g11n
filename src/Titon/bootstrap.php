@@ -8,6 +8,7 @@
 namespace Titon;
 
 use Titon\Common\Config;
+use Titon\Common\Registry;
 use Titon\G11n\G11n;
 
 /**
@@ -26,7 +27,7 @@ if (defined('VENDOR_DIR')) {
  * @return string
  */
 function msg($key, array $params = []) {
-	return G11n::translate($key, $params);
+	return Registry::factory('Titon\G11n\G11n')->translate($key, $params);
 }
 
 /**
@@ -40,5 +41,5 @@ function msg($key, array $params = []) {
  * @return string
  */
 function __($id, $catalog = 'default', $module = 'common', array $params = []) {
-	return G11n::translate(sprintf('%s.%s.%s', $module, $catalog, $id), $params);
+	return Registry::factory('Titon\G11n\G11n')->translate(sprintf('%s.%s.%s', $module, $catalog, $id), $params);
 }

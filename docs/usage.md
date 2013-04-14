@@ -12,6 +12,8 @@ use Titon\Io\Reader\PhpReader;
 use Titon\Cache\Storage\MemcacheStorage;
 use Titon\Common\Config;
 
+$g11n = new G11n();
+
 // Define resource locations
 Config::set('Resource.paths', [
 	'/resources/',
@@ -19,34 +21,34 @@ Config::set('Resource.paths', [
 ]);
 
 // English (loads parent en)
-G11n::addLocale(new Locale('en_US'));
+$g11n->addLocale(new Locale('en_US'));
 
 // German, Luxembourg (loads parent de)
-G11n::addLocale(new Locale('de_LU', [
+$g11n->addLocale(new Locale('de_LU', [
 	'timezone' => 'Europe/Berlin'
 ]));
 
 // Use PHP files for messages
-G11n::setTranslator(new MessageTranslator())
+$g11n->setTranslator(new MessageTranslator())
 	->setReader(new PhpReader())
 	->setStorage(new MemcacheStorage());
 
 // Set fallback
-G11n::setFallback('en');
+$g11n->setFallback('en');
 ```
 
 After all configuration and bootstrapping has occurred, initialize the application.
 The locale that gets loaded depends on the HTTP_ACCEPT_LANGUAGE header.
 
 ```php
-G11n::initialize();
+$g11n->initialize();
 ```
 
 Once a locale has been chosen, you can access it at anytime.
 
 ```php
-G11n::current()->getCode(); // en_US
-G11n::current()->getParentLocale()->getCode(); // en
+$g11n->current()->getCode(); // en_US
+$g11n->current()->getParentLocale()->getCode(); // en
 ```
 
 You can also pull translated messages from the current locale.
@@ -55,7 +57,7 @@ Translated messages will cycle through all locales, starting with the current, i
 ```php
 // Pull the string with the key locked, from the topics catalog, in the forum module
 // Example path: /forum/resources/messages/en_US/topics.php
-G11n::translate('forum.topics.locked'); // {0} Locked!
+$g11n->translate('forum.topics.locked'); // {0} Locked!
 
 // Use convenience function
 Titon\msg('forum.topics.locked'); // {0} Locked!

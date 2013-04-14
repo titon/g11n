@@ -7,6 +7,7 @@
 
 namespace Titon\G11n\Utility;
 
+use Titon\Common\Registry;
 use Titon\G11n\G11n;
 
 /**
@@ -31,12 +32,14 @@ class Inflector extends \Titon\Utility\Inflector {
 	 * @static
 	 */
 	public static function ordinal($number) {
-		if (!G11n::isEnabled()) {
+		$g11n = Registry::factory('Titon\G11n\G11n');
+
+		if (!$g11n->isEnabled()) {
 			return $number;
 		}
 
-		return self::_cache([__METHOD__, $number], function() use ($number) {
-			$inflections = G11n::current()->getInflectionRules();
+		return self::_cache([__METHOD__, $number], function() use ($number, $g11n) {
+			$inflections = $g11n->current()->getInflectionRules();
 			$number = (int) $number;
 
 			if (!$inflections || empty($inflections['ordinal'])) {
@@ -76,14 +79,16 @@ class Inflector extends \Titon\Utility\Inflector {
 	 * @static
 	 */
 	public static function pluralize($string) {
-		if (!G11n::isEnabled()) {
+		$g11n = Registry::factory('Titon\G11n\G11n');
+
+		if (!$g11n->isEnabled()) {
 			return $string;
 		}
 
-		return self::_cache([__METHOD__, $string], function() use ($string) {
+		return self::_cache([__METHOD__, $string], function() use ($string, $g11n) {
 			$string = mb_strtolower($string);
 			$result = null;
-			$inflections = G11n::current()->getInflectionRules();
+			$inflections = $g11n->current()->getInflectionRules();
 
 			if (!$inflections) {
 				return $string;
@@ -122,14 +127,16 @@ class Inflector extends \Titon\Utility\Inflector {
 	 * @static
 	 */
 	public static function singularize($string) {
-		if (!G11n::isEnabled()) {
+		$g11n = Registry::factory('Titon\G11n\G11n');
+
+		if (!$g11n->isEnabled()) {
 			return $string;
 		}
 
-		return self::_cache([__METHOD__, $string], function() use ($string) {
+		return self::_cache([__METHOD__, $string], function() use ($string, $g11n) {
 			$string = mb_strtolower($string);
 			$result = null;
-			$inflections = G11n::current()->getInflectionRules();
+			$inflections = $g11n->current()->getInflectionRules();
 
 			if (!$inflections) {
 				return $string;
@@ -177,12 +184,14 @@ class Inflector extends \Titon\Utility\Inflector {
 	 * @static
 	 */
 	public static function transliterate($string) {
-		if (!G11n::isEnabled()) {
+		$g11n = Registry::factory('Titon\G11n\G11n');
+
+		if (!$g11n->isEnabled()) {
 			return $string;
 		}
 
-		return self::_cache([__METHOD__, $string], function() use ($string) {
-			$inflections = G11n::current()->getInflectionRules();
+		return self::_cache([__METHOD__, $string], function() use ($string, $g11n) {
+			$inflections = $g11n->current()->getInflectionRules();
 
 			if (!$inflections || empty($inflections['transliteration'])) {
 				return $string;

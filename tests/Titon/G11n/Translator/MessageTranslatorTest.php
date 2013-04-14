@@ -7,6 +7,7 @@
 
 namespace Titon\G11n\Translator;
 
+use Titon\Common\Registry;
 use Titon\G11n\G11n;
 use Titon\G11n\Locale;
 use Titon\G11n\Translator\MessageTranslator;
@@ -20,6 +21,8 @@ use Titon\Test\TestCase;
 
 /**
  * Test class for Titon\G11n\Translator\MessageTranslator.
+ *
+ * @property \Titon\G11n\G11n $object
  */
 class MessageTranslatorTest extends TestCase {
 
@@ -29,10 +32,12 @@ class MessageTranslatorTest extends TestCase {
 	protected function setUp() {
 		parent::setUp();
 
+		$this->object = Registry::factory('Titon\G11n\G11n');
+
 		$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'ex-no,ex;q=0.5';
 
 		foreach (['ex', 'en'] as $code) {
-			G11n::addLocale(new Locale($code));
+			$this->object->addLocale(new Locale($code));
 		}
 	}
 
@@ -44,14 +49,14 @@ class MessageTranslatorTest extends TestCase {
 		$object->setReader(new PhpReader());
 		$object->setStorage(new MemoryStorage());
 
-		G11n::setTranslator($object);
-		G11n::useLocale('ex');
+		$this->object->setTranslator($object);
+		$this->object->useLocale('ex');
 
 		$this->assertEquals('Titon', $object->getMessage('default.titon'));
 		$this->assertEquals('Test', $object->getMessage('default.test'));
 		$this->assertEquals('php', $object->getMessage('default.type'));
 
-		G11n::useLocale('en');
+		$this->object->useLocale('en');
 
 		$this->assertEquals('Titon', $object->translate('default.titon'));
 		$this->assertEquals('Test', $object->translate('default.test'));
@@ -67,14 +72,14 @@ class MessageTranslatorTest extends TestCase {
 		$object->setReader(new IniReader());
 		$object->setStorage(new MemoryStorage());
 
-		G11n::setTranslator($object);
-		G11n::useLocale('ex');
+		$this->object->setTranslator($object);
+		$this->object->useLocale('ex');
 
 		$this->assertEquals('Titon', $object->getMessage('default.titon'));
 		$this->assertEquals('Test', $object->getMessage('default.test'));
 		$this->assertEquals('ini', $object->getMessage('default.type'));
 
-		G11n::useLocale('en');
+		$this->object->useLocale('en');
 
 		$this->assertEquals('Titon', $object->translate('default.titon'));
 		$this->assertEquals('Test', $object->translate('default.test'));
@@ -90,14 +95,14 @@ class MessageTranslatorTest extends TestCase {
 		$object->setReader(new XmlReader());
 		$object->setStorage(new MemoryStorage());
 
-		G11n::setTranslator($object);
-		G11n::useLocale('ex');
+		$this->object->setTranslator($object);
+		$this->object->useLocale('ex');
 
 		$this->assertEquals('Titon', $object->getMessage('default.titon'));
 		$this->assertEquals('Test', $object->getMessage('default.test'));
 		$this->assertEquals('xml', $object->getMessage('default.type'));
 
-		G11n::useLocale('en');
+		$this->object->useLocale('en');
 
 		$this->assertEquals('Titon', $object->translate('default.titon'));
 		$this->assertEquals('Test', $object->translate('default.test'));
@@ -113,14 +118,14 @@ class MessageTranslatorTest extends TestCase {
 		$object->setReader(new JsonReader());
 		$object->setStorage(new MemoryStorage());
 
-		G11n::setTranslator($object);
-		G11n::useLocale('ex');
+		$this->object->setTranslator($object);
+		$this->object->useLocale('ex');
 
 		$this->assertEquals('Titon', $object->getMessage('default.titon'));
 		$this->assertEquals('Test', $object->getMessage('default.test'));
 		$this->assertEquals('json', $object->getMessage('default.type'));
 
-		G11n::useLocale('en');
+		$this->object->useLocale('en');
 
 		$this->assertEquals('Titon', $object->translate('default.titon'));
 		$this->assertEquals('Test', $object->translate('default.test'));
@@ -136,14 +141,14 @@ class MessageTranslatorTest extends TestCase {
 		$object->setReader(new PoReader());
 		$object->setStorage(new MemoryStorage());
 
-		G11n::setTranslator($object);
-		G11n::useLocale('ex');
+		$this->object->setTranslator($object);
+		$this->object->useLocale('ex');
 
 		$this->assertEquals('Basic message', $object->getMessage('default.basic'));
 		$this->assertEquals('Context message', $object->getMessage('default.context'));
 		$this->assertEquals("Multiline message\nMore message here\nAnd more message again", $object->getMessage('default.multiline'));
 
-		G11n::useLocale('en');
+		$this->object->useLocale('en');
 
 		$this->assertEquals('1,337 health, 666 energy, 255 damage', $object->translate('default.format', [1337, 666, 255]));
 	}

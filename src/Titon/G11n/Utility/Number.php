@@ -7,6 +7,7 @@
 
 namespace Titon\G11n\Utility;
 
+use Titon\Common\Registry;
 use Titon\G11n\G11n;
 
 /**
@@ -24,10 +25,12 @@ class Number extends \Titon\Utility\Number {
 	 * @static
 	 */
 	public static function currency($number, array $options = []) {
-		if (G11n::isEnabled()) {
+		$g11n = Registry::factory('Titon\G11n\G11n');
+
+		if ($g11n->isEnabled()) {
 			$options = array_merge(
-				G11n::current()->getFormatPatterns('number'),
-				G11n::current()->getFormatPatterns('currency'),
+				$g11n->current()->getFormatPatterns('number'),
+				$g11n->current()->getFormatPatterns('currency'),
 				$options
 			);
 		}
@@ -48,9 +51,11 @@ class Number extends \Titon\Utility\Number {
 			$options = ['places' => $options];
 		}
 
-		if (G11n::isEnabled()) {
+		$g11n = Registry::factory('Titon\G11n\G11n');
+
+		if ($g11n->isEnabled()) {
 			$options = array_merge(
-				G11n::current()->getFormatPatterns('number'),
+				$g11n->current()->getFormatPatterns('number'),
 				$options
 			);
 		}
