@@ -39,6 +39,15 @@ class FormatTest extends TestCase {
 	}
 
 	/**
+	 * Reset cache.
+	 */
+	protected function tearDown() {
+		parent::tearDown();
+
+		Registry::flush();
+	}
+
+	/**
 	 * Test that get() returns a formatting rule.
 	 */
 	public function testGet() {
