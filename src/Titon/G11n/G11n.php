@@ -106,7 +106,6 @@ class G11n {
 	 * @param string $key
 	 * @param int $format
 	 * @return string
-	 * @static
 	 */
 	public static function canonicalize($key, $format = self::FORMAT_1) {
 		$parts = explode('-', str_replace('_', '-', mb_strtolower($key)));
@@ -136,7 +135,6 @@ class G11n {
 	 * Get a list of locales and fallback locales in descending order starting from the current locale.
 	 *
 	 * @return array
-	 * @static
 	 */
 	public function cascade() {
 		return $this->cache(__METHOD__, function() {
@@ -159,7 +157,6 @@ class G11n {
 	 *
 	 * @param array $tags
 	 * @return string
-	 * @static
 	 */
 	public static function compose(array $tags) {
 		return \Locale::composeLocale($tags);
@@ -179,7 +176,6 @@ class G11n {
 	 *
 	 * @param string $locale
 	 * @return string
-	 * @static
 	 */
 	public static function decompose($locale) {
 		return \Locale::parseLocale($locale);
@@ -269,8 +265,7 @@ class G11n {
 	/**
 	 * G11n will be enabled if more than 1 locale has been setup.
 	 *
-	 * @return boolean
-	 * @static
+	 * @return bool
 	 */
 	public function isEnabled() {
 		return (count($this->_locales) > 0);
@@ -327,7 +322,6 @@ class G11n {
 	 * @param string $key
 	 * @return \Titon\G11n\Locale
 	 * @throws \Titon\G11n\Exception
-	 * @static
 	 */
 	public function useLocale($key) {
 		$key = self::canonicalize($key);

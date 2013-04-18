@@ -19,8 +19,6 @@ class LocaleBundle extends AbstractBundle {
 
 	/**
 	 * Add the PhpReader for locale bundle reading.
-	 *
-	 * @return void
 	 */
 	public function initialize() {
 		$this->addReader(new PhpReader());

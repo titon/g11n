@@ -17,25 +17,15 @@ use Titon\G11n\Exception;
 class Validate extends \Titon\Utility\Validate {
 
 	/**
-	 * Validate input matches a currency format.
-	 *
-	 * @param string $input
-	 * @param string $format
-	 * @return boolean
-	 * @static
+	 * {@inheritdoc}
 	 */
 	public static function currency($input, $format = null) {
 		return parent::currency($input, self::get('currency', $format));
 	}
 
 	/**
-	 * Get a validation rule from G11n, else use the fallback.
-	 *
-	 * @param string $key
-	 * @param string $fallback
-	 * @return string
+	 * {@inheritdoc}
 	 * @throws \Titon\G11n\Exception
-	 * @static
 	 */
 	public static function get($key, $fallback = null) {
 		$pattern = Registry::factory('Titon\G11n\G11n')->current()->getValidationRules($key) ?: $fallback;
@@ -48,36 +38,21 @@ class Validate extends \Titon\Utility\Validate {
 	}
 
 	/**
-	 * Validate input matches a phone number format.
-	 *
-	 * @param string $input
-	 * @param string $format
-	 * @return boolean
-	 * @static
+	 * {@inheritdoc}
 	 */
 	public static function phone($input, $format = null) {
 		return parent::phone($input, self::get('phone', $format));
 	}
 
 	/**
-	 * Validate input matches a postal/zip code format.
-	 *
-	 * @param string $input
-	 * @param string $format
-	 * @return boolean
-	 * @static
+	 * {@inheritdoc}
 	 */
 	public static function postalCode($input, $format = null) {
 		return parent::postalCode($input, self::get('postalCode', $format));
 	}
 
 	/**
-	 * Validate input matches a social security number (SSN) format.
-	 *
-	 * @param string $input
-	 * @param string $format
-	 * @return boolean
-	 * @static
+	 * {@inheritdoc}
 	 */
 	public static function ssn($input, $format = null) {
 		return parent::ssn($input, self::get('ssn', $format));

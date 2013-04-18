@@ -60,7 +60,6 @@ abstract class AbstractTranslator extends Base implements Translator {
 	 * @param string $key
 	 * @return array
 	 * @throws \Titon\G11n\Exception
-	 * @final
 	 */
 	final public function parseKey($key) {
 		return $this->cache([__METHOD__, $key], function() use ($key) {

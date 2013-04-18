@@ -17,37 +17,22 @@ use Titon\G11n\Exception;
 class Format extends \Titon\Utility\Format {
 
 	/**
-	 * Format a date string.
-	 *
-	 * @param string|int $time
-	 * @param string $format
-	 * @return string
-	 * @static
+	 * {@inheritdoc}
 	 */
 	public static function date($time, $format = '%Y-%m-%d') {
 		return parent::date($time, self::get('date', $format));
 	}
 
 	/**
-	 * Format a datetime string.
-	 *
-	 * @param string|int $time
-	 * @param string $format
-	 * @return string
-	 * @static
+	 * {@inheritdoc}
 	 */
 	public static function datetime($time, $format = '%Y-%m-%d %H:%M:%S') {
 		return parent::datetime($time, self::get('datetime', $format));
 	}
 
 	/**
-	 * Get a formatting rule from G11n, else use the fallback.
-	 *
-	 * @param string $key
-	 * @param string $fallback
-	 * @return string
+	 * {@inheritdoc}
 	 * @throws \Titon\G11n\Exception
-	 * @static
 	 */
 	public static function get($key, $fallback = null) {
 		$pattern = Registry::factory('Titon\G11n\G11n')->current()->getFormatPatterns($key) ?: $fallback;
@@ -60,37 +45,47 @@ class Format extends \Titon\Utility\Format {
 	}
 
 	/**
-	 * Format a phone number. A phone number can support multiple variations,
-	 * depending on how many numbers are present.
-	 *
-	 * @param int $value
-	 * @param string $format
-	 * @return string
-	 * @static
+	 * {@inheritdoc}
 	 */
 	public static function phone($value, $format = null) {
 		return parent::phone($value, self::get('phone', $format));
 	}
 
 	/**
-	 * Format a social security number.
-	 *
-	 * @param string|int $value
-	 * @param string $format
-	 * @return string
-	 * @static
+	 * {@inheritdoc}
+	 */
+	public static function relativeTime($time, array $options = array()) {
+		$g11n = Registry::factory('Titon\G11n\G11n');
+		$msg = function($key) use ($g11n) {
+			return $g11n->translate('common.format.relativeTime.' . $key);
+		};
+
+		// TODO Find a more optimized way to do this.
+		$options = $options + array(
+			'seconds' => array($msg('sec'), $msg('second'), $msg('seconds')),
+			'minutes' => array($msg('min'), $msg('minute'), $msg('minutes')),
+			'hours' => array($msg('hr'), $msg('hour'), $msg('hours')),
+			'days' => array($msg('dy'), $msg('day'), $msg('days')),
+			'weeks' => array($msg('wk'), $msg('week'), $msg('weeks')),
+			'months' => array($msg('mon'), $msg('month'), $msg('months')),
+			'years' => array($msg('yr'), $msg('year'), $msg('years')),
+			'now' => $msg('now'),
+			'in' => $msg('in'),
+			'ago' => $msg('ago')
+		);
+
+		return parent::relativeTime($time, $options);
+	}
+
+	/**
+	 * {@inheritdoc}
 	 */
 	public static function ssn($value, $format = null) {
 		return parent::ssn($value, self::get('ssn', $format));
 	}
 
 	/**
-	 * Format a time string.
-	 *
-	 * @param string|int $time
-	 * @param string $format
-	 * @return string
-	 * @static
+	 * {@inheritdoc}
 	 */
 	public static function time($time, $format = '%H:%M:%S') {
 		return parent::time($time, self::get('time', $format));

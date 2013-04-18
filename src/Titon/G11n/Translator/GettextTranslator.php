@@ -25,7 +25,7 @@ class GettextTranslator extends AbstractTranslator {
 	 *
 	 * @param string $module
 	 * @param string $catalog
-	 * @return boolean
+	 * @return bool
 	 */
 	public function bindDomains($module, $catalog) {
 		bind_textdomain_codeset($catalog, Config::encoding());

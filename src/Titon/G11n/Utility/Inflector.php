@@ -25,11 +25,7 @@ class Inflector extends \Titon\Utility\Inflector {
 	}
 
 	/**
-	 * Inflect a number by appending its ordinal suffix: st, nd, rd, th, etc.
-	 *
-	 * @param int $number
-	 * @return string
-	 * @static
+	 * {@inheritdoc}
 	 */
 	public static function ordinal($number) {
 		$g11n = Registry::factory('Titon\G11n\G11n');
@@ -72,11 +68,7 @@ class Inflector extends \Titon\Utility\Inflector {
 	}
 
 	/**
-	 * Inflect a form to its pluralized form. Applies special rules to determine uninflected, irregular or regular forms.
-	 *
-	 * @param string $string
-	 * @return string
-	 * @static
+	 * {@inheritdoc}
 	 */
 	public static function pluralize($string) {
 		$g11n = Registry::factory('Titon\G11n\G11n');
@@ -120,11 +112,7 @@ class Inflector extends \Titon\Utility\Inflector {
 	}
 
 	/**
-	 * Inflect a form to its singular form. Applies special rules to determine uninflected, irregular or regular forms.
-	 *
-	 * @param string $string
-	 * @return string
-	 * @static
+	 * {@inheritdoc}
 	 */
 	public static function singularize($string) {
 		$g11n = Registry::factory('Titon\G11n\G11n');
@@ -177,11 +165,7 @@ class Inflector extends \Titon\Utility\Inflector {
 	}
 
 	/**
-	 * Inflect a word by replacing all non-ASCII characters with there equivalents.
-	 *
-	 * @param string $string
-	 * @return string
-	 * @static
+	 * {@inheritdoc}
 	 */
 	public static function transliterate($string) {
 		$g11n = Registry::factory('Titon\G11n\G11n');
