@@ -15,7 +15,7 @@ use Titon\Common\Config;
 $g11n = new G11n();
 
 // Define resource locations
-Config::set('Resource.paths', [
+Config::set('Titon.path.resources', [
 	'/resources/',
 	'/{module}/resources/'
 ]);

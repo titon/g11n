@@ -15,7 +15,7 @@ use Titon\G11n\G11n;
  * Add G11n resources if VENDOR_DIR constant exists.
  */
 if (defined('VENDOR_DIR')) {
-	Config::add('Resource.paths', VENDOR_DIR . '/titon/g11n/resources/');
+	Config::add('Titon.path.resources', VENDOR_DIR . '/titon/g11n/resources/');
 }
 
 /**

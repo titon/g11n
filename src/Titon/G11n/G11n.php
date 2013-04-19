@@ -7,6 +7,7 @@
 
 namespace Titon\G11n;
 
+use Titon\Common\Config;
 use Titon\Common\Registry;
 use Titon\Common\Traits\Cacheable;
 use Titon\G11n\Locale;
@@ -286,7 +287,7 @@ class G11n {
 
 		$this->_fallback = $this->_locales[$key];
 
-		ini_set('intl.default_locale', $this->_fallback->getCode());
+		Config::set('Titon.locale.fallback', $key);
 	}
 
 	/**
@@ -361,9 +362,13 @@ class G11n {
 		}
 
 		// Set environment
-		putenv('LC_ALL=' . $locale->getCode());
+		$code = $locale->getCode();
+
+		putenv('LC_ALL=' . $code);
 		setlocale(LC_ALL, $options);
-		\Locale::setDefault($locale->getCode());
+
+		\Locale::setDefault($code);
+		Config::set('Titon.locale.current', $code);
 
 		$this->_current = $locale;
 

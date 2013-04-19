@@ -47,7 +47,7 @@ class MessageTranslator extends AbstractTranslator {
 
 			// Else check within the bundle
 			if (!$messages) {
-				$bundle = clone $locales[$locale]->getMessageBundle();
+				$bundle = clone $locales[G11n::canonicalize($locale)]->getMessageBundle();
 				$bundle->addReader($this->getReader());
 				$bundle->config->set('module', $module);
 
