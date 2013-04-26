@@ -10,6 +10,7 @@ namespace Titon\G11n;
 use Titon\Common\Config;
 use Titon\Common\Registry;
 use Titon\Common\Traits\Cacheable;
+use Titon\Event\Scheduler;
 use Titon\G11n\Locale;
 use Titon\G11n\Translator;
 use Titon\G11n\Exception;
@@ -149,7 +150,11 @@ class G11n {
 				}
 			}
 
-			return array_unique($cycle);
+			$cycle = array_unique($cycle);
+
+			Scheduler::dispatch('g11n.cascade', [$cycle]);
+
+			return $cycle;
 		});
 	}
 
@@ -311,7 +316,11 @@ class G11n {
 	 * @return string
 	 */
 	public function translate($key, array $params = []) {
-		return $this->getTranslator()->translate($key, $params);
+		$message = $this->getTranslator()->translate($key, $params);
+
+		Scheduler::dispatch('g11n.translate', [$key, $message, $params]);
+
+		return $message;
 	}
 
 	/**

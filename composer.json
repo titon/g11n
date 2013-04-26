@@ -18,6 +18,7 @@
 		"ext-gettext": "*",
 		"titon/common": "*",
 		"titon/utility": "*",
+		"titon/event": "*",
 		"titon/io": "*"
 	},
 	"require-dev": {
