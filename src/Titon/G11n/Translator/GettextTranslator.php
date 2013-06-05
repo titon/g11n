@@ -17,15 +17,16 @@ use \Locale;
 
 /**
  * Translator used for hooking into the GNU gettext library and fetching messages from locale domain files.
+ *
+ * @package Titon\G11n\Translator
  */
 class GettextTranslator extends AbstractTranslator {
 
 	/**
-	 * Bind domain locations if they have not been setup.
+	 * {@inheritdoc}
 	 *
-	 * @param string $module
-	 * @param string $catalog
-	 * @return bool
+	 * @uses Titon\Common\Registry
+	 * @uses Titon\Utility\String
 	 */
 	public function bindDomains($module, $catalog) {
 		bind_textdomain_codeset($catalog, Config::encoding());
@@ -42,10 +43,8 @@ class GettextTranslator extends AbstractTranslator {
 	}
 
 	/**
-	 * Get the message from the bound domain.
+	 * {@inheritdoc}
 	 *
-	 * @param string $key
-	 * @return string
 	 * @throws \Titon\G11n\Exception
 	 */
 	public function getMessage($key) {

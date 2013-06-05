@@ -17,6 +17,8 @@ use Titon\Utility\Hash;
 /**
  * The Locale class manages all aspects of a locale code, it's region specific rules
  * and even translated messages.
+ *
+ * @package Titon\G11n
  */
 class Locale extends Base {
 	use Cacheable;
@@ -24,28 +26,28 @@ class Locale extends Base {
 	/**
 	 * Locale country code.
 	 *
-	 * @var string
+	 * @type string
 	 */
 	protected $_code;
 
 	/**
 	 * Locale resource bundle.
 	 *
-	 * @var \Titon\G11n\Bundle\LocaleBundle
+	 * @type \Titon\G11n\Bundle\LocaleBundle
 	 */
 	protected $_localeBundle;
 
 	/**
 	 * Message resource bundle.
 	 *
-	 * @var \Titon\G11n\Bundle\MessageBundle
+	 * @type \Titon\G11n\Bundle\MessageBundle
 	 */
 	protected $_messageBundle;
 
 	/**
 	 * Parent locale.
 	 *
-	 * @var \Titon\G11n\Locale
+	 * @type \Titon\G11n\Locale
 	 */
 	protected $_parent;
 
@@ -63,6 +65,9 @@ class Locale extends Base {
 
 	/**
 	 * Instantiate the locale and message bundles using the resource paths.
+	 *
+	 * @uses Locale
+	 * @uses Titon\Common\Config
 	 *
 	 * @return \Titon\G11n\Locale
 	 */
@@ -111,6 +116,8 @@ class Locale extends Base {
 	/**
 	 * Return the format patterns from the locale bundle.
 	 *
+	 * @uses Titon\Utility\Hash
+	 *
 	 * @param string $key
 	 * @return string|array
 	 */
@@ -120,6 +127,8 @@ class Locale extends Base {
 
 	/**
 	 * Return the inflection rules from the locale bundle.
+	 *
+	 * @uses Titon\Utility\Hash
 	 *
 	 * @param string $key
 	 * @return string|array
@@ -131,6 +140,8 @@ class Locale extends Base {
 	/**
 	 * Return the validation rules from the locale bundle.
 	 *
+	 * @uses Titon\Utility\Hash
+	 *
 	 * @param string $key
 	 * @return string|array
 	 */
@@ -140,6 +151,8 @@ class Locale extends Base {
 
 	/**
 	 * Return the parent locale if it exists.
+	 *
+	 * @uses Titon\G11n\Locale
 	 *
 	 * @return \Titon\G11n\Locale
 	 */

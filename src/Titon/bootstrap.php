@@ -22,6 +22,8 @@ if (defined('VENDOR_DIR')) {
  * Convenience function for fetching a localized string.
  * Uses a single combination key.
  *
+ * @uses Titon\Common\Registry
+ *
  * @param string $key
  * @param array $params
  * @return string
@@ -33,6 +35,8 @@ function msg($key, array $params = []) {
 /**
  * Convenience function for fetching a localized string.
  * Uses separate values for key.
+ *
+ * @uses Titon\Common\Registry
  *
  * @param string $id
  * @param string $catalog

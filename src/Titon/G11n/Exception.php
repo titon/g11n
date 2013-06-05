@@ -9,6 +9,8 @@ namespace Titon\G11n;
 
 /**
  * Exception for the g11n package.
+ *
+ * @package Titon\G11n
  */
 class Exception extends \Exception {
 

@@ -13,6 +13,8 @@ use Titon\G11n\Exception;
 
 /**
  * Enhance the parent Format class by providing localized formatting rule support.
+ *
+ * @package Titon\G11n\Utility
  */
 class Format extends \Titon\Utility\Format {
 
@@ -32,6 +34,9 @@ class Format extends \Titon\Utility\Format {
 
 	/**
 	 * {@inheritdoc}
+	 *
+	 * @uses Titon\Common\Registry
+	 *
 	 * @throws \Titon\G11n\Exception
 	 */
 	public static function get($key, $fallback = null) {
@@ -53,6 +58,8 @@ class Format extends \Titon\Utility\Format {
 
 	/**
 	 * {@inheritdoc}
+	 *
+	 * @uses Titon\Common\Registry
 	 */
 	public static function relativeTime($time, array $options = array()) {
 		$g11n = Registry::factory('Titon\G11n\G11n');

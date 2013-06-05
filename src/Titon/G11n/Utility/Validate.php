@@ -13,6 +13,8 @@ use Titon\G11n\Exception;
 
 /**
  * Enhance the parent Validate class by providing localized validation rule support.
+ *
+ * @package Titon\G11n\Utility
  */
 class Validate extends \Titon\Utility\Validate {
 
@@ -25,6 +27,9 @@ class Validate extends \Titon\Utility\Validate {
 
 	/**
 	 * {@inheritdoc}
+	 *
+	 * @uses Titon\Common\Registry
+	 *
 	 * @throws \Titon\G11n\Exception
 	 */
 	public static function get($key, $fallback = null) {

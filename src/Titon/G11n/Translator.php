@@ -12,6 +12,8 @@ use Titon\Cache\Storage;
 
 /**
  * Interface for g11n string translators.
+ *
+ * @package Titon\G11n
  */
 interface Translator {
 

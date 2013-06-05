@@ -24,6 +24,8 @@ use Titon\G11n\Exception;
  * @link http://en.wikipedia.org/wiki/ISO_639
  * @link http://en.wikipedia.org/wiki/ISO_3166-1
  * @link http://loc.gov/standards/iso639-2/php/code_list.php
+ *
+ * @package Titon\G11n
  */
 class G11n {
 	use Cacheable;
@@ -44,28 +46,28 @@ class G11n {
 	/**
 	 * Currently active locale based on the client.
 	 *
-	 * @var \Titon\G11n\Locale
+	 * @type \Titon\G11n\Locale
 	 */
 	protected $_current;
 
 	/**
 	 * Fallback locale if none can be found.
 	 *
-	 * @var \Titon\G11n\Locale
+	 * @type \Titon\G11n\Locale
 	 */
 	protected $_fallback;
 
 	/**
 	 * Supported list of locales.
 	 *
-	 * @var \Titon\G11n\Locale[]
+	 * @type \Titon\G11n\Locale[]
 	 */
 	protected $_locales = [];
 
 	/**
 	 * Translator used for string fetching and parsing.
 	 *
-	 * @var \Titon\G11n\Translator
+	 * @type \Titon\G11n\Translator
 	 */
 	protected $_translator;
 
@@ -136,6 +138,8 @@ class G11n {
 	/**
 	 * Get a list of locales and fallback locales in descending order starting from the current locale.
 	 *
+	 * @uses Titon\Event\Scheduler
+	 *
 	 * @return array
 	 */
 	public function cascade() {
@@ -161,6 +165,8 @@ class G11n {
 	/**
 	 * Takes an array of key-values and returns a correctly ordered and delimited locale ID.
 	 *
+	 * @uses Locale
+	 *
 	 * @param array $tags
 	 * @return string
 	 */
@@ -179,6 +185,8 @@ class G11n {
 
 	/**
 	 * Parses a locale string and returns an array of key-value locale tags.
+	 *
+	 * @uses Locale
 	 *
 	 * @param string $locale
 	 * @return string
@@ -280,6 +288,8 @@ class G11n {
 	/**
 	 * Define the fallback locale to use if none can be found or is not supported.
 	 *
+	 * @uses Titon\Common\Config
+	 *
 	 * @param string $key
 	 * @throws \Titon\G11n\Exception
 	 */
@@ -311,6 +321,8 @@ class G11n {
 	 * Return a translated string using the translator.
 	 * If a storage engine is present, read and write from the cache.
 	 *
+	 * @uses Titon\Event\Scheduler
+	 *
 	 * @param string $key
 	 * @param array $params
 	 * @return string
@@ -328,6 +340,8 @@ class G11n {
 	 *
 	 * @link http://php.net/setlocale
 	 * @link http://php.net/manual/locale.setdefault.php
+	 *
+	 * @uses Titon\Common\Config
 	 *
 	 * @param string $key
 	 * @return \Titon\G11n\Locale

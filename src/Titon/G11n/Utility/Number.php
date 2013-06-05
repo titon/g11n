@@ -12,11 +12,15 @@ use Titon\G11n\G11n;
 
 /**
  * Enhance the parent Number class by providing localized currency and number rule support.
+ *
+ * @package Titon\G11n\Utility
  */
 class Number extends \Titon\Utility\Number {
 
 	/**
 	 * {@inheritdoc}
+	 *
+	 * @uses Titon\Common\Registry
 	 */
 	public static function currency($number, array $options = []) {
 		$g11n = Registry::factory('Titon\G11n\G11n');
@@ -34,6 +38,8 @@ class Number extends \Titon\Utility\Number {
 
 	/**
 	 * {@inheritdoc}
+	 *
+	 * @uses Titon\Common\Registry
 	 */
 	public static function percentage($number, $options = []) {
 		if (is_numeric($options)) {

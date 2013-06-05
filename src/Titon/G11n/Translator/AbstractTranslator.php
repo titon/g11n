@@ -18,6 +18,8 @@ use \Locale;
 
 /**
  * Abstract class that implements the string translation functionality for Translators.
+ *
+ * @package Titon\G11n\Translator
  */
 abstract class AbstractTranslator extends Base implements Translator {
 	use Cacheable;
@@ -25,41 +27,33 @@ abstract class AbstractTranslator extends Base implements Translator {
 	/**
 	 * File reader used for parsing.
 	 *
-	 * @var \Titon\Io\Reader
+	 * @type \Titon\Io\Reader
 	 */
 	protected $_reader;
 
 	/**
 	 * Storage engine for caching.
 	 *
-	 * @var \Titon\Cache\Storage
+	 * @type \Titon\Cache\Storage
 	 */
 	protected $_storage;
 
 	/**
-	 * Return the file reader.
-	 *
-	 * @return \Titon\Io\Reader
+	 * {@inheritdoc}
 	 */
 	public function getReader() {
 		return $this->_reader;
 	}
 
 	/**
-	 * Return the cache storage engine.
-	 *
-	 * @return \Titon\Cache\Storage
+	 * {@inheritdoc}
 	 */
 	public function getStorage() {
 		return $this->_storage;
 	}
 
 	/**
-	 * Parse out the module, catalog and key for string lookup.
-	 *
-	 * @param string $key
-	 * @return array
-	 * @throws \Titon\G11n\Exception
+	 * {@inheritdoc}
 	 */
 	final public function parseKey($key) {
 		return $this->cache([__METHOD__, $key], function() use ($key) {
@@ -85,10 +79,7 @@ abstract class AbstractTranslator extends Base implements Translator {
 	}
 
 	/**
-	 * Set the file reader to use for resource parsing.
-	 *
-	 * @param \Titon\Io\Reader $reader
-	 * @return \Titon\G11n\Translator
+	 * {@inheritdoc}
 	 */
 	public function setReader(Reader $reader) {
 		$this->_reader = $reader;
@@ -97,10 +88,7 @@ abstract class AbstractTranslator extends Base implements Translator {
 	}
 
 	/**
-	 * Set the storage engine to use for catalog caching.
-	 *
-	 * @param \Titon\Cache\Storage $storage
-	 * @return \Titon\G11n\Translator
+	 * {@inheritdoc}
 	 */
 	public function setStorage(Storage $storage) {
 		$this->_storage = $storage;
@@ -109,11 +97,7 @@ abstract class AbstractTranslator extends Base implements Translator {
 	}
 
 	/**
-	 * Process the located string with dynamic parameters if necessary.
-	 *
-	 * @param string $key
-	 * @param array $params
-	 * @return string
+	 * {@inheritdoc}
 	 */
 	public function translate($key, array $params = []) {
 		return MessageFormatter::formatMessage(Locale::DEFAULT_LOCALE, $this->getMessage($key), $params);

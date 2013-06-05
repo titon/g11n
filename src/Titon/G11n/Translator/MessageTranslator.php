@@ -14,15 +14,17 @@ use Titon\G11n\Translator\AbstractTranslator;
 
 /**
  * Translator used for parsing resource files into an array of translated messages.
+ *
+ * @package Titon\G11n\Translator
  */
 class MessageTranslator extends AbstractTranslator {
 
 	/**
-	 * Locate the key within the catalog. If the catalog has not been loaded,
-	 * load it and cache the collection of strings.
+	 * {@inheritdoc}
 	 *
-	 * @param string $key
-	 * @return string
+	 * @uses Titon\G11n\G11n
+	 * @uses Titon\Common\Registry
+	 *
 	 * @throws \Titon\G11n\Exception
 	 */
 	public function getMessage($key) {

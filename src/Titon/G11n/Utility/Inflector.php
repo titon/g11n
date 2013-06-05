@@ -12,6 +12,8 @@ use Titon\G11n\G11n;
 
 /**
  * Enhance the parent Inflector class by providing localized inflection rule support.
+ *
+ * @package Titon\G11n\Utility
  */
 class Inflector extends \Titon\Utility\Inflector {
 
@@ -26,6 +28,8 @@ class Inflector extends \Titon\Utility\Inflector {
 
 	/**
 	 * {@inheritdoc}
+	 *
+	 * @uses Titon\Common\Registry
 	 */
 	public static function ordinal($number) {
 		$g11n = Registry::factory('Titon\G11n\G11n');
@@ -69,6 +73,8 @@ class Inflector extends \Titon\Utility\Inflector {
 
 	/**
 	 * {@inheritdoc}
+	 *
+	 * @uses Titon\Common\Registry
 	 */
 	public static function pluralize($string) {
 		$g11n = Registry::factory('Titon\G11n\G11n');
@@ -113,6 +119,8 @@ class Inflector extends \Titon\Utility\Inflector {
 
 	/**
 	 * {@inheritdoc}
+	 *
+	 * @uses Titon\Common\Registry
 	 */
 	public static function singularize($string) {
 		$g11n = Registry::factory('Titon\G11n\G11n');
@@ -166,6 +174,8 @@ class Inflector extends \Titon\Utility\Inflector {
 
 	/**
 	 * {@inheritdoc}
+	 *
+	 * @uses Titon\Common\Registry
 	 */
 	public static function transliterate($string) {
 		$g11n = Registry::factory('Titon\G11n\G11n');

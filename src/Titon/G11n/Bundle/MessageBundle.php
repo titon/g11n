@@ -11,6 +11,8 @@ use Titon\Io\Bundle\AbstractBundle;
 
 /**
  * The MessageBundle manages the loading of message catalogs for localization.
+ *
+ * @package Titon\G11n\Bundle
  */
 class MessageBundle extends AbstractBundle {
 
