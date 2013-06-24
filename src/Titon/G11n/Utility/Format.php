@@ -9,7 +9,7 @@ namespace Titon\G11n\Utility;
 
 use Titon\Common\Registry;
 use Titon\G11n\G11n;
-use Titon\G11n\Exception;
+use Titon\G11n\Exception\MissingPatternException;
 
 /**
  * Enhance the parent Format class by providing localized formatting rule support.
@@ -37,13 +37,13 @@ class Format extends \Titon\Utility\Format {
 	 *
 	 * @uses Titon\Common\Registry
 	 *
-	 * @throws \Titon\G11n\Exception
+	 * @throws \Titon\G11n\Exception\MissingPatternException
 	 */
 	public static function get($key, $fallback = null) {
 		$pattern = Registry::factory('Titon\G11n\G11n')->current()->getFormatPatterns($key) ?: $fallback;
 
 		if (!$pattern) {
-			throw new Exception(sprintf('Format pattern %s does not exist', $key));
+			throw new MissingPatternException(sprintf('Format pattern %s does not exist', $key));
 		}
 
 		return $pattern;

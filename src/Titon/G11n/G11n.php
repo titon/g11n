@@ -11,9 +11,10 @@ use Titon\Common\Config;
 use Titon\Common\Registry;
 use Titon\Common\Traits\Cacheable;
 use Titon\Event\Scheduler;
+use Titon\G11n\Exception\MissingTranslatorException;
+use Titon\G11n\Exception\MissingLocaleException;
 use Titon\G11n\Locale;
 use Titon\G11n\Translator;
-use Titon\G11n\Exception;
 
 /**
  * The Globalization class handles all the necessary functionality for internationalization and
@@ -225,7 +226,7 @@ class G11n {
 	/**
 	 * Detect which locale to use based on the clients Accept-Language header.
 	 *
-	 * @throws \Titon\G11n\Exception
+	 * @throws \Titon\G11n\Exception\MissingTranslatorException
 	 */
 	public function initialize() {
 		if (!$this->isEnabled()) {
@@ -260,7 +261,7 @@ class G11n {
 
 		// Check for a translator
 		if (!$this->_translator) {
-			throw new Exception('A translator is required for G11n message parsing');
+			throw new MissingTranslatorException('A translator is required for G11n message parsing');
 		}
 	}
 
@@ -291,13 +292,13 @@ class G11n {
 	 * @uses Titon\Common\Config
 	 *
 	 * @param string $key
-	 * @throws \Titon\G11n\Exception
+	 * @throws \Titon\G11n\Exception\MissingLocaleException
 	 */
 	public function setFallback($key) {
 		$key = $this->canonicalize($key);
 
 		if (!isset($this->_locales[$key])) {
-			throw new Exception(sprintf('Locale %s has not been setup', $key));
+			throw new MissingLocaleException(sprintf('Locale %s has not been setup', $key));
 		}
 
 		$this->_fallback = $this->_locales[$key];
@@ -345,13 +346,13 @@ class G11n {
 	 *
 	 * @param string $key
 	 * @return \Titon\G11n\Locale
-	 * @throws \Titon\G11n\Exception
+	 * @throws \Titon\G11n\Exception\MissingLocaleException
 	 */
 	public function useLocale($key) {
 		$key = self::canonicalize($key);
 
 		if (!isset($this->_locales[$key])) {
-			throw new Exception(sprintf('Locale %s does not exist', $key));
+			throw new MissingLocaleException(sprintf('Locale %s does not exist', $key));
 		}
 
 		$locale = $this->_locales[$key];

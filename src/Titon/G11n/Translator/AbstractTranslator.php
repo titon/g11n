@@ -12,7 +12,7 @@ use Titon\Common\Traits\Cacheable;
 use Titon\Cache\Storage;
 use Titon\Io\Reader;
 use Titon\G11n\Translator;
-use Titon\G11n\Exception;
+use Titon\G11n\Exception\InvalidCatalogException;
 use \MessageFormatter;
 use \Locale;
 
@@ -54,6 +54,8 @@ abstract class AbstractTranslator extends Base implements Translator {
 
 	/**
 	 * {@inheritdoc}
+	 *
+	 * @throws \Titon\G11n\Exception\InvalidCatalogException
 	 */
 	final public function parseKey($key) {
 		return $this->cache([__METHOD__, $key], function() use ($key) {
@@ -62,7 +64,7 @@ abstract class AbstractTranslator extends Base implements Translator {
 			$module = 'common';
 
 			if ($count < 2) {
-				throw new Exception(sprintf('No module or catalog present for %s key', $key));
+				throw new InvalidCatalogException(sprintf('No module or catalog present for %s key', $key));
 
 			} else if ($count === 2) {
 				$catalog = $parts[0];

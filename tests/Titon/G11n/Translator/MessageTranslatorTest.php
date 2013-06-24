@@ -47,7 +47,7 @@ class MessageTranslatorTest extends TestCase {
 	public function testPhpMessages() {
 		$object = new MessageTranslator();
 		$object->setReader(new PhpReader());
-		$object->setStorage(new MemoryStorage());
+		$object->setStorage(new MemoryStorage('cache'));
 
 		$this->object->setTranslator($object);
 		$this->object->useLocale('ex');
@@ -70,7 +70,7 @@ class MessageTranslatorTest extends TestCase {
 	public function testIniMessages() {
 		$object = new MessageTranslator();
 		$object->setReader(new IniReader());
-		$object->setStorage(new MemoryStorage());
+		$object->setStorage(new MemoryStorage('cache'));
 
 		$this->object->setTranslator($object);
 		$this->object->useLocale('ex');
@@ -93,7 +93,7 @@ class MessageTranslatorTest extends TestCase {
 	public function testXmlMessages() {
 		$object = new MessageTranslator();
 		$object->setReader(new XmlReader());
-		$object->setStorage(new MemoryStorage());
+		$object->setStorage(new MemoryStorage('cache'));
 
 		$this->object->setTranslator($object);
 		$this->object->useLocale('ex');
@@ -116,7 +116,7 @@ class MessageTranslatorTest extends TestCase {
 	public function testJsonMessages() {
 		$object = new MessageTranslator();
 		$object->setReader(new JsonReader());
-		$object->setStorage(new MemoryStorage());
+		$object->setStorage(new MemoryStorage('cache'));
 
 		$this->object->setTranslator($object);
 		$this->object->useLocale('ex');
@@ -139,7 +139,7 @@ class MessageTranslatorTest extends TestCase {
 	public function testPoMessages() {
 		$object = new MessageTranslator();
 		$object->setReader(new PoReader());
-		$object->setStorage(new MemoryStorage());
+		$object->setStorage(new MemoryStorage('cache'));
 
 		$this->object->setTranslator($object);
 		$this->object->useLocale('ex');

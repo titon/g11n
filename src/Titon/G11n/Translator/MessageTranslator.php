@@ -9,7 +9,7 @@ namespace Titon\G11n\Translator;
 
 use Titon\Common\Registry;
 use Titon\G11n\G11n;
-use Titon\G11n\Exception;
+use Titon\G11n\Exception\MissingMessageException;
 use Titon\G11n\Translator\AbstractTranslator;
 
 /**
@@ -25,7 +25,7 @@ class MessageTranslator extends AbstractTranslator {
 	 * @uses Titon\G11n\G11n
 	 * @uses Titon\Common\Registry
 	 *
-	 * @throws \Titon\G11n\Exception
+	 * @throws \Titon\G11n\Exception\MissingMessageException
 	 */
 	public function getMessage($key) {
 		if ($cache = $this->getCache($key)) {
@@ -72,7 +72,7 @@ class MessageTranslator extends AbstractTranslator {
 			}
 		}
 
-		throw new Exception(sprintf('Message key %s does not exist in %s', $key, implode(', ', array_keys($locales))));
+		throw new MissingMessageException(sprintf('Message key %s does not exist in %s', $key, implode(', ', array_keys($locales))));
 	}
 
 }

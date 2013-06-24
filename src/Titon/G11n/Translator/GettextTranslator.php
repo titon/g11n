@@ -10,7 +10,7 @@ namespace Titon\G11n\Translator;
 use Titon\Common\Config;
 use Titon\Common\Registry;
 use Titon\G11n\G11n;
-use Titon\G11n\Exception;
+use Titon\G11n\Exception\MissingMessageException;
 use Titon\G11n\Translator\AbstractTranslator;
 use Titon\Utility\String;
 use \Locale;
@@ -45,7 +45,7 @@ class GettextTranslator extends AbstractTranslator {
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @throws \Titon\G11n\Exception
+	 * @throws \Titon\G11n\Exception\MissingMessageException
 	 */
 	public function getMessage($key) {
 		return $this->cache([__METHOD__, $key], function() use ($key) {
@@ -61,7 +61,7 @@ class GettextTranslator extends AbstractTranslator {
 				return $message;
 			}
 
-			throw new Exception(sprintf('Message key %s does not exist in %s', $key, Locale::DEFAULT_LOCALE));
+			throw new MissingMessageException(sprintf('Message key %s does not exist in %s', $key, Locale::DEFAULT_LOCALE));
 		});
 	}
 
