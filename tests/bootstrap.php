@@ -22,4 +22,4 @@ $loader->add('Titon\\G11n', TEST_DIR);
 use Titon\Common\Config;
 
 Config::add('Titon.path.resources', TEMP_DIR);
-Config::add('Titon.path.resources', dirname(TEST_DIR) . '/resources/');
+Config::add('Titon.path.resources', dirname(TEST_DIR) . '/src/resources/');
