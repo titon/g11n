@@ -8,7 +8,7 @@
 namespace Titon\G11n;
 
 use Titon\Test\TestCase;
-use Titon\Test\Fixture\TranslatorFixture;
+use Titon\Test\Stub\TranslatorStub;
 use \Exception;
 
 /**
@@ -20,7 +20,7 @@ class TranslatorTest extends TestCase {
 	 * Test that parsing a translation key returns the correct module, catalog and id.
 	 */
 	public function testParseKey() {
-		$object = new TranslatorFixture();
+		$object = new TranslatorStub();
 
 		$this->assertEquals(['module', 'catalog', 'id'], $object->parseKey('module.catalog.id'));
 		$this->assertEquals(['module', 'catalog', 'id.multi.part'], $object->parseKey('module.catalog.id.multi.part'));
