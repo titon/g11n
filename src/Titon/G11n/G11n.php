@@ -10,7 +10,7 @@ namespace Titon\G11n;
 use Titon\Common\Config;
 use Titon\Common\Registry;
 use Titon\Common\Traits\Cacheable;
-use Titon\Event\Scheduler;
+use Titon\Event\Traits\Emittable;
 use Titon\G11n\Exception\MissingTranslatorException;
 use Titon\G11n\Exception\MissingLocaleException;
 use Titon\G11n\Locale;
@@ -29,7 +29,7 @@ use Titon\G11n\Translator;
  * @package Titon\G11n
  */
 class G11n {
-	use Cacheable;
+	use Cacheable, Emittable;
 
 	/**
 	 * Possible formats for locale keys.
@@ -139,8 +139,6 @@ class G11n {
 	/**
 	 * Get a list of locales and fallback locales in descending order starting from the current locale.
 	 *
-	 * @uses Titon\Event\Scheduler
-	 *
 	 * @return array
 	 */
 	public function cascade() {
@@ -157,7 +155,7 @@ class G11n {
 
 			$cycle = array_unique($cycle);
 
-			Scheduler::dispatch('g11n.cascade', [$cycle]);
+			$this->emit('g11n.cascade', [$cycle]);
 
 			return $cycle;
 		});
@@ -292,6 +290,7 @@ class G11n {
 	 * @uses Titon\Common\Config
 	 *
 	 * @param string $key
+	 * @return \Titon\G11n\G11n
 	 * @throws \Titon\G11n\Exception\MissingLocaleException
 	 */
 	public function setFallback($key) {
@@ -304,6 +303,8 @@ class G11n {
 		$this->_fallback = $this->_locales[$key];
 
 		Config::set('Titon.locale.fallback', $key);
+
+		return $this;
 	}
 
 	/**
@@ -322,8 +323,6 @@ class G11n {
 	 * Return a translated string using the translator.
 	 * If a storage engine is present, read and write from the cache.
 	 *
-	 * @uses Titon\Event\Scheduler
-	 *
 	 * @param string $key
 	 * @param array $params
 	 * @return string
@@ -331,7 +330,7 @@ class G11n {
 	public function translate($key, array $params = []) {
 		$message = $this->getTranslator()->translate($key, $params);
 
-		Scheduler::dispatch('g11n.translate', [$key, $message, $params]);
+		$this->emit('g11n.translate', [$key, $message, $params]);
 
 		return $message;
 	}
@@ -395,6 +394,8 @@ class G11n {
 		Config::set('Titon.locale.current', $code);
 
 		$this->_current = $locale;
+
+		$this->emit('g11n.useLocale', [$locale]);
 
 		return $locale;
 	}
