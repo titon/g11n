@@ -155,7 +155,7 @@ class G11n {
 
 			$cycle = array_unique($cycle);
 
-			$this->emit('g11n.cascade', [$cycle]);
+			$this->emit('g11n.cascade', [&$cycle]);
 
 			return $cycle;
 		});
@@ -330,7 +330,7 @@ class G11n {
 	public function translate($key, array $params = []) {
 		$message = $this->getTranslator()->translate($key, $params);
 
-		$this->emit('g11n.translate', [$key, $message, $params]);
+		$this->emit('g11n.translate', [$key, &$message, $params]);
 
 		return $message;
 	}

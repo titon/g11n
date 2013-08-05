@@ -49,9 +49,13 @@ class MessageTranslator extends AbstractTranslator {
 
 			// Else check within the bundle
 			if (!$messages) {
+				/** @type \Titon\Io\Bundle $bundle */
 				$bundle = clone $locales[G11n::canonicalize($locale)]->getMessageBundle();
 				$bundle->addReader($this->getReader());
-				$bundle->config->set('module', $module);
+
+				if (isset($bundle->config)) {
+					$bundle->config->set('module', $module); // TODO change?
+				}
 
 				if ($data = $bundle->loadResource($catalog)) {
 					$messages = $data;
