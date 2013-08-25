@@ -1,4 +1,4 @@
-# G11n v0.9.1 [![Build Status](https://travis-ci.org/titon/G11n.png)](https://travis-ci.org/titon/G11n) #
+# G11n v0.9.1 [![Build Status](https://travis-ci.org/titon/g11n.png)](https://travis-ci.org/titon/g11n) #
 
 The Titon g11n package handles the localization and internationalization of your application.
 
@@ -15,7 +15,7 @@ The Titon g11n package handles the localization and internationalization of your
 * `Utility`
 * `Event`
 * `IO`
-* `Cache` (Optional, for Translator)
+* `Cache` (optional for Translator)
 
 ### Requirements ###
 

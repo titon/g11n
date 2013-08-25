@@ -302,7 +302,7 @@ class G11n {
 
 		$this->_fallback = $this->_locales[$key];
 
-		Config::set('Titon.locale.fallback', $key);
+		Config::set('titon.locale.fallback', $key);
 
 		return $this;
 	}
@@ -391,7 +391,7 @@ class G11n {
 		setlocale(LC_ALL, $options);
 
 		\Locale::setDefault($code);
-		Config::set('Titon.locale.current', $code);
+		Config::set('titon.locale.current', $code);
 
 		$this->_current = $locale;
 

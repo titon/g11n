@@ -21,5 +21,5 @@ $loader->add('Titon\\G11n', TEST_DIR);
 // Set resource paths
 use Titon\Common\Config;
 
-Config::add('Titon.path.resources', TEMP_DIR);
-Config::add('Titon.path.resources', dirname(TEST_DIR) . '/src/resources/');
+Config::add('titon.path.resources', TEMP_DIR);
+Config::add('titon.path.resources', dirname(TEST_DIR) . '/src/resources/');

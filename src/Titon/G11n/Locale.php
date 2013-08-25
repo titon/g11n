@@ -76,7 +76,7 @@ class Locale extends Base {
 		$messageBundle = new MessageBundle();
 		$code = $this->getCode();
 
-		if ($paths = Config::get('Titon.path.resources')) {
+		if ($paths = Config::get('titon.path.resources')) {
 			foreach ((array) $paths as $path) {
 				$localeBundle->addPath(sprintf('%s/locales/%s', $path, $code));
 
