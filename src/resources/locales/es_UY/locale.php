@@ -2,8 +2,8 @@
 
 // Spanish (Uruguay)
 return [
-	'code' => 'es_UY',
-	'parent' => 'es',
-	'timezone' => 'America/Montevideo',
-	'title' => 'Spanish (Uruguay)',
+    'code' => 'es_UY',
+    'parent' => 'es',
+    'timezone' => 'America/Montevideo',
+    'title' => 'Spanish (Uruguay)',
 ];

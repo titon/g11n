@@ -2,8 +2,8 @@
 
 // English (South Africa)
 return [
-	'code' => 'en_ZA',
-	'parent' => 'en',
-	'timezone' => 'Africa/Johannesburg',
-	'title' => 'English (South Africa)',
+    'code' => 'en_ZA',
+    'parent' => 'en',
+    'timezone' => 'Africa/Johannesburg',
+    'title' => 'English (South Africa)',
 ];

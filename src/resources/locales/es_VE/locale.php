@@ -2,8 +2,8 @@
 
 // Spanish (Venezuela)
 return [
-	'code' => 'es_VE',
-	'parent' => 'es',
-	'timezone' => 'America/Caracas',
-	'title' => 'Spanish (Venezuela)',
+    'code' => 'es_VE',
+    'parent' => 'es',
+    'timezone' => 'America/Caracas',
+    'title' => 'Spanish (Venezuela)',
 ];

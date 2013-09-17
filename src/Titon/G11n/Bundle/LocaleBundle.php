@@ -1,8 +1,8 @@
 <?php
 /**
- * @copyright	Copyright 2010-2013, The Titon Project
- * @license		http://opensource.org/licenses/bsd-license.php
- * @link		http://titon.io
+ * @copyright   2010-2013, The Titon Project
+ * @license     http://opensource.org/licenses/bsd-license.php
+ * @link        http://titon.io
  */
 
 namespace Titon\G11n\Bundle;
@@ -19,13 +19,13 @@ use Titon\Io\Reader\PhpReader;
  */
 class LocaleBundle extends AbstractBundle {
 
-	/**
-	 * Add the PhpReader for locale bundle reading.
-	 *
-	 * @uses Titon\Io\Reader\PhpReader
-	 */
-	public function initialize() {
-		$this->addReader(new PhpReader());
-	}
+    /**
+     * Add the PhpReader for locale bundle reading.
+     *
+     * @uses Titon\Io\Reader\PhpReader
+     */
+    public function initialize() {
+        $this->addReader(new PhpReader());
+    }
 
 }

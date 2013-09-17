@@ -16,8 +16,8 @@ $g11n = new G11n();
 
 // Define resource locations
 Config::set('Titon.path.resources', [
-	'/resources/',
-	'/{module}/resources/'
+    '/resources/',
+    '/{module}/resources/'
 ]);
 
 // English (loads parent en)
@@ -25,13 +25,13 @@ $g11n->addLocale(new Locale('en_US'));
 
 // German, Luxembourg (loads parent de)
 $g11n->addLocale(new Locale('de_LU', [
-	'timezone' => 'Europe/Berlin'
+    'timezone' => 'Europe/Berlin'
 ]));
 
 // Use PHP files for messages
 $g11n->setTranslator(new MessageTranslator())
-	->setReader(new PhpReader())
-	->setStorage(new MemcacheStorage());
+    ->setReader(new PhpReader())
+    ->setStorage(new MemcacheStorage());
 
 // Set fallback
 $g11n->setFallback('en');

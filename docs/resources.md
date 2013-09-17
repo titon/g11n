@@ -6,16 +6,16 @@ Within each of these folders should be locale specific folders, like en_US.
 
 ```
 resources/
-	configs/
-	environments/
-	locales/
-		en/
-			locale.php
-		en_US/
-	messages/
-		en/
-			common.php
-		en_US/
+    configs/
+    environments/
+    locales/
+        en/
+            locale.php
+        en_US/
+    messages/
+        en/
+            common.php
+        en_US/
 ```
 
 If a module contains resources, the module name should prepend the resources folder.
@@ -23,9 +23,9 @@ For the most part, module resources should only contain configuration and messag
 
 ```
 ForumModule/
-	resources/
-		configs/
-		messages/
+    resources/
+        configs/
+        messages/
 ```
 
 ### Messages ###

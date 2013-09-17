@@ -2,8 +2,8 @@
 
 // English (Phillippines)
 return [
-	'code' => 'en_PH',
-	'parent' => 'en',
-	'timezone' => 'Asia/Manila',
-	'title' => 'English (Phillippines)',
+    'code' => 'en_PH',
+    'parent' => 'en',
+    'timezone' => 'Asia/Manila',
+    'title' => 'English (Phillippines)',
 ];

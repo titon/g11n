@@ -2,9 +2,9 @@
 
 // Corsican
 return [
-	'code' => 'co',
-	'iso2' => 'co',
-	'iso3' => 'cos',
-	'timezone' => 'Europe/Rome',
-	'title' => 'Corsican',
+    'code' => 'co',
+    'iso2' => 'co',
+    'iso3' => 'cos',
+    'timezone' => 'Europe/Rome',
+    'title' => 'Corsican',
 ];

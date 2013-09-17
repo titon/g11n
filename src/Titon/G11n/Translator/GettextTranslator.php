@@ -1,8 +1,8 @@
 <?php
 /**
- * @copyright	Copyright 2010-2013, The Titon Project
- * @license		http://opensource.org/licenses/bsd-license.php
- * @link		http://titon.io
+ * @copyright   2010-2013, The Titon Project
+ * @license     http://opensource.org/licenses/bsd-license.php
+ * @link        http://titon.io
  */
 
 namespace Titon\G11n\Translator;
@@ -22,47 +22,47 @@ use \Locale;
  */
 class GettextTranslator extends AbstractTranslator {
 
-	/**
-	 * {@inheritdoc}
-	 *
-	 * @uses Titon\Common\Registry
-	 * @uses Titon\Utility\String
-	 */
-	public function bindDomains($module, $catalog) {
-		bind_textdomain_codeset($catalog, Config::encoding());
+    /**
+     * {@inheritdoc}
+     *
+     * @uses Titon\Common\Registry
+     * @uses Titon\Utility\String
+     */
+    public function bindDomains($module, $catalog) {
+        bind_textdomain_codeset($catalog, Config::encoding());
 
-		return $this->cache([__METHOD__, $module, $catalog], function() use ($module, $catalog) {
-			$locations = Registry::factory('Titon\G11n\G11n')->current()->getMessageBundle()->getLocations();
+        return $this->cache([__METHOD__, $module, $catalog], function() use ($module, $catalog) {
+            $locations = Registry::factory('Titon\G11n\G11n')->current()->getMessageBundle()->getLocations();
 
-			foreach ($locations as $location) {
-				bindtextdomain($catalog, String::insert($location, ['module' => $module]));
-			}
+            foreach ($locations as $location) {
+                bindtextdomain($catalog, String::insert($location, ['module' => $module]));
+            }
 
-			return true;
-		});
-	}
+            return true;
+        });
+    }
 
-	/**
-	 * {@inheritdoc}
-	 *
-	 * @throws \Titon\G11n\Exception\MissingMessageException
-	 */
-	public function getMessage($key) {
-		return $this->cache([__METHOD__, $key], function() use ($key) {
-			list($module, $catalog, $id) = $this->parseKey($key);
+    /**
+     * {@inheritdoc}
+     *
+     * @throws \Titon\G11n\Exception\MissingMessageException
+     */
+    public function getMessage($key) {
+        return $this->cache([__METHOD__, $key], function() use ($key) {
+            list($module, $catalog, $id) = $this->parseKey($key);
 
-			$this->bindDomains($module, $catalog);
+            $this->bindDomains($module, $catalog);
 
-			textdomain($catalog);
+            textdomain($catalog);
 
-			$message = gettext($id);
+            $message = gettext($id);
 
-			if ($message !== $id) {
-				return $message;
-			}
+            if ($message !== $id) {
+                return $message;
+            }
 
-			throw new MissingMessageException(sprintf('Message key %s does not exist in %s', $key, Locale::DEFAULT_LOCALE));
-		});
-	}
+            throw new MissingMessageException(sprintf('Message key %s does not exist in %s', $key, Locale::DEFAULT_LOCALE));
+        });
+    }
 
 }

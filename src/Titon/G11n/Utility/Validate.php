@@ -1,8 +1,8 @@
 <?php
 /**
- * @copyright	Copyright 2010-2013, The Titon Project
- * @license		http://opensource.org/licenses/bsd-license.php
- * @link		http://titon.io
+ * @copyright   2010-2013, The Titon Project
+ * @license     http://opensource.org/licenses/bsd-license.php
+ * @link        http://titon.io
  */
 
 namespace Titon\G11n\Utility;
@@ -18,49 +18,49 @@ use Titon\G11n\Exception\MissingPatternException;
  */
 class Validate extends \Titon\Utility\Validate {
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public static function currency($input, $format = null) {
-		return parent::currency($input, self::get('currency', $format));
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public static function currency($input, $format = null) {
+        return parent::currency($input, self::get('currency', $format));
+    }
 
-	/**
-	 * {@inheritdoc}
-	 *
-	 * @uses Titon\Common\Registry
-	 *
-	 * @throws \Titon\G11n\Exception\MissingPatternException
-	 */
-	public static function get($key, $fallback = null) {
-		$pattern = Registry::factory('Titon\G11n\G11n')->current()->getValidationRules($key) ?: $fallback;
+    /**
+     * {@inheritdoc}
+     *
+     * @uses Titon\Common\Registry
+     *
+     * @throws \Titon\G11n\Exception\MissingPatternException
+     */
+    public static function get($key, $fallback = null) {
+        $pattern = Registry::factory('Titon\G11n\G11n')->current()->getValidationRules($key) ?: $fallback;
 
-		if (!$pattern) {
-			throw new MissingPatternException(sprintf('Validation rule %s does not exist', $key));
-		}
+        if (!$pattern) {
+            throw new MissingPatternException(sprintf('Validation rule %s does not exist', $key));
+        }
 
-		return $pattern;
-	}
+        return $pattern;
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public static function phone($input, $format = null) {
-		return parent::phone($input, self::get('phone', $format));
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public static function phone($input, $format = null) {
+        return parent::phone($input, self::get('phone', $format));
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public static function postalCode($input, $format = null) {
-		return parent::postalCode($input, self::get('postalCode', $format));
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public static function postalCode($input, $format = null) {
+        return parent::postalCode($input, self::get('postalCode', $format));
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public static function ssn($input, $format = null) {
-		return parent::ssn($input, self::get('ssn', $format));
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public static function ssn($input, $format = null) {
+        return parent::ssn($input, self::get('ssn', $format));
+    }
 
 }

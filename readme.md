@@ -20,6 +20,6 @@ The Titon g11n package handles the localization and internationalization of your
 ### Requirements ###
 
 * PHP 5.4.0
-	* Intl
-	* Multibyte
-	* Gettext (for GettextTranslator)
+    * Intl
+    * Multibyte
+    * Gettext (for GettextTranslator)

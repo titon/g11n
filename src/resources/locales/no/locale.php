@@ -2,9 +2,9 @@
 
 // Norwegian
 return [
-	'code' => 'no',
-	'iso2' => 'no',
-	'iso3' => 'nor',
-	'timezone' => 'Europe/Oslo',
-	'title' => 'Norwegian',
+    'code' => 'no',
+    'iso2' => 'no',
+    'iso3' => 'nor',
+    'timezone' => 'Europe/Oslo',
+    'title' => 'Norwegian',
 ];

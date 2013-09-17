@@ -2,8 +2,8 @@
 
 // German (Austria)
 return [
-	'code' => 'de_AT',
-	'parent' => 'de',
-	'timezone' => 'Europe/Vienna',
-	'title' => 'German (Austria)',
+    'code' => 'de_AT',
+    'parent' => 'de',
+    'timezone' => 'Europe/Vienna',
+    'title' => 'German (Austria)',
 ];
