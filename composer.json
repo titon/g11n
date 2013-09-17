@@ -30,6 +30,6 @@
 	},
 	"autoload": {
 		"psr-0": { "Titon\\G11n": "src/" },
-		"files": [ "src/Titon/bootstrap.php" ]
+		"files": [ "src/bootstrap.php" ]
 	}
 }
