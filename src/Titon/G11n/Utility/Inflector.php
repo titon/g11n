@@ -21,7 +21,7 @@ class Inflector extends \Titon\Utility\Inflector {
 	 * {@inheritdoc}
 	 */
 	public static function className($string) {
-		return self::_cache(array(__METHOD__, $string), function() use ($string) {
+		return self::_cache([__METHOD__, $string], function() use ($string) {
 			return Inflector::camelCase(Inflector::singularize($string));
 		});
 	}
@@ -163,11 +163,29 @@ class Inflector extends \Titon\Utility\Inflector {
 		});
 	}
 
+    /**
+     * {@inheritdoc}
+     */
+    public static function slug($string) {
+        return self::_cache([__METHOD__, $string], function() use ($string) {
+            // Revert entities
+            $string = html_entity_decode($string, ENT_QUOTES, 'UTF-8');
+
+            // Remove non-ascii characters
+            $string = preg_replace('/[^-a-z0-9\.\s]+/i', '', Inflector::transliterate($string));
+
+            // Replace dashes and underscores
+            $string = str_replace(' ', '-', str_replace('-', '_', $string));
+
+            return mb_strtolower($string);
+        });
+    }
+
 	/**
 	 * {@inheritdoc}
 	 */
 	public static function tableName($string) {
-		return self::_cache(array(__METHOD__, $string), function() use ($string) {
+		return self::_cache([__METHOD__, $string], function() use ($string) {
 			return lcfirst(Inflector::camelCase(Inflector::pluralize($string)));
 		});
 	}
