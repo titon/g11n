@@ -23,7 +23,8 @@
     },
     "require-dev": {
         "titon/test": "*",
-        "titon/cache": "*"
+        "titon/cache": "*",
+        "titon/route": "*"
     },
     "suggest": {
         "titon/cache": "Use a Storage engine to cache message bundles"

@@ -10,11 +10,15 @@ namespace Titon\G11n;
 use Titon\Common\Config;
 use Titon\Common\Registry;
 use Titon\Common\Traits\Cacheable;
+use Titon\Event\Event;
+use Titon\Event\Listener;
 use Titon\Event\Traits\Emittable;
 use Titon\G11n\Exception\MissingTranslatorException;
 use Titon\G11n\Exception\MissingLocaleException;
 use Titon\G11n\Locale;
+use Titon\G11n\Route\LocaleRoute;
 use Titon\G11n\Translator;
+use Titon\Route\Router;
 
 /**
  * The Globalization class handles all the necessary functionality for internationalization and
@@ -28,7 +32,7 @@ use Titon\G11n\Translator;
  *
  * @package Titon\G11n
  */
-class G11n {
+class G11n implements Listener {
     use Cacheable, Emittable;
 
     /**
@@ -277,6 +281,55 @@ class G11n {
      */
     public function isEnabled() {
         return (count($this->_locales) > 0);
+    }
+
+    /**
+     * Register events for this package.
+     *
+     * @return array
+     */
+    public function registerEvents() {
+        return [
+            'route.initialize' => 'resolveRoute'
+        ];
+    }
+
+    /**
+     * When the Router initializes, check for the existence of a locale.
+     * If the locale exists, verify it. If either of these fail, redirect with the fallback locale.
+     * This event must be bound to the Router to work.
+     *
+     * @param \Titon\Event\Event $event
+     * @param string $path
+     */
+    public function resolveRoute(Event $event, $path) {
+        if (!$this->isEnabled() || PHP_SAPI === 'cli') {
+            return;
+        }
+
+        $locales = $this->getLocales();
+        $redirect = '/' . $this->getFallback()->getCode();
+        $base = Router::base();
+
+        // Double leading slashes redirect outside of host
+        if ($base !== '/') {
+            $redirect = $base . $redirect;
+        }
+
+        // Path doesn't start with a locale
+        if (!preg_match('/^\/' . LocaleRoute::LOCALE . '\/(.*)?/', $path, $matches)) {
+
+            // Check for locales that don't pass because of no ending slash
+            if (empty($locales[trim($path, '/')])) {
+                header('Location: ' . $redirect . $path);
+                exit();
+            }
+
+        // Or if that locale is not supported
+        } else if (empty($locales[$matches[1]])) {
+            header('Location: ' . $redirect . $matches[2]);
+            exit();
+        }
     }
 
     /**
