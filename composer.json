@@ -15,7 +15,6 @@
         "php": ">=5.4.0",
         "ext-mbstring": "*",
         "ext-intl": "*",
-        "ext-gettext": "*",
         "titon/common": "*",
         "titon/utility": "*",
         "titon/event": "*",
@@ -27,6 +26,7 @@
         "titon/route": "*"
     },
     "suggest": {
+        "ext-gettext": "Enable the gettext extension for locale bundling",
         "titon/cache": "Use a Storage engine to cache message bundles"
     },
     "autoload": {

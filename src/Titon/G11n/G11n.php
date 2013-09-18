@@ -31,6 +31,10 @@ use Titon\Route\Router;
  * @link http://loc.gov/standards/iso639-2/php/code_list.php
  *
  * @package Titon\G11n
+ * @events
+ *      g11n.onInit(G11n $g11n, $code)
+ *      g11n.onUse(G11n $g11n, Locale $locale)
+ *      g11n.onCascade(G11n $g11n, array $cycle)
  */
 class G11n implements Listener {
     use Cacheable, Emittable;
@@ -105,6 +109,25 @@ class G11n implements Listener {
     }
 
     /**
+     * Override the default routes with locale aware routes.
+     *
+     * @param \Titon\Event\Event $event
+     * @param \Titon\Route\Router $router
+     * @param string $path
+     */
+    public function addRoutes(Event $event, Router $router, $path) {
+        if (!$this->isEnabled()) {
+            return;
+        }
+
+        $router->map(new LocaleRoute('action.ext', '/{module}/{controller}/{action}.{ext}'));
+        $router->map(new LocaleRoute('action', '/{module}/{controller}/{action}'));
+        $router->map(new LocaleRoute('controller', '/{module}/{controller}'));
+        $router->map(new LocaleRoute('module', '/{module}'));
+        $router->map(new LocaleRoute('root', '/'));
+    }
+
+    /**
      * Convert a locale key to 3 possible formats.
      *
      * @param string $key
@@ -141,7 +164,7 @@ class G11n implements Listener {
      * @return array
      */
     public function cascade() {
-        return $this->cache(__METHOD__, function() {
+        return $this->cache([__METHOD__, $this->current()->getCode()], function() {
             $cycle = [];
 
             foreach ([$this->current(), $this->getFallback()] as $locale) {
@@ -154,7 +177,7 @@ class G11n implements Listener {
 
             $cycle = array_unique($cycle);
 
-            $this->emit('g11n.cascade', [&$cycle]);
+            $this->emit('g11n.onCascade', [$this, &$cycle]);
 
             return $cycle;
         });
@@ -253,13 +276,15 @@ class G11n implements Listener {
             $current = $this->_fallback->getCode();
         }
 
-        // Apply the locale
-        $this->useLocale($current);
-
         // Check for a translator
         if (!$this->_translator) {
             throw new MissingTranslatorException('A translator is required for G11n message parsing');
         }
+
+        $this->emit('g11n.onInit', [$this, &$current]);
+
+        // Apply the locale
+        $this->useLocale($current);
     }
 
     /**
@@ -290,26 +315,30 @@ class G11n implements Listener {
      */
     public function registerEvents() {
         return [
-            'route.initialize' => 'resolveRoute'
+            'route.onInit' => [
+                'addRoutes',
+                'resolveRoute'
+            ]
         ];
     }
 
     /**
-     * When the Router initializes, check for the existence of a locale.
+     * When the Router initializes, check for the existence of a locale in the URL.
      * If the locale exists, verify it. If either of these fail, redirect with the fallback locale.
      * This event must be bound to the Router to work.
      *
      * @param \Titon\Event\Event $event
+     * @param \Titon\Route\Router $router
      * @param string $path
      */
-    public function resolveRoute(Event $event, $path) {
+    public function resolveRoute(Event $event, Router $router, $path) {
         if (!$this->isEnabled() || PHP_SAPI === 'cli') {
             return;
         }
 
         $locales = $this->getLocales();
         $redirect = '/' . $this->getFallback()->getCode();
-        $base = Router::base();
+        $base = $router->base();
 
         // Double leading slashes redirect outside of host
         if ($base !== '/') {
@@ -376,11 +405,7 @@ class G11n implements Listener {
      * @return string
      */
     public function translate($key, array $params = []) {
-        $message = $this->getTranslator()->translate($key, $params);
-
-        $this->emit('g11n.translate', [$key, &$message, $params]);
-
-        return $message;
+        return $this->getTranslator()->translate($key, $params);
     }
 
     /**
@@ -443,7 +468,7 @@ class G11n implements Listener {
 
         $this->_current = $locale;
 
-        $this->emit('g11n.useLocale', [$locale]);
+        $this->emit('g11n.onUse', [$this, $locale]);
 
         return $locale;
     }
