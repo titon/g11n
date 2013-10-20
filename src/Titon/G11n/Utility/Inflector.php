@@ -211,7 +211,7 @@ class Inflector extends \Titon\Utility\Inflector {
 
             // Replace with ASCII characters
             $transliterations = $inflections['transliteration'];
-            $string = preg_replace(array_keys($transliterations), array_values($transliterations), $string);
+            $string = str_replace(array_keys($transliterations), array_values($transliterations), $string);
 
             // Remove any left over non 7bit ASCII
             return preg_replace('/[^\x09\x0A\x0D\x20-\x7E]/', '', $string);
