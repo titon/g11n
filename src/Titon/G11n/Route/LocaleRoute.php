@@ -26,10 +26,10 @@ class LocaleRoute extends Route {
      *
      * @param string $key
      * @param string $path
-     * @param array $route
+     * @param string|array $route
      * @param array $config
      */
-    public function __construct($key, $path, array $route = [], array $config = []) {
+    public function __construct($key, $path, $route = [], array $config = []) {
         /** @type \Titon\G11n\G11n $g11n */
         $g11n = Registry::factory('Titon\G11n\G11n');
 
