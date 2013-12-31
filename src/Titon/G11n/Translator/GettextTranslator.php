@@ -28,14 +28,14 @@ class GettextTranslator extends AbstractTranslator {
      * @uses Titon\Common\Registry
      * @uses Titon\Utility\String
      */
-    public function bindDomains($module, $catalog) {
+    public function bindDomains($domain, $catalog) {
         bind_textdomain_codeset($catalog, Config::encoding());
 
-        return $this->cache([__METHOD__, $module, $catalog], function() use ($module, $catalog) {
+        return $this->cache([__METHOD__, $domain, $catalog], function() use ($domain, $catalog) {
             $locations = Registry::factory('Titon\G11n\G11n')->current()->getMessageBundle()->getLocations();
 
             foreach ($locations as $location) {
-                bindtextdomain($catalog, String::insert($location, ['module' => $module]));
+                bindtextdomain($catalog, $location);
             }
 
             return true;
@@ -49,9 +49,9 @@ class GettextTranslator extends AbstractTranslator {
      */
     public function getMessage($key) {
         return $this->cache([__METHOD__, $key], function() use ($key) {
-            list($module, $catalog, $id) = $this->parseKey($key);
+            list($domain, $catalog, $id) = $this->parseKey($key);
 
-            $this->bindDomains($module, $catalog);
+            $this->bindDomains($domain, $catalog);
 
             textdomain($catalog);
 

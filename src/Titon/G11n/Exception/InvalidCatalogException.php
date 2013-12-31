@@ -8,7 +8,7 @@
 namespace Titon\G11n\Exception;
 
 /**
- * Exception thrown when a catalog or module key is invalid.
+ * Exception thrown when a catalog or domain key is invalid.
  *
  * @package Titon\G11n\Exception
  */

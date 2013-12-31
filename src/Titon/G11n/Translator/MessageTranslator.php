@@ -32,14 +32,14 @@ class MessageTranslator extends AbstractTranslator {
             return $cache;
         }
 
-        list($module, $catalog, $id) = $this->parseKey($key);
+        list($domain, $catalog, $id) = $this->parseKey($key);
 
         // Cycle through each locale till a message is found
         $g11n = Registry::factory('Titon\G11n\G11n');
         $locales = $g11n->getLocales();
 
         foreach ($g11n->cascade() as $locale) {
-            $cacheKey = sprintf('g11n.%s.%s.%s', $module, $catalog, $locale);
+            $cacheKey = sprintf('g11n.%s.%s.%s', $domain, $catalog, $locale);
             $messages = [];
 
             // Check within the cache first
@@ -49,13 +49,10 @@ class MessageTranslator extends AbstractTranslator {
 
             // Else check within the bundle
             if (!$messages) {
+
                 /** @type \Titon\Io\Bundle $bundle */
                 $bundle = clone $locales[G11n::canonicalize($locale)]->getMessageBundle();
                 $bundle->addReader($this->getReader());
-
-                if (isset($bundle->config)) {
-                    $bundle->config->set('module', $module); // TODO change?
-                }
 
                 if ($data = $bundle->loadResource($catalog)) {
                     $messages = $data;

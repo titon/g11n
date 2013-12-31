@@ -41,7 +41,7 @@ interface Translator {
     public function getStorage();
 
     /**
-     * Parse out the module, catalog and key for string lookup.
+     * Parse out the domain, catalog and key for string lookup.
      *
      * @param string $key
      * @return string

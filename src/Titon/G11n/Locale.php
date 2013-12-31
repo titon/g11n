@@ -64,6 +64,39 @@ class Locale extends Base {
     }
 
     /**
+     * Add resource path lookups for locales and messages.
+     *
+     * @param string $path
+     * @return \Titon\G11n\Locale
+     */
+    public function addResourcePath($path) {
+        $code = $this->getCode();
+
+        $this->getLocaleBundle()->addPath(sprintf('%s/locales/%s', $path, $code));
+
+        $this->getMessageBundle()->addPaths([
+            sprintf('%s/messages/%s', $path, $code),
+            sprintf('%s/messages/%s/LC_MESSAGES', $path, $code) // gettext
+        ]);
+
+        return $this;
+    }
+
+    /**
+     * Add multiple resource path lookups.
+     *
+     * @param array $paths
+     * @return \Titon\G11n\Locale
+     */
+    public function addResourcePaths(array $paths) {
+        foreach ($paths as $path) {
+            $this->addResourcePath($path);
+        }
+
+        return $this;
+    }
+
+    /**
      * Instantiate the locale and message bundles using the resource paths.
      *
      * @uses Locale
@@ -72,24 +105,16 @@ class Locale extends Base {
      * @return \Titon\G11n\Locale
      */
     public function initialize() {
-        $localeBundle = new LocaleBundle();
-        $messageBundle = new MessageBundle();
-        $code = $this->getCode();
+        $this->_localeBundle = new LocaleBundle();
+        $this->_messageBundle = new MessageBundle();
 
+        // Add default resource paths
         if ($paths = Config::get('titon.path.resources')) {
-            foreach ((array) $paths as $path) {
-                $localeBundle->addPath(sprintf('%s/locales/%s', $path, $code));
-
-                $messageBundle->addPath(sprintf('%s/messages/%s', $path, $code));
-                $messageBundle->addPath(sprintf('%s/messages/%s/LC_MESSAGES', $path, $code)); // gettext
-            }
+            $this->addResourcePaths($paths);
         }
 
-        $this->_localeBundle = $localeBundle;
-        $this->_messageBundle = $messageBundle;
-
         // Gather locale configuration
-        if ($data = $localeBundle->loadResource('locale')) {
+        if ($data = $this->getLocaleBundle()->loadResource('locale')) {
             $data = \Locale::parseLocale($data['code']) + $data;
 
             $config = $this->config->all();
