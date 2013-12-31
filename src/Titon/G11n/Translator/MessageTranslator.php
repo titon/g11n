@@ -34,10 +34,11 @@ class MessageTranslator extends AbstractTranslator {
 
         list($domain, $catalog, $id) = $this->parseKey($key);
 
-        // Cycle through each locale till a message is found
+        /** @type \Titon\G11n\G11n $g11n */
         $g11n = Registry::factory('Titon\G11n\G11n');
         $locales = $g11n->getLocales();
 
+        // Cycle through each locale till a message is found
         foreach ($g11n->cascade() as $locale) {
             $cacheKey = sprintf('g11n.%s.%s.%s', $domain, $catalog, $locale);
             $messages = [];
@@ -54,7 +55,7 @@ class MessageTranslator extends AbstractTranslator {
                 $bundle = clone $locales[G11n::canonicalize($locale)]->getMessageBundle();
                 $bundle->addReader($this->getReader());
 
-                if ($data = $bundle->loadResource($catalog)) {
+                if ($data = $bundle->loadResource($domain, $catalog)) {
                     $messages = $data;
 
                     if ($storage = $this->getStorage()) {

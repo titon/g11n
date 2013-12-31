@@ -66,15 +66,16 @@ class Locale extends Base {
     /**
      * Add resource path lookups for locales and messages.
      *
+     * @param string $domain
      * @param string $path
      * @return \Titon\G11n\Locale
      */
-    public function addResourcePath($path) {
+    public function addResourcePath($domain, $path) {
         $code = $this->getCode();
 
-        $this->getLocaleBundle()->addPath(sprintf('%s/locales/%s', $path, $code));
+        $this->getLocaleBundle()->addPath($domain, sprintf('%s/locales/%s', $path, $code));
 
-        $this->getMessageBundle()->addPaths([
+        $this->getMessageBundle()->addPaths($domain, [
             sprintf('%s/messages/%s', $path, $code),
             sprintf('%s/messages/%s/LC_MESSAGES', $path, $code) // gettext
         ]);
@@ -85,12 +86,13 @@ class Locale extends Base {
     /**
      * Add multiple resource path lookups.
      *
+     * @param string $domain
      * @param array $paths
      * @return \Titon\G11n\Locale
      */
-    public function addResourcePaths(array $paths) {
+    public function addResourcePaths($domain, array $paths) {
         foreach ($paths as $path) {
-            $this->addResourcePath($path);
+            $this->addResourcePath($domain, $path);
         }
 
         return $this;
@@ -110,11 +112,11 @@ class Locale extends Base {
 
         // Add default resource paths
         if ($paths = Config::get('titon.path.resources')) {
-            $this->addResourcePaths($paths);
+            $this->addResourcePaths('common', $paths);
         }
 
         // Gather locale configuration
-        if ($data = $this->getLocaleBundle()->loadResource('locale')) {
+        if ($data = $this->getLocaleBundle()->loadResource(null, 'locale')) {
             $data = \Locale::parseLocale($data['code']) + $data;
 
             $config = $this->config->all();
@@ -227,11 +229,11 @@ class Locale extends Base {
      */
     protected function _loadResource($resource) {
         return $this->cache([__METHOD__, $resource], function() use ($resource) {
-            $data = $this->getLocaleBundle()->loadResource($resource);
+            $data = $this->getLocaleBundle()->loadResource(null, $resource);
 
             if ($parent = $this->getParentLocale()) {
                 $data = array_merge(
-                    $parent->getLocaleBundle()->loadResource($resource),
+                    $parent->getLocaleBundle()->loadResource(null, $resource),
                     $data
                 );
             }

@@ -25,9 +25,9 @@ class MessageBundleTest extends TestCase {
      */
     public function testPhpBundles() {
         $bundle = new MessageBundle(['bundle' => 'ex']);
-        $bundle->addReader(new PhpReader())->addPath(TEMP_DIR . '/messages/{bundle}/');
+        $bundle->addReader(new PhpReader())->addPath('common', TEMP_DIR . '/messages/{bundle}/');
 
-        $messages = $bundle->loadResource('default');
+        $messages = $bundle->loadResource('common', 'default');
 
         $this->assertTrue(is_array($messages));
         $this->assertEquals(['titon', 'test', 'type', 'format'], array_keys($messages));
@@ -38,7 +38,7 @@ class MessageBundleTest extends TestCase {
             'format' => '{0,number,integer} health, {1,number,integer} energy, {2,number} damage'
         ], $messages);
 
-        $messages = $bundle->loadResource('doesntExist');
+        $messages = $bundle->loadResource('common', 'doesntExist');
 
         $this->assertTrue(is_array($messages));
         $this->assertEmpty($messages);
@@ -49,9 +49,9 @@ class MessageBundleTest extends TestCase {
      */
     public function testIniBundles() {
         $bundle = new MessageBundle(['bundle' => 'ex']);
-        $bundle->addReader(new IniReader())->addPath(TEMP_DIR . '/messages/{bundle}/');
+        $bundle->addReader(new IniReader())->addPath('common', TEMP_DIR . '/messages/{bundle}/');
 
-        $messages = $bundle->loadResource('default');
+        $messages = $bundle->loadResource('common', 'default');
 
         $this->assertTrue(is_array($messages));
         $this->assertEquals(['titon', 'test', 'type', 'format'], array_keys($messages));
@@ -62,7 +62,7 @@ class MessageBundleTest extends TestCase {
             'format' => '{0,number,integer} health, {1,number,integer} energy, {2,number} damage'
         ], $messages);
 
-        $messages = $bundle->loadResource('doesntExist');
+        $messages = $bundle->loadResource('common', 'doesntExist');
 
         $this->assertTrue(is_array($messages));
         $this->assertEmpty($messages);
@@ -73,9 +73,9 @@ class MessageBundleTest extends TestCase {
      */
     public function testJsonBundles() {
         $bundle = new MessageBundle(['bundle' => 'ex']);
-        $bundle->addReader(new JsonReader())->addPath(TEMP_DIR . '/messages/{bundle}/');
+        $bundle->addReader(new JsonReader())->addPath('common', TEMP_DIR . '/messages/{bundle}/');
 
-        $messages = $bundle->loadResource('default');
+        $messages = $bundle->loadResource('common', 'default');
 
         $this->assertTrue(is_array($messages));
         $this->assertEquals(['titon', 'test', 'type', 'format'], array_keys($messages));
@@ -86,7 +86,7 @@ class MessageBundleTest extends TestCase {
             'format' => '{0,number,integer} health, {1,number,integer} energy, {2,number} damage'
         ], $messages);
 
-        $messages = $bundle->loadResource('doesntExist');
+        $messages = $bundle->loadResource('common', 'doesntExist');
 
         $this->assertTrue(is_array($messages));
         $this->assertEmpty($messages);
@@ -97,9 +97,9 @@ class MessageBundleTest extends TestCase {
      */
     public function testXmlBundles() {
         $bundle = new MessageBundle(['bundle' => 'ex']);
-        $bundle->addReader(new XmlReader())->addPath(TEMP_DIR . '/messages/{bundle}/');
+        $bundle->addReader(new XmlReader())->addPath('common', TEMP_DIR . '/messages/{bundle}/');
 
-        $messages = $bundle->loadResource('default');
+        $messages = $bundle->loadResource('common', 'default');
 
         $this->assertTrue(is_array($messages));
         $this->assertEquals(['titon', 'test', 'type', 'format'], array_keys($messages));
@@ -110,7 +110,7 @@ class MessageBundleTest extends TestCase {
             'format' => '{0,number,integer} health, {1,number,integer} energy, {2,number} damage'
         ], $messages);
 
-        $messages = $bundle->loadResource('doesntExist');
+        $messages = $bundle->loadResource('common', 'doesntExist');
 
         $this->assertTrue(is_array($messages));
         $this->assertEmpty($messages);
@@ -121,9 +121,9 @@ class MessageBundleTest extends TestCase {
      */
     public function testPoBundles() {
         $bundle = new MessageBundle(['bundle' => 'ex']);
-        $bundle->addReader(new PoReader())->addPath(TEMP_DIR . '/messages/{bundle}/LC_MESSAGES/');
+        $bundle->addReader(new PoReader())->addPath('common', TEMP_DIR . '/messages/{bundle}/LC_MESSAGES/');
 
-        $messages = $bundle->loadResource('default');
+        $messages = $bundle->loadResource('common', 'default');
 
         $this->assertTrue(is_array($messages));
         $this->assertEquals(['basic', 'multiline', 'plurals', 'context', 'format'], array_keys($messages));
@@ -135,7 +135,7 @@ class MessageBundleTest extends TestCase {
             'format' => '{0,number,integer} health, {1,number,integer} energy, {2,number} damage'
         ], $messages);
 
-        $messages = $bundle->loadResource('doesntExist');
+        $messages = $bundle->loadResource('common', 'doesntExist');
 
         $this->assertTrue(is_array($messages));
         $this->assertEmpty($messages);

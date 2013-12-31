@@ -24,14 +24,14 @@ class LocaleBundleTest extends TestCase {
         parent::setUp();
 
         $this->object = new LocaleBundle(['locale' => 'ex']);
-        $this->object->addPath(TEMP_DIR . '/locales/{locale}/');
+        $this->object->addPath('common', TEMP_DIR . '/locales/{locale}/');
     }
 
     /**
      * Test that the locale meta data is parsed correctly.
      */
     public function testGetLocale() {
-        $locale = $this->object->loadResource('locale');
+        $locale = $this->object->loadResource('common', 'locale');
 
         $this->assertTrue(is_array($locale));
         $this->assertArraysEqual([
@@ -47,7 +47,7 @@ class LocaleBundleTest extends TestCase {
      * Test that the formatting rules are parsed correctly.
      */
     public function testGetFormats() {
-        $formats = $this->object->loadResource('formats');
+        $formats = $this->object->loadResource('common', 'formats');
 
         $this->assertTrue(is_array($formats));
         $this->assertEquals([
@@ -63,7 +63,7 @@ class LocaleBundleTest extends TestCase {
      * Test that the inflection rules are parsed correctly.
      */
     public function testGetInflections() {
-        $inflections = $this->object->loadResource('inflections');
+        $inflections = $this->object->loadResource('common', 'inflections');
 
         $this->assertTrue(is_array($inflections));
         $this->assertEquals([
@@ -78,7 +78,7 @@ class LocaleBundleTest extends TestCase {
      * Test that the validation rules are parsed correctly.
      */
     public function testGetValidations() {
-        $validations = $this->object->loadResource('validations');
+        $validations = $this->object->loadResource('common', 'validations');
 
         $this->assertTrue(is_array($validations));
         $this->assertEquals([
