@@ -464,9 +464,11 @@ class G11n implements Listener {
         setlocale(LC_ALL, $options);
 
         \Locale::setDefault($code);
-        Config::set('titon.locale.current', $code);
 
         $this->_current = $locale;
+
+        Config::set('titon.locale.current', $code);
+        Config::set('titon.locale.cascade', $this->cascade());
 
         $this->emit('g11n.onUse', [$this, $locale]);
 
@@ -474,4 +476,3 @@ class G11n implements Listener {
     }
 
 }
-
