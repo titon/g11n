@@ -30,10 +30,10 @@ class TranslatorTest extends TestCase {
         $this->assertEquals(['m', 'c', 'i'], $object->parseKey('m.c.i'));
         $this->assertEquals([1, 2, 3], $object->parseKey('1.2.3'));
 
-        $this->assertEquals(['common', 'catalog', 'id'], $object->parseKey('catalog.id'));
-        $this->assertEquals(['common', 'root', 'id'], $object->parseKey('root.id'));
-        $this->assertEquals(['common', 'test', 'key'], $object->parseKey('test.key'));
-        $this->assertEquals(['common', 1, 2], $object->parseKey('1.2'));
+        $this->assertEquals(['core', 'catalog', 'id'], $object->parseKey('catalog.id'));
+        $this->assertEquals(['core', 'root', 'id'], $object->parseKey('root.id'));
+        $this->assertEquals(['core', 'test', 'key'], $object->parseKey('test.key'));
+        $this->assertEquals(['core', 1, 2], $object->parseKey('1.2'));
 
         try {
             $object->parseKey('noModuleOrCatalog');

@@ -61,7 +61,7 @@ abstract class AbstractTranslator extends Base implements Translator {
         return $this->cache([__METHOD__, $key], function() use ($key) {
             $parts = explode('.', preg_replace('/[^-a-z0-9\.]+/i', '', $key));
             $count = count($parts);
-            $domain = 'common';
+            $domain = 'core';
 
             if ($count < 2) {
                 throw new InvalidCatalogException(sprintf('No domain or catalog present for %s key', $key));

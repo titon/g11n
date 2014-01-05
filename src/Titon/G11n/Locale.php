@@ -112,7 +112,7 @@ class Locale extends Base {
 
         // Add default resource paths
         if ($paths = Config::get('titon.path.resources')) {
-            $this->addResourcePaths('common', $paths);
+            $this->addResourcePaths('core', $paths);
         }
 
         // Gather locale configuration
