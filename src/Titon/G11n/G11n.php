@@ -10,6 +10,7 @@ namespace Titon\G11n;
 use Titon\Common\Config;
 use Titon\Common\Registry;
 use Titon\Common\Traits\Cacheable;
+use Titon\Common\Traits\Configurable;
 use Titon\Event\Event;
 use Titon\Event\Listener;
 use Titon\Event\Traits\Emittable;
@@ -37,7 +38,7 @@ use Titon\Route\Router;
  *      g11n.onCascade(G11n $g11n, array $cycle)
  */
 class G11n implements Listener {
-    use Cacheable, Emittable;
+    use Cacheable, Configurable, Emittable;
 
     /**
      * Possible formats for locale keys.
@@ -46,6 +47,16 @@ class G11n implements Listener {
     const FORMAT_2 = 2; // en-US
     const FORMAT_3 = 3; // en_US (preferred)
     const FORMAT_4 = 3; // enUS
+
+    /**
+     * Default configuration.
+     *
+     * @type array
+     */
+    protected $_config = [
+        'prependUrl' => true,
+        'storeCookie' => false
+    ];
 
     /**
      * Currently active locale based on the client.
@@ -74,6 +85,15 @@ class G11n implements Listener {
      * @type \Titon\G11n\Translator
      */
     protected $_translator;
+
+    /**
+     * Apply configuration.
+     *
+     * @param array $config
+     */
+    public function __construct(array $config = []) {
+        $this->applyConfig($config);
+    }
 
     /**
      * Sets up the application with the defined locale key; the key will be formatted to a lowercase dashed URL friendly format.
@@ -116,10 +136,6 @@ class G11n implements Listener {
      * @param string $path
      */
     public function addRoutes(Event $event, Router $router, $path) {
-        if (!$this->isEnabled()) {
-            return;
-        }
-
         $router->map(new LocaleRoute('action.ext', '/{module}/{controller}/{action}.{ext}'));
         $router->map(new LocaleRoute('action', '/{module}/{controller}/{action}'));
         $router->map(new LocaleRoute('controller', '/{module}/{controller}'));
@@ -255,8 +271,12 @@ class G11n implements Listener {
 
         $current = null;
 
+        // Determine via cookie
+        if (!empty($_COOKIE['locale']) && isset($this->_locales[$_COOKIE['locale']])) {
+            $current = $_COOKIE['locale'];
+
         // Determine locale based on HTTP headers
-        if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+        } else if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
             $header = mb_strtolower($_SERVER['HTTP_ACCEPT_LANGUAGE']);
 
             if (mb_strpos($header, ';') !== false) {
@@ -318,11 +338,18 @@ class G11n implements Listener {
      * @return array
      */
     public function registerEvents() {
+        if (!$this->isEnabled()) {
+            return [];
+        }
+
+        $onInit = ['addRoutes'];
+
+        if ($this->config->prependUrl) {
+            $onInit[] = 'resolveRoute';
+        }
+
         return [
-            'route.onInit' => [
-                'addRoutes',
-                'resolveRoute'
-            ]
+            'route.onInit' => $onInit
         ];
     }
 
@@ -336,7 +363,7 @@ class G11n implements Listener {
      * @param string $path
      */
     public function resolveRoute(Event $event, Router $router, $path) {
-        if (!$this->isEnabled() || PHP_SAPI === 'cli') {
+        if (PHP_SAPI === 'cli') {
             return;
         }
 
@@ -475,6 +502,11 @@ class G11n implements Listener {
         Config::set('titon.locale.cascade', $this->cascade());
 
         $this->emit('g11n.onUse', [$this, $locale]);
+
+        // Store via cookie
+        if ($this->config->storeCookie) {
+            $_COOKIE['locale'] = $key;
+        }
 
         return $locale;
     }

@@ -71,10 +71,10 @@ class LocaleRouteTest extends TestCase {
             ]
         ]);
 
-        $this->assertEquals('/^\/([a-z]{2}(?:-[a-z]{2})?)\/([a-z\_\-\+]+)\/([0-9]+)\/(.*)(.*)?/i', $multi->compile());
+        $this->assertEquals('/^\/([a-z]{2}(?:-[a-z]{2})?)\/([a-z\_\-\+]+)\/([0-9\.]+)\/(.*)(.*)?/i', $multi->compile());
         $this->assertEquals('/^\/([a-z]{2}(?:-[a-z]{2})?)\/([a-z0-9\_\-\+]+)\/([a-z]{2}(?:-[a-z]{2})?)(.*)?/i', $patterns->compile());
-        $this->assertEquals('/^\/([a-z]{2}(?:-[a-z]{2})?)\/([a-z\_\-\+]+)\/(.*)\/([0-9]+)\/([a-z\_\-\+]+)(.*)?/i', $withPattern->compile());
-        $this->assertEquals('/^\/([a-z]{2}(?:-[a-z]{2})?)\/([a-z\_\-\+]+)\/(.*)\/([0-9]+)\/([a-z\_\-\+]+)(.*)?/i', $withoutPattern->compile());
+        $this->assertEquals('/^\/([a-z]{2}(?:-[a-z]{2})?)\/([a-z\_\-\+]+)\/(.*)\/([0-9\.]+)\/([a-z\_\-\+]+)(.*)?/i', $withPattern->compile());
+        $this->assertEquals('/^\/([a-z]{2}(?:-[a-z]{2})?)\/([a-z\_\-\+]+)\/(.*)\/([0-9\.]+)\/([a-z\_\-\+]+)(.*)?/i', $withoutPattern->compile());
     }
 
     /**
