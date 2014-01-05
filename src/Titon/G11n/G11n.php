@@ -253,20 +253,24 @@ class G11n implements Listener {
             return;
         }
 
-        $header = mb_strtolower($_SERVER['HTTP_ACCEPT_LANGUAGE']);
-
-        if (mb_strpos($header, ';') !== false) {
-            $header = mb_strstr($header, ';', true);
-        }
-
-        $header = explode(',', $header);
         $current = null;
 
-        if (count($header) > 0) {
-            foreach ($header as $key) {
-                if (isset($this->_locales[$key])) {
-                    $current = $key;
-                    break;
+        // Determine locale based on HTTP headers
+        if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+            $header = mb_strtolower($_SERVER['HTTP_ACCEPT_LANGUAGE']);
+
+            if (mb_strpos($header, ';') !== false) {
+                $header = mb_strstr($header, ';', true);
+            }
+
+            $header = explode(',', $header);
+
+            if (count($header) > 0) {
+                foreach ($header as $key) {
+                    if (isset($this->_locales[$key])) {
+                        $current = $key;
+                        break;
+                    }
                 }
             }
         }
