@@ -16,7 +16,6 @@
         "ext-mbstring": "*",
         "ext-intl": "*",
         "titon/common": "*",
-        "titon/utility": "*",
         "titon/event": "*",
         "titon/io": "*"
     },
