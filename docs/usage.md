@@ -12,13 +12,10 @@ use Titon\Io\Reader\PhpReader;
 use Titon\Cache\Storage\MemcacheStorage;
 use Titon\Common\Config;
 
-$g11n = new G11n();
+$g11n = G11n::registry();
 
 // Define resource locations
-Config::set('Titon.path.resources', [
-    '/resources/',
-    '/{module}/resources/'
-]);
+Config::set('Titon.path.resources', ['/resources/']);
 
 // English (loads parent en)
 $g11n->addLocale(new Locale('en_US'));
@@ -55,12 +52,12 @@ You can also pull translated messages from the current locale.
 Translated messages will cycle through all locales, starting with the current, its parent and finally the fallback.
 
 ```php
-// Pull the string with the key locked, from the topics catalog, in the forum module
+// Pull the string with the key locked, from the topics catalog, in the forum domain
 // Example path: /forum/resources/messages/en_US/topics.php
 $g11n->translate('forum.topics.locked'); // {0} Locked!
 
 // Use convenience function
-Titon\msg('forum.topics.locked'); // {0} Locked!
+msg('forum.topics.locked'); // {0} Locked!
 
 // And also pass arguments
 msg('forum.topics.locked', [$topicTitle]); // Title Locked!

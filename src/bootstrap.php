@@ -6,14 +6,13 @@
  */
 
 use Titon\Common\Config;
-use Titon\Common\Registry;
 use Titon\G11n\G11n;
 
 /**
  * Add G11n resources if VENDOR_DIR constant exists.
  */
 if (defined('VENDOR_DIR')) {
-	Config::add('titon.path.resources', VENDOR_DIR . '/titon/g11n/src/resources/');
+    Config::add('titon.path.resources', VENDOR_DIR . '/titon/g11n/src/resources/');
 }
 
 /**
@@ -27,9 +26,9 @@ if (defined('VENDOR_DIR')) {
  * @return string
  */
 if (!function_exists('msg')) {
-	function msg($key, array $params = []) {
-		return Registry::factory('Titon\G11n\G11n')->translate($key, $params);
-	}
+    function msg($key, array $params = []) {
+        return G11n::registry()->translate($key, $params);
+    }
 }
 
 /**
@@ -40,12 +39,12 @@ if (!function_exists('msg')) {
  *
  * @param string $id
  * @param string $catalog
- * @param string $module
+ * @param string $domain
  * @param array $params
  * @return string
  */
 if (!function_exists('__')) {
-	function __($id, $catalog = 'default', $module = 'common', array $params = []) {
-		return Registry::factory('Titon\G11n\G11n')->translate(sprintf('%s.%s.%s', $module, $catalog, $id), $params);
-	}
+    function __($id, $catalog = 'default', $domain = 'core', array $params = []) {
+        return G11n::registry()->translate(sprintf('%s.%s.%s', $domain, $catalog, $id), $params);
+    }
 }

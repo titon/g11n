@@ -31,11 +31,11 @@ ForumModule/
 ### Messages ###
 
 Message bundles are localized strings that are mapped to specific keys.
-Messages are mapped to modules and catalogs. A catalog is represnted by a file in the resources folder.
+Messages are mapped to modules and catalogs. A catalog is represented by a file in the resources folder.
 The filename and catalog key name should be exactly the same. They are written in the following format:
 
 ```
-module.catalog.key // <module>/resources/messages/<locale>/catalog.php
+domain.catalog.key // <domain>/resources/messages/<locale>/catalog.php
 catalog.key // resources/messages/<locale>/catalog.php (outside of module)
 ```
 
