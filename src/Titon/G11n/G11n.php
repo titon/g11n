@@ -11,6 +11,7 @@ use Titon\Common\Config;
 use Titon\Common\Registry;
 use Titon\Common\Traits\Cacheable;
 use Titon\Common\Traits\Configurable;
+use Titon\Common\Traits\FactoryAware;
 use Titon\Event\Event;
 use Titon\Event\Listener;
 use Titon\Event\Traits\Emittable;
@@ -38,7 +39,7 @@ use Titon\Route\Router;
  *      g11n.onCascade(G11n $g11n, array $cycle)
  */
 class G11n implements Listener {
-    use Cacheable, Configurable, Emittable;
+    use Cacheable, Configurable, Emittable, FactoryAware;
 
     /**
      * Possible formats for locale keys.
@@ -133,9 +134,9 @@ class G11n implements Listener {
      *
      * @param \Titon\Event\Event $event
      * @param \Titon\Route\Router $router
-     * @param string $path
+     * @param string $url
      */
-    public function addRoutes(Event $event, Router $router, $path) {
+    public function addRoutes(Event $event, Router $router, $url) {
         $router->map(new LocaleRoute('action.ext', '/{module}/{controller}/{action}.{ext}'));
         $router->map(new LocaleRoute('action', '/{module}/{controller}/{action}'));
         $router->map(new LocaleRoute('controller', '/{module}/{controller}'));
@@ -342,14 +343,14 @@ class G11n implements Listener {
             return [];
         }
 
-        $onInit = ['addRoutes'];
+        $preMatch = ['addRoutes'];
 
         if ($this->config->prependUrl) {
-            $onInit[] = 'resolveRoute';
+            $preMatch[] = 'resolveRoute';
         }
 
         return [
-            'route.onInit' => $onInit
+            'route.preMatch' => $preMatch
         ];
     }
 
@@ -360,9 +361,9 @@ class G11n implements Listener {
      *
      * @param \Titon\Event\Event $event
      * @param \Titon\Route\Router $router
-     * @param string $path
+     * @param string $url
      */
-    public function resolveRoute(Event $event, Router $router, $path) {
+    public function resolveRoute(Event $event, Router $router, $url) {
         if (PHP_SAPI === 'cli') {
             return;
         }
@@ -377,11 +378,11 @@ class G11n implements Listener {
         }
 
         // Path doesn't start with a locale
-        if (!preg_match('/^\/' . LocaleRoute::LOCALE . '\/(.*)?/', $path, $matches)) {
+        if (!preg_match('/^\/' . LocaleRoute::LOCALE . '\/(.*)?/', $url, $matches)) {
 
             // Check for locales that don't pass because of no ending slash
-            if (empty($locales[trim($path, '/')])) {
-                header('Location: ' . $redirect . $path);
+            if (empty($locales[trim($url, '/')])) {
+                header('Location: ' . $redirect . $url);
                 exit();
             }
 

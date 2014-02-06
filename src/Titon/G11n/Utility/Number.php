@@ -23,7 +23,7 @@ class Number extends \Titon\Utility\Number {
      * @uses Titon\Common\Registry
      */
     public static function currency($number, array $options = []) {
-        $g11n = Registry::factory('Titon\G11n\G11n');
+        $g11n = G11n::registry();
 
         if ($g11n->isEnabled()) {
             $options = array_merge(
@@ -46,7 +46,7 @@ class Number extends \Titon\Utility\Number {
             $options = ['places' => $options];
         }
 
-        $g11n = Registry::factory('Titon\G11n\G11n');
+        $g11n = G11n::registry();
 
         if ($g11n->isEnabled()) {
             $options = array_merge(

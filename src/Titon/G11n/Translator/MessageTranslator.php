@@ -23,7 +23,6 @@ class MessageTranslator extends AbstractTranslator {
      * {@inheritdoc}
      *
      * @uses Titon\G11n\G11n
-     * @uses Titon\Common\Registry
      *
      * @throws \Titon\G11n\Exception\MissingMessageException
      */
@@ -34,8 +33,7 @@ class MessageTranslator extends AbstractTranslator {
 
         list($domain, $catalog, $id) = $this->parseKey($key);
 
-        /** @type \Titon\G11n\G11n $g11n */
-        $g11n = Registry::factory('Titon\G11n\G11n');
+        $g11n = G11n::registry();
         $locales = $g11n->getLocales();
 
         // Cycle through each locale till a message is found

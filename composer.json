@@ -20,7 +20,7 @@
         "titon/io": "*"
     },
     "require-dev": {
-        "titon/test": "*",
+        "titon/test": "dev-master",
         "titon/cache": "*",
         "titon/route": "*"
     },

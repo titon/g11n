@@ -32,7 +32,7 @@ class GettextTranslator extends AbstractTranslator {
         bind_textdomain_codeset($catalog, Config::encoding());
 
         return $this->cache([__METHOD__, $domain, $catalog], function() use ($domain, $catalog) {
-            $locations = Registry::factory('Titon\G11n\G11n')->current()->getMessageBundle()->getLocations();
+            $locations = G11n::registry()->current()->getMessageBundle()->getLocations();
 
             foreach ($locations as $location) {
                 bindtextdomain($catalog, $location);

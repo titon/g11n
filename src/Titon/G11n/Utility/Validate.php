@@ -33,7 +33,7 @@ class Validate extends \Titon\Utility\Validate {
      * @throws \Titon\G11n\Exception\MissingPatternException
      */
     public static function get($key, $fallback = null) {
-        $pattern = Registry::factory('Titon\G11n\G11n')->current()->getValidationRules($key) ?: $fallback;
+        $pattern = G11n::registry()->current()->getValidationRules($key) ?: $fallback;
 
         if (!$pattern) {
             throw new MissingPatternException(sprintf('Validation rule %s does not exist', $key));

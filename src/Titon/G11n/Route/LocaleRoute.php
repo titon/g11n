@@ -30,8 +30,7 @@ class LocaleRoute extends Route {
      * @param array $config
      */
     public function __construct($key, $path, $route = [], array $config = []) {
-        /** @type \Titon\G11n\G11n $g11n */
-        $g11n = Registry::factory('Titon\G11n\G11n');
+        $g11n = G11n::registry();
 
         if ($g11n->isEnabled()) {
             if (mb_substr($path, 0, 9) !== '/<locale>') {

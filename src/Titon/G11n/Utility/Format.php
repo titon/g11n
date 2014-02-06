@@ -40,7 +40,7 @@ class Format extends \Titon\Utility\Format {
      * @throws \Titon\G11n\Exception\MissingPatternException
      */
     public static function get($key, $fallback = null) {
-        $pattern = Registry::factory('Titon\G11n\G11n')->current()->getFormatPatterns($key) ?: $fallback;
+        $pattern = G11n::registry()->current()->getFormatPatterns($key) ?: $fallback;
 
         if (!$pattern) {
             throw new MissingPatternException(sprintf('Format pattern %s does not exist', $key));
@@ -62,7 +62,7 @@ class Format extends \Titon\Utility\Format {
      * @uses Titon\Common\Registry
      */
     public static function relativeTime($time, array $options = array()) {
-        $g11n = Registry::factory('Titon\G11n\G11n');
+        $g11n = G11n::registry();
         $msg = function($key) use ($g11n) {
             return $g11n->translate('core.format.relativeTime.' . $key);
         };

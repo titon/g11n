@@ -21,7 +21,7 @@ class Inflector extends \Titon\Utility\Inflector {
      * {@inheritdoc}
      */
     public static function className($string) {
-        return self::_cache([__METHOD__, $string], function() use ($string) {
+        return static::cache([__METHOD__, $string], function() use ($string) {
             return Inflector::camelCase(Inflector::singularize($string));
         });
     }
@@ -32,13 +32,13 @@ class Inflector extends \Titon\Utility\Inflector {
      * @uses Titon\Common\Registry
      */
     public static function ordinal($number) {
-        $g11n = Registry::factory('Titon\G11n\G11n');
+        $g11n = G11n::registry();
 
         if (!$g11n->isEnabled()) {
             return $number;
         }
 
-        return self::_cache([__METHOD__, $number], function() use ($number, $g11n) {
+        return static::cache([__METHOD__, $number], function() use ($number, $g11n) {
             $inflections = $g11n->current()->getInflectionRules();
             $number = (int) $number;
 
@@ -77,13 +77,13 @@ class Inflector extends \Titon\Utility\Inflector {
      * @uses Titon\Common\Registry
      */
     public static function pluralize($string) {
-        $g11n = Registry::factory('Titon\G11n\G11n');
+        $g11n = G11n::registry();
 
         if (!$g11n->isEnabled()) {
             return $string;
         }
 
-        return self::_cache([__METHOD__, $string], function() use ($string, $g11n) {
+        return static::cache([__METHOD__, $string], function() use ($string, $g11n) {
             $string = mb_strtolower($string);
             $result = null;
             $inflections = $g11n->current()->getInflectionRules();
@@ -123,13 +123,13 @@ class Inflector extends \Titon\Utility\Inflector {
      * @uses Titon\Common\Registry
      */
     public static function singularize($string) {
-        $g11n = Registry::factory('Titon\G11n\G11n');
+        $g11n = G11n::registry();
 
         if (!$g11n->isEnabled()) {
             return $string;
         }
 
-        return self::_cache([__METHOD__, $string], function() use ($string, $g11n) {
+        return static::cache([__METHOD__, $string], function() use ($string, $g11n) {
             $string = mb_strtolower($string);
             $result = null;
             $inflections = $g11n->current()->getInflectionRules();
@@ -167,7 +167,7 @@ class Inflector extends \Titon\Utility\Inflector {
      * {@inheritdoc}
      */
     public static function slug($string) {
-        return self::_cache([__METHOD__, $string], function() use ($string) {
+        return static::cache([__METHOD__, $string], function() use ($string) {
             // Revert entities
             $string = html_entity_decode($string, ENT_QUOTES, 'UTF-8');
 
@@ -185,7 +185,7 @@ class Inflector extends \Titon\Utility\Inflector {
      * {@inheritdoc}
      */
     public static function tableName($string) {
-        return self::_cache([__METHOD__, $string], function() use ($string) {
+        return static::cache([__METHOD__, $string], function() use ($string) {
             return lcfirst(Inflector::camelCase(Inflector::pluralize($string)));
         });
     }
@@ -196,13 +196,13 @@ class Inflector extends \Titon\Utility\Inflector {
      * @uses Titon\Common\Registry
      */
     public static function transliterate($string) {
-        $g11n = Registry::factory('Titon\G11n\G11n');
+        $g11n = G11n::registry();
 
         if (!$g11n->isEnabled()) {
             return $string;
         }
 
-        return self::_cache([__METHOD__, $string], function() use ($string, $g11n) {
+        return static::cache([__METHOD__, $string], function() use ($string, $g11n) {
             $inflections = $g11n->current()->getInflectionRules();
 
             if (!$inflections || empty($inflections['transliteration'])) {
