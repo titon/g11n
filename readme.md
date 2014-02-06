@@ -1,8 +1,9 @@
-# G11n v0.11.0 [![Build Status](https://travis-ci.org/titon/g11n.png)](https://travis-ci.org/titon/g11n) #
+# G11n v0.11.1 [![Build Status](https://travis-ci.org/titon/g11n.png)](https://travis-ci.org/titon/g11n) #
 
 Handles the localization (l10n) and internationalization (i18n) of your application, also known as
 globalization (g11n). The g11n package provides a robust and extensible way to localize messages,
 provide locale aware patterns and rules, translate strings, and much more.
+
 The `G11n` class manages locales, translators, and the initialization via HTTP accept headers.
 
 ```php
@@ -19,7 +20,7 @@ $g11n->setTranslator(new Titon\G11n\Translator\MessageTranslator())
 $g11n->initialize();
 ```
 
-If the route package is being used in combination with the g11n package,
+If the route package is used in combination with the g11n package,
 automatic route resolving and URL locale prefixing can be achieved.
 The g11n `LocaleRoute` should also be used in place of the default `Route`.
 
