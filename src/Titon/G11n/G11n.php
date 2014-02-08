@@ -81,6 +81,13 @@ class G11n implements Listener {
     protected $_locales = [];
 
     /**
+     * Resource lookup paths.
+     *
+     * @type array
+     */
+    protected $_paths = [];
+
+    /**
      * Translator used for string fetching and parsing.
      *
      * @type \Titon\G11n\Translator
@@ -111,6 +118,10 @@ class G11n implements Listener {
         }
 
         // Configure and initialize
+        foreach ($this->getResourcePaths() as $domain => $paths) {
+            $locale->addResourcePaths($domain, $paths);
+        }
+
         $locale->initialize();
 
         // Set the locale
@@ -127,6 +138,21 @@ class G11n implements Listener {
         }
 
         return $locale;
+    }
+
+    /**
+     * Add multiple resource path lookups.
+     *
+     * @param string $domain
+     * @param array $paths
+     * @return $this
+     */
+    public function addResourcePaths($domain, array $paths) {
+        foreach ($paths as $path) {
+            $this->_paths[$domain][] = $path;
+        }
+
+        return $this;
     }
 
     /**
@@ -249,6 +275,16 @@ class G11n implements Listener {
      */
     public function getLocales() {
         return $this->_locales;
+    }
+
+    /**
+     * Return all resource paths, or filtered by domain.
+     *
+     * @param string $domain
+     * @return array
+     */
+    public function getResourcePaths($domain = null) {
+        return isset($this->_paths[$domain]) ? $this->_paths[$domain] : $this->_paths;
     }
 
     /**
@@ -399,7 +435,7 @@ class G11n implements Listener {
      * @uses Titon\Common\Config
      *
      * @param string $key
-     * @return \Titon\G11n\G11n
+     * @return $this
      * @throws \Titon\G11n\Exception\MissingLocaleException
      */
     public function setFallback($key) {

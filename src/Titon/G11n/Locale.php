@@ -61,6 +61,13 @@ class Locale extends Base {
         parent::__construct(['initialize' => false] + $config);
 
         $this->_code = $code;
+        $this->_localeBundle = new LocaleBundle();
+        $this->_messageBundle = new MessageBundle();
+
+        // Add default resource paths
+        if ($paths = Config::get('titon.path.resources')) {
+            $this->addResourcePaths('core', $paths);
+        }
     }
 
     /**
@@ -107,15 +114,6 @@ class Locale extends Base {
      * @return \Titon\G11n\Locale
      */
     public function initialize() {
-        $this->_localeBundle = new LocaleBundle();
-        $this->_messageBundle = new MessageBundle();
-
-        // Add default resource paths
-        if ($paths = Config::get('titon.path.resources')) {
-            $this->addResourcePaths('core', $paths);
-        }
-
-        // Gather locale configuration
         if ($data = $this->getLocaleBundle()->loadResource(null, 'locale')) {
             $data = \Locale::parseLocale($data['code']) + $data;
 
