@@ -1,4 +1,4 @@
-# G11n v0.11.1 [![Build Status](https://travis-ci.org/titon/g11n.png)](https://travis-ci.org/titon/g11n) #
+# G11n v0.11.2 [![Build Status](https://travis-ci.org/titon/g11n.png)](https://travis-ci.org/titon/g11n) #
 
 Handles the localization (l10n) and internationalization (i18n) of your application, also known as
 globalization (g11n). The g11n package provides a robust and extensible way to localize messages,
@@ -12,7 +12,6 @@ use Titon\G11n\Locale;
 $g11n = Titon\G11n\G11n:registry();
 $g11n->addLocale(new Locale('en'));
 $g11n->addLocale(new Locale('fr'));
-$g11n->addLocale(new Locale('de'));
 $g11n->setFallback('en');
 $g11n->setTranslator(new Titon\G11n\Translator\MessageTranslator())
     ->setReader(new Titon\Io\Reader\PhpReader())
