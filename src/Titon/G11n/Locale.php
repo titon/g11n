@@ -75,7 +75,7 @@ class Locale extends Base {
      *
      * @param string $domain
      * @param string $path
-     * @return \Titon\G11n\Locale
+     * @return $this
      */
     public function addResourcePath($domain, $path) {
         $code = $this->getCode();
@@ -95,7 +95,7 @@ class Locale extends Base {
      *
      * @param string $domain
      * @param array $paths
-     * @return \Titon\G11n\Locale
+     * @return $this
      */
     public function addResourcePaths($domain, array $paths) {
         foreach ($paths as $path) {
@@ -111,7 +111,7 @@ class Locale extends Base {
      * @uses Locale
      * @uses Titon\Common\Config
      *
-     * @return \Titon\G11n\Locale
+     * @return $this
      */
     public function initialize() {
         if ($data = $this->getLocaleBundle()->loadResource(null, 'locale')) {

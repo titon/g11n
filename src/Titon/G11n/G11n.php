@@ -156,21 +156,6 @@ class G11n implements Listener {
     }
 
     /**
-     * Override the default routes with locale aware routes.
-     *
-     * @param \Titon\Event\Event $event
-     * @param \Titon\Route\Router $router
-     * @param string $url
-     */
-    public function addRoutes(Event $event, Router $router, $url) {
-        $router->map(new LocaleRoute('action.ext', '/{module}/{controller}/{action}.{ext}'));
-        $router->map(new LocaleRoute('action', '/{module}/{controller}/{action}'));
-        $router->map(new LocaleRoute('controller', '/{module}/{controller}'));
-        $router->map(new LocaleRoute('module', '/{module}'));
-        $router->map(new LocaleRoute('root', '/'));
-    }
-
-    /**
      * Convert a locale key to 3 possible formats.
      *
      * @param string $key
@@ -375,18 +360,12 @@ class G11n implements Listener {
      * @return array
      */
     public function registerEvents() {
-        if (!$this->isEnabled()) {
+        if (!$this->isEnabled() || $this->getConfig('prependUrl')) {
             return [];
         }
 
-        $preMatch = ['addRoutes'];
-
-        if ($this->config->prependUrl) {
-            $preMatch[] = 'resolveRoute';
-        }
-
         return [
-            'route.preMatch' => $preMatch
+            'route.preMatch' => 'resolveRoute'
         ];
     }
 
