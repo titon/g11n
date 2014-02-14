@@ -19,29 +19,27 @@ use Titon\Route\Route;
 class LocaleRoute extends Route {
 
     /**
-     * Store the routing configuration and prepend the locale pattern.
+     * Prepend the locale to the front of the route before compilation.
      *
-     * @uses Titon\G11n\G11n
-     * @uses Titon\Common\Registry
-     *
-     * @param string $key
-     * @param string $path
-     * @param string|array $route
-     * @param array $config
+     * @return string
      */
-    public function __construct($key, $path, $route = [], array $config = []) {
+    public function compile() {
+        if ($this->isCompiled()) {
+            return $this->_compiled;
+        }
+
         $g11n = G11n::registry();
 
         if ($g11n->isEnabled()) {
-            if (mb_substr($path, 0, 9) !== '/<locale>') {
-                $path = '/<locale>/' . ltrim($path, '/');
+            if (mb_substr($this->getPath(), 0, 9) !== '/<locale>') {
+                $this->prepend('/<locale>');
             }
 
-            $config['patterns']['locale'] = self::LOCALE;
-            $config['locale'] = G11n::canonicalize($g11n->getFallback()->getCode());
+            $this->setConfig('patterns.locale', self::LOCALE);
+            $this->setConfig('locale', G11n::canonicalize($g11n->getFallback()->getCode()));
         }
 
-        parent::__construct($key, $path, $route, $config);
+        return parent::compile();
     }
 
 }

@@ -35,12 +35,12 @@ class LocaleRouteTest extends TestCase {
         $g11n->addLocale(new Locale('en_US'));
         $g11n->useLocale('en_US');
 
-        $moduleControllerActionExt = new LocaleRoute('mcae', '/{module}/{controller}/{action}.{ext}');
-        $moduleControllerAction = new LocaleRoute('mca', '/{module}/{controller}/{action}');
-        $moduleController = new LocaleRoute('mc', '/{module}/{controller}');
-        $module = new LocaleRoute('m', '/{module}');
-        $rootStatic = new LocaleRoute('r', '/', [], ['static' => true]);
-        $root = new LocaleRoute('r', '/');
+        $moduleControllerActionExt = new LocaleRoute('/{module}/{controller}/{action}.{ext}');
+        $moduleControllerAction = new LocaleRoute('/{module}/{controller}/{action}');
+        $moduleController = new LocaleRoute('/{module}/{controller}');
+        $module = new LocaleRoute('/{module}');
+        $rootStatic = new LocaleRoute('/', [], ['static' => true]);
+        $root = new LocaleRoute('/');
 
         $this->assertEquals('/^\/([a-z]{2}(?:-[a-z]{2})?)\/([a-z\_\-\+]+)\/([a-z\_\-\+]+)\/([a-z\_\-\+]+)\.([a-z\_\-\+]+)(.*)?/i', $moduleControllerActionExt->compile());
         $this->assertEquals('/^\/([a-z]{2}(?:-[a-z]{2})?)\/([a-z\_\-\+]+)\/([a-z\_\-\+]+)\/([a-z\_\-\+]+)(.*)?/i', $moduleControllerAction->compile());
@@ -49,23 +49,23 @@ class LocaleRouteTest extends TestCase {
         $this->assertEquals('/^\/<locale>(.*)?/i', $rootStatic->compile());
         $this->assertEquals('/^\/([a-z]{2}(?:-[a-z]{2})?)(.*)?/i', $root->compile());
 
-        $multi = new LocaleRoute('anw', '{alpha}/[numeric]/(wildcard)/');
+        $multi = new LocaleRoute('{alpha}/[numeric]/(wildcard)/');
 
-        $patterns = new LocaleRoute('al', '/<alnum>/<locale>', [], [
+        $patterns = new LocaleRoute('/<alnum>/<locale>', [], [
             'patterns' => [
                 'alnum' => LocaleRoute::ALNUM,
                 'locale' => '([a-z]{2}(?:-[a-z]{2})?)'
             ]
         ]);
 
-        $withPattern = new LocaleRoute('lawna', '/<locale>/{alpha}/(wildcard)/[numeric]/{alnum}', [], [
+        $withPattern = new LocaleRoute('/<locale>/{alpha}/(wildcard)/[numeric]/{alnum}', [], [
             'patterns' => [
                 'alnum' => LocaleRoute::ALNUM,
                 'locale' => '([a-z]{2}(?:-[a-z]{2})?)'
             ]
         ]);
 
-        $withoutPattern = new LocaleRoute('lawna', '/<locale>/{alpha}/(wildcard)/[numeric]/{alnum}', [], [
+        $withoutPattern = new LocaleRoute('/<locale>/{alpha}/(wildcard)/[numeric]/{alnum}', [], [
             'patterns' => [
                 'alnum' => LocaleRoute::ALNUM
             ]
@@ -88,7 +88,7 @@ class LocaleRouteTest extends TestCase {
         $g11n->useLocale('en_US');
 
         $url = '/en-us/blog/2012/02/26';
-        $route = new LocaleRoute('bymd', '/blog/[year]/[month]/[day]', [
+        $route = new LocaleRoute('/blog/[year]/[month]/[day]', [
             'module' => 'blog',
             'controller' => 'api',
             'action' => 'archives',
@@ -122,7 +122,7 @@ class LocaleRouteTest extends TestCase {
 
         // module, controller, action
         $url = '/en/forum/topic/view/123';
-        $route = new LocaleRoute('mca', '/{module}/{controller}/{action}');
+        $route = new LocaleRoute('/{module}/{controller}/{action}');
 
         $this->assertTrue($route->isMatch($url));
         $this->assertEquals([
@@ -137,13 +137,13 @@ class LocaleRouteTest extends TestCase {
 
         // invalid locale
         $url = '/foo-bar/forum/topic/view/123';
-        $route = new LocaleRoute('mca', '/{module}/{controller}/{action}');
+        $route = new LocaleRoute('/{module}/{controller}/{action}');
 
         $this->assertFalse($route->isMatch($url));
 
         // no locale
         $url = '/forum/topic/view/123';
-        $route = new LocaleRoute('mca', '/{module}/{controller}/{action}');
+        $route = new LocaleRoute('/{module}/{controller}/{action}');
 
         $this->assertFalse($route->isMatch($url));
     }

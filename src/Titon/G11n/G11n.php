@@ -52,7 +52,10 @@ class G11n implements Listener {
     /**
      * Default configuration.
      *
-     * @type array
+     * @type array {
+     *      @type bool $prependUrl  Prepend the locale onto routes
+     *      @type bool $storeCookie Store the current locale in a cookie
+     * }
      */
     protected $_config = [
         'prependUrl' => true,
@@ -360,7 +363,7 @@ class G11n implements Listener {
      * @return array
      */
     public function registerEvents() {
-        if (!$this->isEnabled() || $this->getConfig('prependUrl')) {
+        if (!$this->isEnabled() || !$this->getConfig('prependUrl')) {
             return [];
         }
 
@@ -520,7 +523,7 @@ class G11n implements Listener {
         $this->emit('g11n.onUse', [$this, $locale]);
 
         // Store via cookie
-        if ($this->config->storeCookie) {
+        if ($this->getConfig('storeCookie')) {
             $_COOKIE['locale'] = $key;
         }
 
