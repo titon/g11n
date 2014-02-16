@@ -7,6 +7,7 @@
 
 namespace Titon\G11n\Translator;
 
+use Titon\Cache\Traits\StorageAware;
 use Titon\Common\Base;
 use Titon\Common\Traits\Cacheable;
 use Titon\Cache\Storage;
@@ -22,7 +23,7 @@ use \Locale;
  * @package Titon\G11n\Translator
  */
 abstract class AbstractTranslator extends Base implements Translator {
-    use Cacheable;
+    use Cacheable, StorageAware;
 
     /**
      * File reader used for parsing.
@@ -32,24 +33,10 @@ abstract class AbstractTranslator extends Base implements Translator {
     protected $_reader;
 
     /**
-     * Storage engine for caching.
-     *
-     * @type \Titon\Cache\Storage
-     */
-    protected $_storage;
-
-    /**
      * {@inheritdoc}
      */
     public function getReader() {
         return $this->_reader;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getStorage() {
-        return $this->_storage;
     }
 
     /**
@@ -85,15 +72,6 @@ abstract class AbstractTranslator extends Base implements Translator {
      */
     public function setReader(Reader $reader) {
         $this->_reader = $reader;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setStorage(Storage $storage) {
-        $this->_storage = $storage;
 
         return $this;
     }

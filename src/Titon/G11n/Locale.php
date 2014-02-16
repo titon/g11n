@@ -120,7 +120,7 @@ class Locale extends Base {
             $config = $this->allConfig();
             unset($config['code'], $config['initialize']);
 
-            $this->config->add($config + $data);
+            $this->addConfig($config + $data);
         }
 
         // Force parent config to merge
@@ -186,7 +186,7 @@ class Locale extends Base {
             return $this->_parent;
         }
 
-        if (!$this->config->has('parent')) {
+        if (!$this->hasConfig('parent')) {
             return null;
         }
 
@@ -194,7 +194,7 @@ class Locale extends Base {
         $parent->initialize();
 
         // Merge parent config
-        $this->config->add($this->config->all() + $parent->config->all());
+        $this->addConfig($this->allConfig() + $parent->allConfig());
 
         $this->_parent = $parent;
 

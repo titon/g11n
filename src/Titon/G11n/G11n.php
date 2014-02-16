@@ -485,8 +485,9 @@ class G11n implements Listener {
             $locales[] = $this->getFallback();
         }
 
+        /** @type \Titon\G11n\Locale $loc */
         foreach ($locales as $loc) {
-            $config = $loc->config->all();
+            $config = $loc->allConfig();
 
             $options[] = $config['code'] . '.UTF8';
             $options[] = $config['code'] . '.UTF-8';

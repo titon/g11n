@@ -46,7 +46,7 @@ Messages can be written in any format (defaults to PHP), just be sure to load th
 ### Locales ###
 
 Locale bundles are a set of rules that are specific to that locale. These rules dictate formatting,
-inflections and grammer, validation, and more.
+inflections and grammar, validation, and more.
 
 Child locales (en_US) inherit rules from their parent (en). This allows for easy to use hierarchical inheritance.
 

@@ -12,6 +12,7 @@ use Titon\Common\Registry;
 use Titon\G11n\G11n;
 use Titon\G11n\Exception\MissingMessageException;
 use Titon\G11n\Translator\AbstractTranslator;
+use Titon\G11n\Translator;
 use Titon\Utility\String;
 use \Locale;
 
@@ -32,7 +33,7 @@ class GettextTranslator extends AbstractTranslator {
         bind_textdomain_codeset($catalog, Config::encoding());
 
         return $this->cache([__METHOD__, $domain, $catalog], function() use ($domain, $catalog) {
-            $locations = G11n::registry()->current()->getMessageBundle()->getLocations();
+            $locations = G11n::registry()->current()->getMessageBundle()->getPaths();
 
             foreach ($locations as $location) {
                 bindtextdomain($catalog, $location);
@@ -48,10 +49,10 @@ class GettextTranslator extends AbstractTranslator {
      * @throws \Titon\G11n\Exception\MissingMessageException
      */
     public function getMessage($key) {
-        return $this->cache([__METHOD__, $key], function() use ($key) {
-            list($domain, $catalog, $id) = $this->parseKey($key);
+        return $this->cache([__METHOD__, $key], function(GettextTranslator $translator) use ($key) {
+            list($domain, $catalog, $id) = $translator->parseKey($key);
 
-            $this->bindDomains($domain, $catalog);
+            $translator->bindDomains($domain, $catalog);
 
             textdomain($catalog);
 

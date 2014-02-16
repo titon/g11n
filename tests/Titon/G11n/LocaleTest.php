@@ -69,10 +69,10 @@ class LocaleTest extends TestCase {
      * If the bundle has a parent, also test that the values between the two are merged correctly.
      */
     public function testGetLocale() {
-        $parent = $this->parent->config->all();
-        $formats = $this->formats->config->all();
-        $inflections = $this->inflections->config->all();
-        $validations = $this->validations->config->all();
+        $parent = $this->parent->allConfig();
+        $formats = $this->formats->allConfig();
+        $inflections = $this->inflections->allConfig();
+        $validations = $this->validations->allConfig();
 
         // Parent
         $this->assertTrue(is_array($parent));
@@ -129,13 +129,13 @@ class LocaleTest extends TestCase {
         ], $validations);
 
         // By key
-        $this->assertEquals('ex', $this->parent->config->code);
-        $this->assertEquals('ex', $this->parent->config->iso2);
-        $this->assertEquals('exp', $this->parent->config->iso3);
-        $this->assertEquals('', $this->parent->config->timezone);
+        $this->assertEquals('ex', $this->parent->getConfig('code'));
+        $this->assertEquals('ex', $this->parent->getConfig('iso2'));
+        $this->assertEquals('exp', $this->parent->getConfig('iso3'));
+        $this->assertEquals('', $this->parent->getConfig('timezone'));
 
         try {
-            $this->parent->config->fakeKey;
+            $this->parent->getConfig('fakeKey');
             $this->assertTrue(false);
 
         } catch (Exception $e) {
