@@ -1,4 +1,4 @@
-# G11n v0.11.3 [![Build Status](https://travis-ci.org/titon/g11n.png)](https://travis-ci.org/titon/g11n) #
+# G11n v0.11.4 [![Build Status](https://travis-ci.org/titon/g11n.png)](https://travis-ci.org/titon/g11n) #
 
 Handles the localization (l10n) and internationalization (i18n) of your application, also known as
 globalization (g11n). The g11n package provides a robust and extensible way to localize messages,
